@@ -1,4 +1,4 @@
-package model;
+package model.robos;
 
 import exception.MovimentoInvalidoException;
 import model.enums.Direcao;

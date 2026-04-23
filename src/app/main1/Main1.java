@@ -2,10 +2,9 @@ package app.main1;
 
 import board.Tabuleiro;
 import exception.MovimentoInvalidoException;
-import model.Robo;
+import model.robos.Robo;
 import model.enums.Direcao;
 
-import javax.management.monitor.MonitorSettingException;
 import java.util.Scanner;
 
 public class Main1 {
@@ -42,7 +41,7 @@ public class Main1 {
             tabuleiro.renderizar();
             if(acabouJogo){
                 System.out.println("Movimentos válidos : " + robo.getMovimentosValidos() +
-                        " Movimentos inválidos" + robo.getMovimentosInvalidos());
+                        " Movimentos inválidos : " + robo.getMovimentosInvalidos());
             }
         }
     }

@@ -1,7 +1,7 @@
 package app.main2;
 
 import board.Tabuleiro;
-import model.Robo;
+import model.robos.Robo;
 import model.enums.Direcao;
 
 import java.util.Random;
