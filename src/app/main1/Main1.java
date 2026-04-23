@@ -31,7 +31,7 @@ public class Main1 {
         tabuleiro.renderizar();
         while (!acabouJogo){
             System.out.println("Digite a orientação : ");
-            String dir = sc.next();
+            String dir = sc.next( );
             try {
                 tabuleiro.moverRobo(robo, Direcao.fromString(dir));
             }catch (MovimentoInvalidoException e){

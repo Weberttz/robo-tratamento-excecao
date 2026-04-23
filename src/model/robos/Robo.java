@@ -1,5 +1,6 @@
 package model.robos;
 
+import exception.MovimentoInvalidoException;
 import model.enums.Direcao;
 
 public class Robo {
@@ -19,7 +20,7 @@ public class Robo {
     }
 
     //adicionar sobrecarga depois
-    public void mover(Direcao dir) {
+    public void mover(Direcao dir)  {
         switch (dir) {
             case UP -> y++;
             case DOWN -> y--;

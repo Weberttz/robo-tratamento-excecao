@@ -3,7 +3,8 @@ package board;
 import exception.MovimentoInvalidoException;
 import model.enums.Direcao;
 import model.robos.Robo;
-
+import model.robos.RoboInteligente;
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,22 +26,48 @@ public class Tabuleiro {
 
         int oldX = robo.getX();
         int oldY = robo.getY();
+        if(robo instanceof RoboInteligente inteligente){
+            boolean moveuValido = false;
 
-        robo.mover(dir);
+            while (!moveuValido) {
 
-        if (foraDoLimite(robo.getX(), robo.getY())) {
-            robo.desfazerMovimento(oldX, oldY);
-            robo.incrementarInvalidos();
-            throw new MovimentoInvalidoException(dir.name());
+                while (inteligente.getDirecoesInvalidas().contains(dir)) {
+                    dir = Direcao.fromInt(inteligente.getRand().nextInt(4) + 1);
+                }
+
+                inteligente.mover(dir);
+
+                if (foraDoLimite(inteligente.getX(), inteligente.getY())) {
+                    inteligente.desfazerMovimento(oldX, oldY);
+                    inteligente.incrementarInvalidos();
+                    inteligente.getDirecoesInvalidas().add(dir);
+                    throw new MovimentoInvalidoException(dir.name());
+                }else if (temOutroRobo(inteligente, inteligente.getX(), inteligente.getY())) {
+                    inteligente.desfazerMovimento(oldX, oldY);
+                    inteligente.incrementarInvalidos();
+                    inteligente.getDirecoesInvalidas().add(dir);
+                    throw new MovimentoInvalidoException("COLISAO");
+                }else{
+                    inteligente.incrementarValidos();
+                    moveuValido = true;
+                }
+
+            }
+        }else {
+            robo.mover(dir);
+            if (foraDoLimite(robo.getX(), robo.getY())) {
+                robo.desfazerMovimento(oldX, oldY);
+                robo.incrementarInvalidos();
+                throw new MovimentoInvalidoException(dir.name());
+            }
+
+            if (temOutroRobo(robo, robo.getX(), robo.getY())) {
+                robo.desfazerMovimento(oldX, oldY);
+                robo.incrementarInvalidos();
+                throw new MovimentoInvalidoException("COLISAO");
+            }
+            robo.incrementarValidos();
         }
-
-        if (temOutroRobo(robo, robo.getX(), robo.getY())) {
-            robo.desfazerMovimento(oldX, oldY);
-            robo.incrementarInvalidos();
-            throw new MovimentoInvalidoException("COLISAO");
-        }
-
-        robo.incrementarValidos();
     }
 
     private boolean foraDoLimite(int x, int y) {
