@@ -3,34 +3,47 @@ package app.main1;
 import board.Tabuleiro;
 import exception.MovimentoInvalidoException;
 import model.Robo;
+import model.enums.Direcao;
 
+import javax.management.monitor.MonitorSettingException;
 import java.util.Scanner;
 
 public class Main1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int alimentoX = sc.nextInt();
-        int alimentoY = sc.nextInt();
+        System.out.println("Digite a cor do robô : ");
+        String corRobo = sc.next();
 
-        Tabuleiro tabuleiro = new Tabuleiro(4, alimentoX, alimentoY);
-        Robo robo = new Robo("Azul", 4);
+        Robo robo = new Robo(corRobo);
+
+        System.out.println("Digite a posição x do alimento : ");
+        int posicaoAlimentoX = sc.nextInt();
+
+        System.out.println("Digite a posição y do alimento : ");
+        int posicaoAlimentoY = sc.nextInt();
+
+        Tabuleiro tabuleiro = new Tabuleiro(4, posicaoAlimentoX, posicaoAlimentoY);
 
         tabuleiro.adicionarRobo(robo);
 
+        boolean acabouJogo = false;
 
-        while (!robo.encontruoAlimento(alimentoX, alimentoY)){
-            System.out.println();
-            tabuleiro.renderizar();
-            System.out.println("digite oq vc quer fazer: ");
+        tabuleiro.renderizar();
+        while (!acabouJogo){
+            System.out.println("Digite a orientação : ");
+            String dir = sc.next();
             try {
-                int pos = sc.nextInt();
-                robo.mover(pos);
-            } catch (MovimentoInvalidoException e) {
-                System.out.println("NAO PODE PORRA");
+                tabuleiro.moverRobo(robo, Direcao.fromString(dir));
+            }catch (MovimentoInvalidoException e){
+                System.out.println("Erro!");
+            }
+            acabouJogo = robo.encontruoAlimento(posicaoAlimentoX, posicaoAlimentoY);
+            tabuleiro.renderizar();
+            if(acabouJogo){
+                System.out.println("Movimentos válidos : " + robo.getMovimentosValidos() +
+                        " Movimentos inválidos" + robo.getMovimentosInvalidos());
             }
         }
-
-        System.out.println("Você ganhou!");
     }
 }

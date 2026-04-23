@@ -6,17 +6,16 @@ import model.enums.Direcao;
 public class Robo {
     private int x,y;
     private final String cor;
-    private int limiteTabuleiro;
     private int movimentosValidos, movimentosInvalidos;
 
-    public Robo(String cor, int limiteTabuleiro) {
+    public Robo(String cor) {
         x = 0;
         y = 0;
 
         movimentosValidos = 0;
         movimentosInvalidos = 0;
 
-        this.limiteTabuleiro = limiteTabuleiro;
+        //validar depois
         this.cor = cor;
     }
 
@@ -30,50 +29,16 @@ public class Robo {
         moverInterno(dir);
     }
 
-    private void moverInterno(Direcao dir) throws MovimentoInvalidoException{
-        boolean foiValido = false;
-        switch (dir){
-            case Direcao.UP -> {
-                if(this.y + 1 > limiteTabuleiro) {
-                    movimentosInvalidos++;
-                    throw new MovimentoInvalidoException(String.valueOf(dir));
-                }
-                else {
-                    this.y++;
-                    movimentosValidos++;
-                }
-            }
-            case Direcao.DOWN -> {
-                if(this.y - 1 < 0) {
-                    movimentosInvalidos++;
-                    throw new MovimentoInvalidoException(String.valueOf(dir));
-                }
-                else {
-                    this.y--;
-                    movimentosValidos++;
-                }
-            }
-            case Direcao.RIGHT -> {
-                if(this.x + 1 > limiteTabuleiro) {
-                    movimentosInvalidos++;
+    public void mover(Direcao dir) throws MovimentoInvalidoException {
+        moverInterno(dir);
+    }
 
-                    throw new MovimentoInvalidoException(String.valueOf(dir));
-                }
-                else{
-                    this.x++;
-                    movimentosValidos++;
-                }
-            }
-            case Direcao.LEFT -> {
-                if(this.x - 1 < 0) {
-                    movimentosInvalidos++;
-                    throw new MovimentoInvalidoException(String.valueOf(dir));
-                }
-                else {
-                    this.x--;
-                    movimentosValidos++;
-                }
-            }
+    private void moverInterno(Direcao dir) {
+        switch (dir){
+            case UP -> this.y++;
+            case DOWN -> this.y--;
+            case RIGHT -> this.x++;
+            case LEFT -> this.x--;
         }
     }
 
@@ -99,6 +64,14 @@ public class Robo {
 
     public String getCor() {
         return cor;
+    }
+
+    public void incrementarValidos() {
+        movimentosValidos++;
+    }
+
+    public void incrementarInvalidos() {
+        movimentosInvalidos++;
     }
 
     public int getMovimentosValidos() {
