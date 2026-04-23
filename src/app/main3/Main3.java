@@ -59,6 +59,7 @@ public class Main3 {
             }
 
             tabuleiro.renderizar();
+            System.out.println();
             pausar();
         }
 
@@ -73,7 +74,7 @@ public class Main3 {
 
     private static void pausar() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
