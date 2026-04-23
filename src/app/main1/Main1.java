@@ -36,6 +36,8 @@ public class Main1 {
                 tabuleiro.moverRobo(robo, Direcao.fromString(dir));
             }catch (MovimentoInvalidoException e){
                 System.out.println("Erro!");
+            }catch (IllegalArgumentException e){
+                System.out.println("Digite uma posicao valida");
             }
             acabouJogo = robo.encontrouAlimento(posicaoAlimentoX, posicaoAlimentoY);
             tabuleiro.renderizar();
