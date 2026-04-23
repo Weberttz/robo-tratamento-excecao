@@ -37,7 +37,7 @@ public class Main1 {
             }catch (MovimentoInvalidoException e){
                 System.out.println("Erro!");
             }
-            acabouJogo = robo.encontruoAlimento(posicaoAlimentoX, posicaoAlimentoY);
+            acabouJogo = robo.encontrouAlimento(posicaoAlimentoX, posicaoAlimentoY);
             tabuleiro.renderizar();
             if(acabouJogo){
                 System.out.println("Movimentos válidos : " + robo.getMovimentosValidos() +

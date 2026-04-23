@@ -1,79 +1,81 @@
 package app.main2;
 
 import board.Tabuleiro;
-import model.robos.Robo;
+import exception.MovimentoInvalidoException;
 import model.enums.Direcao;
+import model.robos.Robo;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Main2 {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        Random rand = new Random();
 
-        System.out.println("Digite a cor do robô 1 : ");
-        String corRobo1 = sc.next();
-        System.out.println("Digite a cor do robô 2 : ");
-        String corRobo2 = sc.next();
+        int tamanho = 4;
 
-        Robo robo1 = new Robo(corRobo1);
-        Robo robo2 = new Robo(corRobo2);
+        Tabuleiro tabuleiro = new Tabuleiro(tamanho, 3, 3);
 
-        System.out.println("Digite a posição x do alimento : ");
-        int posicaoAlimentoX = sc.nextInt();
+        Robo robo1 = new Robo("Vermelho");
+        Robo robo2 = new Robo("Azul");
 
-        System.out.println("Digite a posição y do alimento : ");
-        int posicaoAlimentoY = sc.nextInt();
+        robo1.setX(0);
+        robo1.setY(0);
 
-        Tabuleiro tabuleiro = new Tabuleiro(4, posicaoAlimentoX, posicaoAlimentoY);
+        robo2.setX(0);
+        robo2.setY(1);
 
         tabuleiro.adicionarRobo(robo1);
         tabuleiro.adicionarRobo(robo2);
 
-        boolean acabou = false;
-        Robo vencedor = null;
+        Random rand = new Random();
 
         tabuleiro.renderizar();
 
-        while (!acabou){
+        boolean acabou = false;
+
+        while (!acabou) {
+
             try {
                 Direcao dir = Direcao.fromInt(rand.nextInt(4) + 1);
+                System.out.println("\nRobo 1 tentou: " + dir);
+
                 tabuleiro.moverRobo(robo1, dir);
-            } catch (Exception e) {
-                System.out.println("Errou.");
-            }
-            if (robo1.encontruoAlimento(posicaoAlimentoX, posicaoAlimentoY)) {
-                vencedor = robo1;
-                acabou = true;
+
+            } catch (MovimentoInvalidoException e) {
+                System.out.println("Robo 1 erro: " + e.getMessage());
             }
 
             tabuleiro.renderizar();
-            System.out.println();
             pausar();
 
-            if (acabou) break;
+            if (robo1.encontrouAlimento(tabuleiro.getAlimentoX(), tabuleiro.getAlimentoY())) {
+                System.out.println("Robo 1 venceu!");
+                acabou = true;
+                break;
+            }
 
             try {
                 Direcao dir = Direcao.fromInt(rand.nextInt(4) + 1);
-                tabuleiro.moverRobo(robo2, dir);
-            } catch (Exception e) {
-                System.out.println("Errou.");
-            }
+                System.out.println("\nRobo 2 tentou: " + dir);
 
-            if (robo2.encontruoAlimento(posicaoAlimentoX, posicaoAlimentoY)) {
-                vencedor = robo2;
-                acabou = true;
+                tabuleiro.moverRobo(robo2, dir);
+
+            } catch (MovimentoInvalidoException e) {
+                System.out.println("Robo 2 erro: " + e.getMessage());
             }
 
             tabuleiro.renderizar();
-            System.out.println();
             pausar();
-        }
-        System.out.println("Vencedor: " + vencedor.getCor());
 
-        System.out.println("\nRobo 1 (" + robo1.getCor() + ")");
+            if (robo2.encontrouAlimento(tabuleiro.getAlimentoX(), tabuleiro.getAlimentoY())) {
+                System.out.println("🏆 Robo 2 venceu!");
+                acabou = true;
+            }
+        }
+
+        System.out.println("\nResultado Final");
+
+        System.out.println("Robo 1 (" + robo1.getCor() + ")");
         System.out.println("Válidos: " + robo1.getMovimentosValidos());
         System.out.println("Inválidos: " + robo1.getMovimentosInvalidos());
 
@@ -88,9 +90,5 @@ public class Main2 {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-
     }
 }
-
-
-
