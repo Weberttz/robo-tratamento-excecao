@@ -4,6 +4,7 @@ public class MovimentoInvalidoException extends Exception {
 
     private final String movimento;
 
+    // a gente usa essa mensagem????
     public MovimentoInvalidoException(String movimento) {
         super("Movimento inválido: "
                 + movimento +
@@ -15,3 +16,9 @@ public class MovimentoInvalidoException extends Exception {
         return movimento;
     }
 }
+
+
+
+
+
+// ideia: fazer um exception pai para ser a generica, e essas duas herdam dela, ai no main 1 so chamar a exception generica e nas outras chama as duas

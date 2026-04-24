@@ -1,6 +1,7 @@
 package app.main3;
 
 import board.Tabuleiro;
+import exception.ColisaoComObstaculoException;
 import exception.MovimentoInvalidoException;
 import model.enums.Direcao;
 import model.robos.Robo;
@@ -37,8 +38,8 @@ public class Main3 {
             try {
                 tabuleiro.moverRobo(normal, dirNormal);
                 System.out.printf("[%s] está em (%d,%d)%n", normal.getCor(), normal.getX(), normal.getY());
-            } catch (MovimentoInvalidoException e) {
-                System.out.printf("[%s] inválido: %s%n", normal.getCor(), e.getMovimento());
+            } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
+                System.out.printf("[%s] %s%n", normal.getCor(), e.getMessage());
             }
             tabuleiro.renderizar();
             pausar();
@@ -59,11 +60,11 @@ public class Main3 {
                     tabuleiro.moverRobo(inteligente, dirInteligente);
                     System.out.printf("[%s] está em (%d,%d)%n", inteligente.getCor(), inteligente.getX(), inteligente.getY());
                     conseguiu = true;
-                } catch (MovimentoInvalidoException e) {
-                    System.out.printf("[%s] inválido: %s%n", inteligente.getCor(), e.getMovimento());
+                } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
+                    System.out.printf("[%s] %s%n", inteligente.getCor(), e.getMessage());
                 }
 
-                tabuleiro.renderizar();
+                    tabuleiro.renderizar();
                 pausar();
             }
             if (tabuleiro.verificarAlimento(inteligente)) {

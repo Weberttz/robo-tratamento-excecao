@@ -1,6 +1,7 @@
 package app.main1;
 
 import board.Tabuleiro;
+import exception.ColisaoComObstaculoException;
 import exception.MovimentoInvalidoException;
 import model.enums.Direcao;
 import model.robos.Robo;
@@ -29,8 +30,8 @@ public class Main1 {
                 Direcao dir = Direcao.fromString(sc.next());
                 tabuleiro.moverRobo(robo, dir);
                 System.out.printf("Robô em (%d,%d)%n", robo.getX(), robo.getY());
-            } catch (MovimentoInvalidoException e) {
-                System.out.println("Movimento inválido: " + e.getMovimento());
+            } catch (MovimentoInvalidoException | ColisaoComObstaculoException e){
+                System.out.printf("[%s] %s%n", robo.getCor(), e.getMessage());
             } catch (IllegalArgumentException e) {
                 System.out.println("Direção desconhecida. Use: up, down, left, right");
             }

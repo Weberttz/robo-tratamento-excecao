@@ -1,5 +1,6 @@
 package board;
 
+import exception.ColisaoComObstaculoException;
 import exception.MovimentoInvalidoException;
 import model.enums.Direcao;
 import model.robos.Robo;
@@ -18,7 +19,7 @@ public class Tabuleiro {
         setAlimento(alimentoX, alimentoY);
     }
 
-    public void moverRobo(Robo robo, Direcao dir) throws MovimentoInvalidoException {
+    public void moverRobo(Robo robo, Direcao dir) throws MovimentoInvalidoException, ColisaoComObstaculoException {
         int oldX = robo.getX();
         int oldY = robo.getY();
 
@@ -35,7 +36,7 @@ public class Tabuleiro {
             robo.desfazerMovimento(oldX, oldY);
             robo.incrementarInvalidos();
             robo.registrarDirecaoInvalida(dir); // Robo ignora, RoboInteligente usa
-            throw new MovimentoInvalidoException("COLISAO");
+            throw new ColisaoComObstaculoException(dir.name());
         }
 
         robo.incrementarValidos();
