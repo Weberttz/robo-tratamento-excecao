@@ -2,8 +2,8 @@ package app.main1;
 
 import board.Tabuleiro;
 import exception.MovimentoInvalidoException;
-import model.robos.Robo;
 import model.enums.Direcao;
+import model.robos.Robo;
 
 import java.util.Scanner;
 
@@ -11,40 +11,36 @@ public class Main1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Digite a cor do robô : ");
-        String corRobo = sc.next();
+        System.out.print("Cor do robô: ");
+        Robo robo = new Robo(sc.next());
 
-        Robo robo = new Robo(corRobo);
+        System.out.print("X do alimento (0-3): ");
+        int alimentoX = sc.nextInt();
+        System.out.print("Y do alimento (0-3): ");
+        int alimentoY = sc.nextInt();
 
-        System.out.println("Digite a posição x do alimento : ");
-        int posicaoAlimentoX = sc.nextInt();
-
-        System.out.println("Digite a posição y do alimento : ");
-        int posicaoAlimentoY = sc.nextInt();
-
-        Tabuleiro tabuleiro = new Tabuleiro(4, posicaoAlimentoX, posicaoAlimentoY);
-
+        Tabuleiro tabuleiro = new Tabuleiro(4, alimentoX, alimentoY);
         tabuleiro.adicionarRobo(robo);
-
-        boolean acabouJogo = false;
-
         tabuleiro.renderizar();
-        while (!acabouJogo){
-            System.out.println("Digite a orientação : ");
-            String dir = sc.next( );
+
+        while (!tabuleiro.verificarAlimento(robo)) {
+            System.out.print("Direção (up/down/left/right): ");
             try {
-                tabuleiro.moverRobo(robo, Direcao.fromString(dir));
-            }catch (MovimentoInvalidoException e){
-                System.out.println("Erro!");
-            }catch (IllegalArgumentException e){
-                System.out.println("Digite uma posicao valida");
+                Direcao dir = Direcao.fromString(sc.next());
+                tabuleiro.moverRobo(robo, dir);
+                System.out.printf("Robô em (%d,%d)%n", robo.getX(), robo.getY());
+            } catch (MovimentoInvalidoException e) {
+                System.out.println("Movimento inválido: " + e.getMovimento());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Direção desconhecida. Use: up, down, left, right");
             }
-            acabouJogo = robo.encontrouAlimento(posicaoAlimentoX, posicaoAlimentoY);
             tabuleiro.renderizar();
-            if(acabouJogo){
-                System.out.println("Movimentos válidos : " + robo.getMovimentosValidos() +
-                        " Movimentos inválidos : " + robo.getMovimentosInvalidos());
-            }
         }
+
+        System.out.println("Alimento encontrado!");
+        System.out.printf("Válidos: %d | Inválidos: %d%n",
+                robo.getMovimentosValidos(), robo.getMovimentosInvalidos());
+
+        sc.close();
     }
 }

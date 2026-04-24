@@ -1,28 +1,33 @@
 package model.robos;
 
-import exception.MovimentoInvalidoException;
 import model.enums.Direcao;
-
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
-public class RoboInteligente extends Robo{
+public class RoboInteligente extends Robo {
     private final Set<Direcao> direcoesInvalidas;
-    private final Random rand;
 
     public RoboInteligente(String cor) {
         super(cor);
         this.direcoesInvalidas = new HashSet<>();
-        rand = new Random();
     }
 
-
-    public Set<Direcao> getDirecoesInvalidas() {
-        return direcoesInvalidas;
+    @Override
+    public Direcao escolherDirecao() {
+        Direcao dir;
+        do {
+            dir = Direcao.fromInt(rand.nextInt(4) + 1);
+        } while (direcoesInvalidas.contains(dir));
+        return dir;
     }
-    public Random getRand() {
-        return rand;
+
+    @Override
+    public void registrarDirecaoInvalida(Direcao dir) {
+        direcoesInvalidas.add(dir);
     }
 
+    @Override
+    public void confirmarMovimento() {
+        direcoesInvalidas.clear();
+    }
 }
