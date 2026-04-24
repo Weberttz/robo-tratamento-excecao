@@ -31,6 +31,10 @@ public class Robo {
         return Direcao.fromInt(rand.nextInt(4) + 1);
     }
 
+    public void explodir() {
+        //implementar
+    }
+
     public void registrarDirecaoInvalida(Direcao dir) {
         // robô normal não faz nada
     }
