@@ -49,6 +49,8 @@ public class Main3 {
                 break;
             }
 
+
+            //mover essa lógica de !conseguir para Tabuleiro
             boolean conseguiu = false;
             while (!conseguiu) {
                 Direcao dirInteligente = inteligente.escolherDirecao();
@@ -70,7 +72,7 @@ public class Main3 {
             }
         }
 
-        System.out.println("\n=== Resultado Final ===");
+        System.out.println("\nResultado Final");
         System.out.printf("[%s] válidos: %d | inválidos: %d%n",
                 normal.getCor(), normal.getMovimentosValidos(), normal.getMovimentosInvalidos());
         System.out.printf("[%s] válidos: %d | inválidos: %d%n",
