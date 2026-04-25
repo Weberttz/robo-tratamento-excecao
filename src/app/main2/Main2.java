@@ -13,7 +13,7 @@ public class Main2 {
         Robo robo1 = new Robo("Vermelho");
         Robo robo2 = new Robo("Azul");
 
-        robo2.desfazerMovimento(0, 1);
+        robo2.modificarPosicaoInicial(0, 1);
 
         tabuleiro.adicionarRobo(robo1);
         tabuleiro.adicionarRobo(robo2);
@@ -40,7 +40,7 @@ public class Main2 {
         System.out.printf("%n[%s] tentou: %s%n", robo.getCor(), dir);
         try {
             tabuleiro.moverRobo(robo, dir);
-            System.out.printf("[%s] está em (%d,%d)%n", robo.getCor(), robo.getX(), robo.getY());
+            System.out.printf("[%s] está em (%d,%d)%n", robo.getCor(), robo.getNewX(), robo.getNewY());
         } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
             System.out.printf("[%s] %s%n", robo.getCor(), e.getMessage());
         }

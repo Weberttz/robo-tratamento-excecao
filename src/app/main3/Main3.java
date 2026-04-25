@@ -25,7 +25,7 @@ public class Main3 {
         tabuleiro.adicionarRobo(normal);
         tabuleiro.adicionarRobo(inteligente);
 
-        inteligente.desfazerMovimento(0, 1);
+        inteligente.modificarPosicaoInicial(0, 1);
 
         System.out.println("\nInício:");
         tabuleiro.renderizar();
@@ -37,7 +37,7 @@ public class Main3 {
             System.out.printf("%n[%s] tentou: %s%n", normal.getCor(), dirNormal);
             try {
                 tabuleiro.moverRobo(normal, dirNormal);
-                System.out.printf("[%s] está em (%d,%d)%n", normal.getCor(), normal.getX(), normal.getY());
+                System.out.printf("[%s] está em (%d,%d)%n", normal.getCor(), normal.getNewX(), normal.getNewY());
             } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
                 System.out.printf("[%s] %s%n", normal.getCor(), e.getMessage());
             }
@@ -58,7 +58,7 @@ public class Main3 {
                 System.out.printf("%n[%s] tentou: %s%n", inteligente.getCor(), dirInteligente);
                 try {
                     tabuleiro.moverRobo(inteligente, dirInteligente);
-                    System.out.printf("[%s] está em (%d,%d)%n", inteligente.getCor(), inteligente.getX(), inteligente.getY());
+                    System.out.printf("[%s] está em (%d,%d)%n", inteligente.getCor(), inteligente.getNewX(), inteligente.getNewY());
                     conseguiu = true;
                 } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
                     System.out.printf("[%s] %s%n", inteligente.getCor(), e.getMessage());

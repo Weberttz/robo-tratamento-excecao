@@ -4,8 +4,10 @@ import model.enums.Direcao;
 import java.util.Random;
 
 public class Robo {
-    private int x;
-    private int y;
+    private int newX;
+    private int newY;
+    private int oldX;
+    private int oldY;
     private final String cor;
     private int movimentosValidos;
     private int movimentosInvalidos;
@@ -13,17 +15,21 @@ public class Robo {
 
     public Robo(String cor) {
         this.cor = cor;
-        this.x = 0;
-        this.y = 0;
+        this.newX = 0;
+        this.newY = 0;
+        this.oldX = 0;
+        this.oldY = 0;
         this.rand = new Random();
     }
 
     public void mover(Direcao dir) {
+        oldX = newX;
+        oldY = newY;
         switch (dir) {
-            case UP    -> y++;
-            case DOWN  -> y--;
-            case RIGHT -> x++;
-            case LEFT  -> x--;
+            case UP    -> newY++;
+            case DOWN  -> newY--;
+            case RIGHT -> newX++;
+            case LEFT  -> newX--;
         }
     }
 
@@ -43,16 +49,21 @@ public class Robo {
         // robô normal não faz nada
     }
 
-    public void desfazerMovimento(int oldX, int oldY) {
-        this.x = oldX;
-        this.y = oldY;
+    public void desfazerMovimento() {
+        this.newX = oldX;
+        this.newY = oldY;
     }
 
     public void incrementarValidos()   { movimentosValidos++; }
     public void incrementarInvalidos() { movimentosInvalidos++; }
-
-    public int getX() { return x; }
-    public int getY() { return y; }
+    public void modificarPosicaoInicial(int newX, int newY){
+        this.newX = newX;
+        this.newY = newY;
+        this.oldX = newX;
+        this.oldY = newY;
+    }
+    public int getNewX() { return newX; }
+    public int getNewY() { return newY; }
     public String getCor() { return cor; }
     public int getMovimentosValidos()   { return movimentosValidos; }
     public int getMovimentosInvalidos() { return movimentosInvalidos; }

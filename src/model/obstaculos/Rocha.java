@@ -10,6 +10,6 @@ public class Rocha extends Obstaculo{
 
     @Override
     public void bater(Robo robo) {
-        // voltar posicao do robo
+        robo.desfazerMovimento();
     }
 }

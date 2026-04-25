@@ -29,7 +29,7 @@ public class Main1 {
             try {
                 Direcao dir = Direcao.fromString(sc.next());
                 tabuleiro.moverRobo(robo, dir);
-                System.out.printf("Robô em (%d,%d)%n", robo.getX(), robo.getY());
+                System.out.printf("Robô em (%d,%d)%n", robo.getNewX(), robo.getNewY());
             } catch (MovimentoInvalidoException | ColisaoComObstaculoException e){
                 System.out.printf("[%s] %s%n", robo.getCor(), e.getMessage());
             } catch (IllegalArgumentException e) {
