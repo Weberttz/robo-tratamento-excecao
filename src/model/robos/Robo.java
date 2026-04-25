@@ -1,6 +1,7 @@
 package model.robos;
 
 import model.enums.Direcao;
+import model.enums.Cores;
 import java.util.Random;
 
 public class Robo {
@@ -8,13 +9,13 @@ public class Robo {
     private int newY;
     private int oldX;
     private int oldY;
-    private final String cor;
+    private Cores cor;
     private int movimentosValidos;
     private int movimentosInvalidos;
     protected final Random rand;
 
     public Robo(String cor) {
-        this.cor = cor;
+        this.cor = Cores.fromString(cor);
         this.newX = 0;
         this.newY = 0;
         this.oldX = 0;
@@ -64,7 +65,7 @@ public class Robo {
     }
     public int getNewX() { return newX; }
     public int getNewY() { return newY; }
-    public String getCor() { return cor; }
+    public Cores getCor() { return cor; }
     public int getMovimentosValidos()   { return movimentosValidos; }
     public int getMovimentosInvalidos() { return movimentosInvalidos; }
 }

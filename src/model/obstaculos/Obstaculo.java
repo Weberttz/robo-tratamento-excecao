@@ -9,7 +9,6 @@ public abstract class Obstaculo {
 
     protected Obstaculo(int id) {
         this.id = id;
-
     }
 
     public abstract void bater(Robo robo);

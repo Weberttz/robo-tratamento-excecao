@@ -4,6 +4,7 @@ import exception.ColisaoComObstaculoException;
 import exception.MovimentoInvalidoException;
 import model.enums.Dificuldade;
 import model.enums.Direcao;
+import model.enums.Cores;
 import model.obstaculos.Obstaculo;
 import model.robos.Robo;
 import java.util.ArrayList;
@@ -67,16 +68,16 @@ public class Tabuleiro {
         for (int y = tamanho - 1; y >= 0; y--){
             for (int x = 0; x < tamanho; x++) {
                 Robo r = getRoboNaPosicao(x, y);
-                if (r != null)                        System.out.print("[" + r.getCor().charAt(0) + "]");
+                if (r != null) System.out.print(r.getCor().getAnsi() + " R " + Cores.RESET.getAnsi());
                 else if (x == alimentoX && y == alimentoY) System.out.print(" A ");
-                else                                       System.out.print(" . ");
+                else                                     System.out.print(" . ");
             }
             System.out.println();
         }
     }
 
      public void colocarObstaculos(Dificuldade dificuldade){
-        switch ()
+
      }
 
     public boolean verificarAlimento(Robo robo) {
