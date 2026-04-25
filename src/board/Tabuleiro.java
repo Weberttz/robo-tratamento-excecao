@@ -5,10 +5,13 @@ import exception.MovimentoInvalidoException;
 import model.enums.Dificuldade;
 import model.enums.Direcao;
 import model.enums.Cores;
+import model.obstaculos.Bomba;
 import model.obstaculos.Obstaculo;
+import model.obstaculos.Pedra;
 import model.robos.Robo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Tabuleiro {
     private final int tamanho;
@@ -32,13 +35,25 @@ public class Tabuleiro {
             robo.incrementarInvalidos();
             robo.registrarDirecaoInvalida(dir); // Robo ignora, RoboInteligente usa
             throw new MovimentoInvalidoException(dir.name());
-        }
-
-        if (temOutroRobo(robo, robo.getNewX(), robo.getNewY())) {
+        }else if (temOutroRobo(robo, robo.getNewX(), robo.getNewY())) {
             robo.desfazerMovimento();
             robo.incrementarInvalidos();
             robo.registrarDirecaoInvalida(dir); // Robo ignora, RoboInteligente usa
-            throw new ColisaoComObstaculoException(dir.name());
+            throw new ColisaoComObstaculoException(dir.name(), "Robo");
+        }else if(getObstaculoNaPosicao(robo.getNewX(), robo.getNewY()) != null){
+            Obstaculo obstaculo = getObstaculoNaPosicao(robo.getNewX(), robo.getNewY());
+            // Bomba
+            if(obstaculo.getId() == 0){
+                obstaculo.bater(robo);
+                robos.remove(robo);
+                obstaculos.remove(obstaculo);
+            // Pedra
+            }else{
+                obstaculo.bater(robo);
+                robo.incrementarInvalidos();
+                robo.registrarDirecaoInvalida(dir);
+                throw new ColisaoComObstaculoException(dir.name(), "Pedra");
+            }
         }
         // fazer o if rocha e bomba
 
@@ -56,10 +71,33 @@ public class Tabuleiro {
         }
         return false;
     }
+    private boolean verificarEspacoLivre(int posicaoX, int posicaoY){
+        for (Obstaculo obstaculo : obstaculos){
+            if (obstaculo.getPosicaoX() == posicaoX && obstaculo.getPosicaoY() == posicaoY){
+                return false;
+            }
+        }
+        for (Robo robo : robos){
+            if (robo.getNewX() == posicaoX && robo.getNewY() == posicaoY){
+                return false;
+            }
+        }
+        if (alimentoX == posicaoX && alimentoY == posicaoY)
+            return false;
+
+        return true;
+    }
 
     private Robo getRoboNaPosicao(int x, int y) {
         for (Robo r : robos) {
             if (r.getNewX() == x && r.getNewY() == y) return r;
+        }
+        return null;
+    }
+    private Obstaculo getObstaculoNaPosicao(int posicaoX, int posicaoY){
+        for (Obstaculo obstaculo : obstaculos){
+            if (obstaculo.getPosicaoX() == posicaoX && obstaculo.getPosicaoY() == posicaoY)
+                return obstaculo;
         }
         return null;
     }
@@ -68,7 +106,15 @@ public class Tabuleiro {
         for (int y = tamanho - 1; y >= 0; y--){
             for (int x = 0; x < tamanho; x++) {
                 Robo r = getRoboNaPosicao(x, y);
+                Obstaculo obstaculo = getObstaculoNaPosicao(x, y);
                 if (r != null) System.out.print(r.getCor().getAnsi() + " R " + Cores.RESET.getAnsi());
+                else if (obstaculo != null){
+                    if(obstaculo.getId() == 1) {
+                        System.out.print(Cores.AMARELO.getAnsi() + " " + obstaculo.getInicial() + " " + Cores.RESET.getAnsi());
+                    }else {
+                        System.out.print(Cores.VERMELHO.getAnsi() + " " + obstaculo.getInicial() + " " + Cores.RESET.getAnsi());
+                    }
+                }
                 else if (x == alimentoX && y == alimentoY) System.out.print(" A ");
                 else                                     System.out.print(" . ");
             }
@@ -76,9 +122,41 @@ public class Tabuleiro {
         }
     }
 
-     public void colocarObstaculos(Dificuldade dificuldade){
+    public void adicionarObstaculo(Obstaculo o){
+        obstaculos.add(o);
+    }
 
-     }
+    public void colocarObstaculos(Dificuldade dificuldade){
+       int quantidadeObstaculos = 0;
+       Random escolha = new Random();
+       switch (dificuldade){
+           case FACIL -> {
+               quantidadeObstaculos = (int) (tamanho * tamanho * 0.1);
+           }
+           case MEDIO -> {
+               quantidadeObstaculos = (int) (tamanho * tamanho * 0.14);
+           }
+           case DIFICIL -> {
+               quantidadeObstaculos = (int) (tamanho * tamanho * 0.18);
+           }
+       }
+
+       for (int i = 0; i < quantidadeObstaculos; i++){
+           boolean espacoLivre = false;
+           int posicaoX = 0;
+           int posicaoY = 0;
+           while(!espacoLivre) {
+               posicaoX = escolha.nextInt(tamanho);
+               posicaoY = escolha.nextInt(tamanho);
+               espacoLivre = verificarEspacoLivre(posicaoX, posicaoY);
+           }
+           if(escolha.nextBoolean()){
+           obstaculos.add(new Pedra(1, posicaoX, posicaoY));
+           }else{
+              obstaculos.add(new Bomba(0, posicaoX, posicaoY));
+           }
+       }
+    }
 
     public boolean verificarAlimento(Robo robo) {
         return robo.getNewX() == alimentoX && robo.getNewY() == alimentoY;

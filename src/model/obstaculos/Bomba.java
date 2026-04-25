@@ -6,8 +6,8 @@ public class Bomba extends Obstaculo{
 
     private boolean explodiu;
 
-    protected Bomba(int id) {
-        super(id);
+    public Bomba(int id, int posicaoX, int posicaoY) {
+        super(id, posicaoX, posicaoY, 'B');
         this.explodiu = false;
     }
 
@@ -15,9 +15,12 @@ public class Bomba extends Obstaculo{
     public void bater(Robo robo) {
         //fazer algo no robô para ele ficar inativo
         // robo.explodir() -> boolean ativo = false
+        robo.combustaoInstantanea();
+        System.out.println("BOOOOOOOOOOOOOOOOM o " + robo.getCor() + " EXPLODIU");
         this.explodiu = true;
     }
 
+    // como usar?
     public boolean isExplodiu() {
         return explodiu;
     }

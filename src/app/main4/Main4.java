@@ -1,16 +1,102 @@
 package app.main4;
 
+import board.Tabuleiro;
+import exception.ColisaoComObstaculoException;
+import exception.MovimentoInvalidoException;
+import model.enums.Dificuldade;
+import model.enums.Direcao;
+import model.robos.Robo;
+import model.robos.RoboInteligente;
+
+import java.util.Scanner;
+
 public class Main4 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-    // fazer um sistema de dificuldade (facil medio e dificil) em que em cada dificuldade a quantidade de bombas e rochas no tabuleiro aumenta
+        System.out.print("X do alimento (0-3): ");
+        int alimentoX = sc.nextInt();
+        System.out.print("Y do alimento (0-3): ");
+        int alimentoY = sc.nextInt();
 
-    //facil = 5% do tabuleiro
-    //medio = 10% do tabuleiro
-    //dificil = 15% do tabuleiro
+        Robo normal = new Robo("Azul");
+        RoboInteligente inteligente = new RoboInteligente("Verde");
+        Tabuleiro tabuleiro = new Tabuleiro(7, alimentoX, alimentoY);
+        tabuleiro.adicionarRobo(normal);
+        tabuleiro.adicionarRobo(inteligente);
+        inteligente.modificarPosicaoInicial(2, 2);
 
-    // fazer um algoritmo de embaralhamento
+        System.out.print("Dificuldade: facil / medio / dificil: ");
+        tabuleiro.colocarObstaculos(Dificuldade.fromString(sc.next().trim().toLowerCase()));
 
+        System.out.println("\nInício:");
+        tabuleiro.renderizar();
 
-    // tem chance do jogo ser impossivel de vencer
+        boolean acabou = false;
+        while (!acabou) {
+            if(!normal.isExplodiu()) {
+                Direcao dirNormal = normal.escolherDirecao();
+                System.out.printf("%n[%s] tentou: %s%n", normal.getCor(), dirNormal);
+                try {
+                    tabuleiro.moverRobo(normal, dirNormal);
+                    if(!normal.isExplodiu())
+                        System.out.printf("[%s] está em (%d,%d)%n", normal.getCor(), normal.getNewX(), normal.getNewY());
+                } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
+                    System.out.printf("[%s] %s%n", normal.getCor(), e.getMessage());
+                }
+                tabuleiro.renderizar();
+                pausar();
 
+                if (tabuleiro.verificarAlimento(normal)) {
+                    System.out.println("\n" + normal.getCor() + " (Normal) venceu!");
+                    acabou = true;
+                    break;
+                }
+            }
+            if (!inteligente.isExplodiu()) {
+                //mover essa lógica de !conseguir para Tabuleiro
+                boolean conseguiu = false;
+                while (!conseguiu) {
+                    Direcao dirInteligente = inteligente.escolherDirecao();
+                    System.out.printf("%n[%s] tentou: %s%n", inteligente.getCor(), dirInteligente);
+                    try {
+                        tabuleiro.moverRobo(inteligente, dirInteligente);
+                        if(!inteligente.isExplodiu())
+                            System.out.printf("[%s] está em (%d,%d)%n", inteligente.getCor(), inteligente.getNewX(), inteligente.getNewY());
+                        conseguiu = true;
+                    } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
+                        System.out.printf("[%s] %s%n", inteligente.getCor(), e.getMessage());
+                    }
+
+                    tabuleiro.renderizar();
+                    pausar();
+                }
+                if (tabuleiro.verificarAlimento(inteligente)) {
+                    System.out.println("\n" + inteligente.getCor() + " (Inteligente) venceu!");
+                    acabou = true;
+                    break;
+                }
+            }
+            if (inteligente.isExplodiu() && normal.isExplodiu()){
+                System.out.println("Os dois robos explodiram, o jogo acabou. :((");
+                acabou = true;
+            }
+        }
+
+        System.out.println("\nResultado Final");
+        System.out.printf("[%s] válidos: %d | inválidos: %d%n",
+                normal.getCor(), normal.getMovimentosValidos(), normal.getMovimentosInvalidos());
+        System.out.printf("[%s] válidos: %d | inválidos: %d%n",
+                inteligente.getCor(), inteligente.getMovimentosValidos(), inteligente.getMovimentosInvalidos());
+
+        sc.close();
+    }
+
+    private static void pausar() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }

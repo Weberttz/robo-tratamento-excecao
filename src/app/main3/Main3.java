@@ -21,7 +21,7 @@ public class Main3 {
         Robo normal = new Robo("Azul");
         RoboInteligente inteligente = new RoboInteligente("Verde");
 
-        Tabuleiro tabuleiro = new Tabuleiro(4, alimentoX, alimentoY);
+        Tabuleiro tabuleiro = new Tabuleiro(7, alimentoX, alimentoY);
         tabuleiro.adicionarRobo(normal);
         tabuleiro.adicionarRobo(inteligente);
 
@@ -32,43 +32,47 @@ public class Main3 {
 
         boolean acabou = false;
         while (!acabou) {
-
-            Direcao dirNormal = normal.escolherDirecao();
-            System.out.printf("%n[%s] tentou: %s%n", normal.getCor(), dirNormal);
-            try {
-                tabuleiro.moverRobo(normal, dirNormal);
-                System.out.printf("[%s] está em (%d,%d)%n", normal.getCor(), normal.getNewX(), normal.getNewY());
-            } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
-                System.out.printf("[%s] %s%n", normal.getCor(), e.getMessage());
-            }
-            tabuleiro.renderizar();
-            pausar();
-
-            if (tabuleiro.verificarAlimento(normal)) {
-                System.out.println("\n" + normal.getCor() + " (Normal) venceu!");
-                acabou = true;
-                break;
-            }
-
-
-            //mover essa lógica de !conseguir para Tabuleiro
-            boolean conseguiu = false;
-            while (!conseguiu) {
-                Direcao dirInteligente = inteligente.escolherDirecao();
-                System.out.printf("%n[%s] tentou: %s%n", inteligente.getCor(), dirInteligente);
+            if(!tabuleiro.verificarAlimento(normal)) {
+                Direcao dirNormal = normal.escolherDirecao();
+                System.out.printf("%n[%s] tentou: %s%n", normal.getCor(), dirNormal);
                 try {
-                    tabuleiro.moverRobo(inteligente, dirInteligente);
-                    System.out.printf("[%s] está em (%d,%d)%n", inteligente.getCor(), inteligente.getNewX(), inteligente.getNewY());
-                    conseguiu = true;
+                    tabuleiro.moverRobo(normal, dirNormal);
+                    System.out.printf("[%s] está em (%d,%d)%n", normal.getCor(), normal.getNewX(), normal.getNewY());
                 } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
-                    System.out.printf("[%s] %s%n", inteligente.getCor(), e.getMessage());
+                    System.out.printf("[%s] %s%n", normal.getCor(), e.getMessage());
                 }
+                tabuleiro.renderizar();
+                pausar();
+
+                if (tabuleiro.verificarAlimento(normal)) {
+                    System.out.println("\n" + normal.getCor() + " (Normal) achou o alimento!");
+                    tabuleiro.getRobos().remove(normal);
+                }
+            }
+
+            if(!tabuleiro.verificarAlimento(inteligente)) {
+                //mover essa lógica de !conseguir para Tabuleiro
+                boolean conseguiu = false;
+                while (!conseguiu) {
+                    Direcao dirInteligente = inteligente.escolherDirecao();
+                    System.out.printf("%n[%s] tentou: %s%n", inteligente.getCor(), dirInteligente);
+                    try {
+                        tabuleiro.moverRobo(inteligente, dirInteligente);
+                        System.out.printf("[%s] está em (%d,%d)%n", inteligente.getCor(), inteligente.getNewX(), inteligente.getNewY());
+                        conseguiu = true;
+                    } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
+                        System.out.printf("[%s] %s%n", inteligente.getCor(), e.getMessage());
+                    }
 
                     tabuleiro.renderizar();
-                pausar();
+                    pausar();
+                }
+                if (tabuleiro.verificarAlimento(inteligente)) {
+                    System.out.println("\n" + inteligente.getCor() + " (Inteligente) achou o alimento!");
+                    tabuleiro.getRobos().remove(inteligente);
+                }
             }
-            if (tabuleiro.verificarAlimento(inteligente)) {
-                System.out.println("\n" + inteligente.getCor() + " (Inteligente) venceu!");
+            if(tabuleiro.verificarAlimento(normal) && tabuleiro.verificarAlimento(inteligente)){
                 acabou = true;
             }
         }
