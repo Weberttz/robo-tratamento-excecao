@@ -1,5 +1,6 @@
 package model.obstaculos;
 
+import model.enums.ResultadoBater;
 import model.robos.Robo;
 
 public abstract class Obstaculo {
@@ -15,7 +16,7 @@ public abstract class Obstaculo {
         this.inicial = inicial;
     }
 
-    public abstract void bater(Robo robo);
+    public abstract ResultadoBater bater(Robo robo);
 
     public char getInicial() {
         return inicial;

@@ -10,10 +10,10 @@ public class Robo {
     private int oldY;
     private boolean achouAlimento;
     private Cores cor;
+    private boolean explodiu;
     private int movimentosValidos;
     private int movimentosInvalidos;
     protected final Random rand;
-    private boolean explodiu;
 
     public Robo(String cor) {
         this.cor = Cores.fromString(cor);
@@ -22,8 +22,8 @@ public class Robo {
         this.oldX = 0;
         this.oldY = 0;
         this.rand = new Random();
+        this.explodiu = false;
         achouAlimento = false;
-        explodiu = false;
     }
 
     public void mover(Direcao dir) {
@@ -37,14 +37,12 @@ public class Robo {
         }
     }
 
-    public Direcao escolherDirecao() {
-        return Direcao.fromInt(rand.nextInt(4) + 1);
+    public void combustaoInstantanea(){
+        this.explodiu = true;
     }
 
-    public void combustaoInstantanea() {
-        this.newX = -1;
-        this.newY = -1;
-        explodiu = true;
+    public Direcao escolherDirecao() {
+        return Direcao.fromInt(rand.nextInt(4) + 1);
     }
 
     public void registrarDirecaoInvalida(Direcao dir) {
@@ -68,10 +66,7 @@ public class Robo {
         this.oldX = newX;
         this.oldY = newY;
     }
-
-    public boolean isExplodiu() {
-        return explodiu;
-    }
+    public boolean isExplodiu() { return explodiu; }
     public boolean getAchouAlimento(){
         return achouAlimento;
     }

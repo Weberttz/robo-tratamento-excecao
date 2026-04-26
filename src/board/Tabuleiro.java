@@ -28,32 +28,36 @@ public class Tabuleiro {
         if (foraDoLimite(robo.getNewX(), robo.getNewY())) {
             robo.desfazerMovimento();
             robo.incrementarInvalidos();
-            robo.registrarDirecaoInvalida(dir); // Robo ignora, RoboInteligente usa
+            robo.registrarDirecaoInvalida(dir);
             throw new MovimentoInvalidoException(dir.name());
-        }else if (temOutroRobo(robo, robo.getNewX(), robo.getNewY())) {
+
+        } else if (temOutroRobo(robo, robo.getNewX(), robo.getNewY())) {
             robo.desfazerMovimento();
             robo.incrementarInvalidos();
-            robo.registrarDirecaoInvalida(dir); // Robo ignora, RoboInteligente usa
+            robo.registrarDirecaoInvalida(dir);
             throw new ColisaoComObstaculoException(dir.name(), "Robo");
-        }else if(getObstaculoNaPosicao(robo.getNewX(), robo.getNewY()) != null){
-            Obstaculo obstaculo = getObstaculoNaPosicao(robo.getNewX(), robo.getNewY());
-            // Bomba
-            if(obstaculo.getId() == 0){
-                obstaculo.bater(robo);
-                robos.remove(robo);
-                obstaculos.remove(obstaculo);
-            // Pedra
-            }else{
-                obstaculo.bater(robo);
-                robo.incrementarInvalidos();
-                robo.registrarDirecaoInvalida(dir);
-                throw new ColisaoComObstaculoException(dir.name(), "Pedra");
+
+        } else {
+            Obstaculo obs = getObstaculoNaPosicao(robo.getNewX(), robo.getNewY());
+            if (obs != null) {
+                ResultadoBater resultado = obs.bater(robo);
+                switch (resultado) {
+                    case EXPLODIU -> {
+                        robos.remove(robo);
+                        obstaculos.remove(obs);
+                        //robo.incrementarInvalidos(); ?
+                    }
+                    case VOLTOU -> {
+                        robo.incrementarInvalidos();
+                        robo.registrarDirecaoInvalida(dir);
+                        throw new ColisaoComObstaculoException(dir.name(), obs.getClass().getSimpleName());
+                    }
+                }
             }
         }
-        // fazer o if rocha e bomba
 
         robo.incrementarValidos();
-        robo.confirmarMovimento(); // Robo ignora, RoboInteligente limpa o set
+        robo.confirmarMovimento();
     }
 
     private boolean foraDoLimite(int x, int y) {
@@ -125,15 +129,12 @@ public class Tabuleiro {
        int quantidadeObstaculos = 0;
        Random escolha = new Random();
        switch (dificuldade){
-           case FACIL -> {
+           case FACIL ->
                quantidadeObstaculos = (int) (tamanho * tamanho * 0.1);
-           }
-           case MEDIO -> {
+           case MEDIO ->
                quantidadeObstaculos = (int) (tamanho * tamanho * 0.14);
-           }
-           case DIFICIL -> {
+           case DIFICIL ->
                quantidadeObstaculos = (int) (tamanho * tamanho * 0.18);
-           }
        }
 
        for (int i = 0; i < quantidadeObstaculos; i++){

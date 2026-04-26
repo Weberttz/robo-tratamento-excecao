@@ -1,5 +1,6 @@
 package model.obstaculos;
 
+import model.enums.ResultadoBater;
 import model.robos.Robo;
 
 public class Pedra extends Obstaculo{
@@ -9,8 +10,8 @@ public class Pedra extends Obstaculo{
     }
 
     @Override
-    public void bater(Robo robo){
-//        throw new ColisaoComObstaculoException();
+    public ResultadoBater bater(Robo robo) {
         robo.desfazerMovimento();
+        return ResultadoBater.VOLTOU;
     }
 }
