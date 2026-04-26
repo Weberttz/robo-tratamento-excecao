@@ -1,14 +1,9 @@
 package board;
 
-import exception.ColisaoComObstaculoException;
-import exception.MovimentoInvalidoException;
-import model.enums.Dificuldade;
-import model.enums.Direcao;
-import model.enums.Cores;
-import model.obstaculos.Bomba;
-import model.obstaculos.Obstaculo;
-import model.obstaculos.Pedra;
-import model.robos.Robo;
+import exception.*;
+import model.enums.*;
+import model.obstaculos.*;
+import model.robos.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

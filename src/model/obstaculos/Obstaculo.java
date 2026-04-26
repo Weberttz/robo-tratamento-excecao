@@ -1,6 +1,5 @@
 package model.obstaculos;
 
-import model.enums.Cores;
 import model.robos.Robo;
 
 public abstract class Obstaculo {

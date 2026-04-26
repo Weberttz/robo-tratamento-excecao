@@ -13,8 +13,6 @@ public class Bomba extends Obstaculo{
 
     @Override
     public void bater(Robo robo) {
-        //fazer algo no robô para ele ficar inativo
-        // robo.explodir() -> boolean ativo = false
         robo.combustaoInstantanea();
         System.out.println("BOOOOOOOOOOOOOOOOM o " + robo.getCor() + " EXPLODIU");
         this.explodiu = true;

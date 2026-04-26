@@ -1,7 +1,5 @@
 package model.enums;
 
-import exception.MovimentoInvalidoException;
-
 public enum Direcao {
     UP, DOWN, RIGHT, LEFT;
 

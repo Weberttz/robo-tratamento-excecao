@@ -1,7 +1,6 @@
 package model.robos;
 
-import model.enums.Direcao;
-import model.enums.Cores;
+import model.enums.*;
 import java.util.Random;
 
 public class Robo {

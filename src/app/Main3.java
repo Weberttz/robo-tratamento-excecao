@@ -1,4 +1,4 @@
-package app.main3;
+package app;
 
 import board.Tabuleiro;
 import exception.ColisaoComObstaculoException;
