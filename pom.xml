@@ -91,10 +91,10 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>main.java.Launcher</mainClass>
-                            <launcher>main.java.app</launcher>
-                            <jlinkZipName>main.java.app</jlinkZipName>
-                            <jlinkImageName>main.java.app</jlinkImageName>
+                            <mainClass>com.projetorobo.Launcher</mainClass>
+                            <launcher>com.projetorobo.app</launcher>
+                            <jlinkZipName>com.projetorobo.app</jlinkZipName>
+                            <jlinkImageName>com.projetorobo.app</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>

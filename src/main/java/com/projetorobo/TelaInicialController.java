@@ -4,9 +4,15 @@ import com.projetorobo.model.enums.Cores;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class TelaInicialController {
 
@@ -29,10 +35,15 @@ public class TelaInicialController {
 
     @FXML
     public void clicouNoBotaoIniciar(ActionEvent event) {
-        System.out.println("Você clicou no botão");
-        System.out.println("Pos X: " + textPosX.getText());
-        System.out.println("Pos Y: " + textPosY.getText());
-        System.out.println("Cor: " + comboBoxCorRobo.getValue());
+        try {
+            Stage stage = new Stage();
+
+            TabuleiroPage tabuleiro = new TabuleiroPage();
+            tabuleiro.start(stage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void carregarComboBox() {
