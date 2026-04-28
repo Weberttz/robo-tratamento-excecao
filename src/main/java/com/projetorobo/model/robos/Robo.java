@@ -9,14 +9,14 @@ public class Robo {
     private int oldX;
     private int oldY;
     private boolean achouAlimento;
-    private Cores cor;
+    private Cor cor;
     private boolean explodiu;
     private int movimentosValidos;
     private int movimentosInvalidos;
     protected final Random rand;
 
     public Robo(String cor) {
-        this.cor = Cores.fromString(cor);
+        this.cor = Cor.fromString(cor);
         this.newX = 0;
         this.newY = 0;
         this.oldX = 0;
@@ -75,7 +75,7 @@ public class Robo {
     }
     public int getNewX() { return newX; }
     public int getNewY() { return newY; }
-    public Cores getCor() { return cor; }
+    public Cor getCor() { return cor; }
     public int getMovimentosValidos()   { return movimentosValidos; }
     public int getMovimentosInvalidos() { return movimentosInvalidos; }
 }

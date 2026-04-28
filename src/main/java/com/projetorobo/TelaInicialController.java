@@ -1,6 +1,6 @@
 package com.projetorobo;
 
-import com.projetorobo.model.enums.Cores;
+import com.projetorobo.model.enums.Cor;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TelaInicialController {
 
@@ -20,7 +21,8 @@ public class TelaInicialController {
     private Button buttonIniciar;
 
     @FXML
-    private ComboBox<Cores> comboBoxCorRobo;
+    private ComboBox<Cor> comboBoxCorRobo;
+    private List<Cor> cores = new ArrayList<>();
 
     @FXML
     private TextField textPosX;
@@ -35,18 +37,49 @@ public class TelaInicialController {
 
     @FXML
     public void clicouNoBotaoIniciar(ActionEvent event) {
-        try {
-            Stage stage = new Stage();
 
-            TabuleiroPage tabuleiro = new TabuleiroPage();
-            tabuleiro.start(stage);
+        if(textPosX.getText() != null && textPosY.getText() != null && comboBoxCorRobo.getValue() != null ){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetorobo/tabuleiro.fxml"));
+                Parent root = loader.load();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                TabuleiroController controller = loader.getController();
+
+                int x = Integer.parseInt(textPosX.getText());
+                int y = Integer.parseInt(textPosY.getText());
+                String cor = comboBoxCorRobo.getValue().toString().toLowerCase();
+
+                controller.receberDados(x, y, cor);
+
+                Stage stage = new Stage();
+                stage.setTitle("Projeto!");
+                stage.setResizable(false);
+                stage.setScene(new Scene(root, 753, 563));
+                stage.show();
+
+                Stage currentStage = (Stage) buttonIniciar.getScene().getWindow();
+                currentStage.close();
+            } catch (Exception e) {
+                System.out.println("Não é possível abrir a outra tela");
+            }
         }
     }
 
     private void carregarComboBox() {
-        comboBoxCorRobo.setItems(FXCollections.observableArrayList(Cores.values()));
+        Cor vermelha = Cor.VERMELHO;
+        Cor azul = Cor.AZUL;
+        Cor marrom = Cor.MARROM;
+        Cor amarelo = Cor.AMARELO;
+
+        cores.add(vermelha);
+        cores.add(azul);
+        cores.add(marrom);
+        cores.add(amarelo);
+
+        comboBoxCorRobo.setItems(FXCollections.observableArrayList(cores));
     }
+
+    public TextField getTextPosX() {return textPosX;}
+    public TextField getTextPosY() {return textPosY;}
+    public ComboBox getComboBoxCorRobo() { return comboBoxCorRobo;}
 }

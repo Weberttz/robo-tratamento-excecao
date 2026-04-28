@@ -106,12 +106,12 @@ public class Tabuleiro {
             for (int x = 0; x < tamanho; x++) {
                 Robo r = getRoboNaPosicao(x, y);
                 Obstaculo obstaculo = getObstaculoNaPosicao(x, y);
-                if (r != null) System.out.print(r.getCor().getAnsi() + " R " + Cores.RESET.getAnsi());
+                if (r != null) System.out.print(r.getCor().getAnsi() + " R " + Cor.RESET.getAnsi());
                 else if (obstaculo != null){
                     if(obstaculo.getId() == 1) {
-                        System.out.print(Cores.AMARELO.getAnsi() + " " + obstaculo.getInicial() + " " + Cores.RESET.getAnsi());
+                        System.out.print(Cor.AMARELO.getAnsi() + " " + obstaculo.getInicial() + " " + Cor.RESET.getAnsi());
                     }else {
-                        System.out.print(Cores.VERMELHO.getAnsi() + " " + obstaculo.getInicial() + " " + Cores.RESET.getAnsi());
+                        System.out.print(Cor.VERMELHO.getAnsi() + " " + obstaculo.getInicial() + " " + Cor.RESET.getAnsi());
                     }
                 }
                 else if (x == alimentoX && y == alimentoY) System.out.print(" A ");

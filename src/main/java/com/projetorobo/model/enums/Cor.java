@@ -1,6 +1,6 @@
 package com.projetorobo.model.enums;
 
-public enum Cores {
+public enum Cor {
     RESET("\u001B[0m"),
     VERMELHO("\u001B[31m"),
     VERDE("\u001B[32m"),
@@ -8,7 +8,7 @@ public enum Cores {
     AZUL("\u001B[34m"),
     MARROM("\u001B[38;5;94m");
 
-    public static Cores fromString(String s) {
+    public static Cor fromString(String s) {
         return switch (s.trim().toLowerCase()) {
             case "vermelho" -> VERMELHO; 
             case "verde"  -> VERDE;
@@ -20,7 +20,7 @@ public enum Cores {
     }
 
     private final String ansi;
-    Cores(String ansi){
+    Cor(String ansi){
         this.ansi = ansi;
     }
 

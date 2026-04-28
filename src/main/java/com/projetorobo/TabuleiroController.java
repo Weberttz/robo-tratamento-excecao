@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class TabuleiroController implements Initializable {
+public class TabuleiroController {
 
     int movimento = 36;
 
@@ -36,9 +36,9 @@ public class TabuleiroController implements Initializable {
 
 
     private ImageView imageViewAlimento = new ImageView(alimentoImg);
-    private Robo robo = new Robo("amarelo");
-    private Tabuleiro tabuleiro = new Tabuleiro(14, 2, 2);
+    private Tabuleiro tabuleiro;
 
+    Robo robo;
     @FXML
     private ImageView imageViewRobo;
 
@@ -56,8 +56,10 @@ public class TabuleiroController implements Initializable {
     private ArrayList<String> listaHistorico = new ArrayList<>();
     private ObservableList<String> obsHistorico;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    //Age como se fosse um initialize, configura o tabuleiro com base no que precisamos
+    public void receberDados(int posicaoX, int posicaoY, String direcao){
+        tabuleiro = new Tabuleiro(14, posicaoX, posicaoY);
+        robo = new Robo(direcao);
 
         imageViewRobo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
                 robo.getCor().toString().toLowerCase() + "-down-2.png"))));
@@ -78,6 +80,7 @@ public class TabuleiroController implements Initializable {
 
     @FXML
     public void acaoBotaoMovimento(ActionEvent event) {
+        buttonMovimento.setDisable(true);
         try {
             Direcao dir = Direcao.fromString(textFieldMovimento.getText());
             tabuleiro.moverRobo(robo, dir);
@@ -113,6 +116,15 @@ public class TabuleiroController implements Initializable {
                 }
             }).start();
         }
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(1500);
+                Platform.runLater(() -> buttonMovimento.setDisable(false));
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }).start();
     }
 
     @FXML

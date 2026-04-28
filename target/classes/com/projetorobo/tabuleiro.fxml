@@ -9,13 +9,23 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="508.0" prefWidth="737.0" spacing="20.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projetorobo.TabuleiroController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="627.0" prefWidth="759.0" spacing="20.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projetorobo.TabuleiroController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <children>
-      <AnchorPane fx:id="containerTabuleiro" prefHeight="467.0" prefWidth="416.0">
+      <AnchorPane prefHeight="52.0" prefWidth="73.0">
+         <children>
+            <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="555.0" layoutY="9.0" text="Histórico" textAlignment="CENTER" textFill="#eee5e5">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="containerTabuleiro" prefHeight="463.0" prefWidth="735.0" style="-fx-background-color: #00000;">
          <children>
             <ImageView fitHeight="36.0" fitWidth="63.0" layoutX="54.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -29,7 +39,7 @@
             </ImageView>
             <ImageView fx:id="Robo" fitHeight="50.0" fitWidth="50.0" layoutX="162.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagens/robos/amarelo-down-2.png" />
+                  <Image url="@../../imagens/robos/amarelo-down-3.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="36.0" fitWidth="63.0" layoutX="126.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
@@ -794,27 +804,17 @@
             </ImageView>
             <ImageView fx:id="imageViewRobo" fitHeight="36.0" fitWidth="63.0" layoutX="-18.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagens/robos/amarelo-down-2.png" />
+                  <Image url="@../../imagens/robos/amarelo-down-3.png" />
                </image>
             </ImageView>
-            <ListView fx:id="listViewHistorico" layoutX="497.0" layoutY="-15.0" prefHeight="499.0" prefWidth="210.0" />
+            <ListView fx:id="listViewHistorico" layoutX="509.0" layoutY="-21.0" prefHeight="429.0" prefWidth="210.0" />
             <TextField fx:id="textFieldMovimento" layoutX="81.0" layoutY="412.0" />
-            <Button fx:id="buttonMovimento" layoutX="258.0" layoutY="412.0" mnemonicParsing="false" onAction="#acaoBotaoMovimento" text="Button" />
-            <Label layoutX="-2.0" layoutY="412.0" prefHeight="26.0" prefWidth="82.0" text="Movimento:" />
-            <Label layoutX="6.0" layoutY="452.0" text="up" />
-            <Label layoutX="37.0" layoutY="452.0" text="down" />
-            <Label layoutX="87.0" layoutY="452.0" prefHeight="18.0" prefWidth="42.0" text="left" />
-            <Label layoutX="123.0" layoutY="452.0" prefHeight="18.0" prefWidth="42.0" text="right" />
-            <ImageView fitHeight="36.0" fitWidth="50.0" layoutX="94.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../imagens/cupcake.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="Robo1" fitHeight="36.0" fitWidth="63.0" layoutX="17.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../imagens/bonnie-idle.png" />
-               </image>
-            </ImageView>
+            <Button fx:id="buttonMovimento" layoutX="258.0" layoutY="412.0" mnemonicParsing="false" onAction="#acaoBotaoMovimento" text="mover" />
+            <Label layoutX="-2.0" layoutY="412.0" prefHeight="26.0" prefWidth="82.0" text="Movimento:" textFill="#fcf5f5" />
+            <Label layoutX="-2.0" layoutY="452.0" text="1. up" textFill="#fcf5f5" />
+            <Label layoutX="37.0" layoutY="452.0" text="2. down" textFill="#fcf5f5" />
+            <Label layoutX="99.0" layoutY="452.0" prefHeight="18.0" prefWidth="42.0" text="3.left" textFill="#fcf5f5" />
+            <Label layoutX="141.0" layoutY="452.0" prefHeight="18.0" prefWidth="42.0" text="4 right" textFill="#fcf5f5" />
          </children>
          <VBox.margin>
             <Insets />
