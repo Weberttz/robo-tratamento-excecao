@@ -491,7 +491,7 @@
                         <Image url="@../../imagens/tile1.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imageViewRobo" fitHeight="36.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageViewRobo" fitHeight="36.0" fitWidth="63.0" layoutX="-2.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../imagens/robos/amarelo-down-2.png" />
                      </image>

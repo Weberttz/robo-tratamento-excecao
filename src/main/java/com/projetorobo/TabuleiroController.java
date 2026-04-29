@@ -77,7 +77,12 @@ public class TabuleiroController {
     public void acaoBotaoMovimento(ActionEvent event) {
         buttonMover.setDisable(true); // desabilitar botão após o clique
         try {
-            Direcao dir = Direcao.fromString(textFieldMovimento.getText());
+            Direcao dir = null;
+            if(textFieldMovimento.getText().matches("\\d+")){
+                dir = Direcao.fromInt(Integer.parseInt(textFieldMovimento.getText()));
+            }else {
+                dir = Direcao.fromString(textFieldMovimento.getText());
+            }
             tabuleiro.moverRobo(robo, dir);
             direcionarImageViewRobo(dir);
             String linha = String.format("%s - Robô em (%d,%d)%n", dir.toString().toLowerCase(), robo.getNewX(), robo.getNewY());
@@ -155,7 +160,7 @@ public class TabuleiroController {
                 Platform.runLater(() -> imageViewRobo.setImage(frame4));
 
                 Thread.sleep(333);
-                Platform.runLater(() -> imageViewRobo.setImage(frame1));
+                Platform.runLater(() -> imageViewRobo.setImage(frame3));
                 imageViewRobo.setLayoutY(imageViewRobo.getLayoutY() - movimento);
 
             } catch (InterruptedException e) {
@@ -180,7 +185,7 @@ public class TabuleiroController {
                 Platform.runLater(() -> imageViewRobo.setImage(frame4));
 
                 Thread.sleep(333);
-                Platform.runLater(() -> imageViewRobo.setImage(frame1));
+                Platform.runLater(() -> imageViewRobo.setImage(frame3));
 
                 imageViewRobo.setLayoutX(imageViewRobo.getLayoutX() + movimento);
 
