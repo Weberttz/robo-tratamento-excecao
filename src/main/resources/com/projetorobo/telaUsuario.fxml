@@ -82,13 +82,13 @@
 
    <HBox alignment="CENTER_RIGHT">
 
-      <VBox prefHeight="46.0" prefWidth="157.0" spacing="4.0">
+      <VBox prefHeight="46.0" prefWidth="194.0" spacing="4.0">
          <Label style="-fx-font-size: 11px; -fx-text-fill: #ffffff;" text="Dificuldade" />
-         <ComboBox fx:id="comboBoxDificuldade" maxWidth="Infinity" prefHeight="26.0" prefWidth="162.0" />
+         <ComboBox fx:id="comboBoxDificuldade" maxWidth="Infinity" prefWidth="194.0" />
       </VBox>
-      <AnchorPane prefHeight="46.0" prefWidth="335.0">
+      <AnchorPane prefHeight="46.0" prefWidth="307.0">
          <children>
-            <Button fx:id="buttonIniciar" layoutX="280.0" layoutY="20.0" mnemonicParsing="false" onAction="#comecarJogo" prefHeight="26.0" prefWidth="66.0" text="Começar" />
+            <Button fx:id="buttonIniciar" layoutX="237.0" layoutY="18.0" mnemonicParsing="false" onAction="#comecarJogo" prefHeight="26.0" prefWidth="66.0" text="Começar" />
          </children>
       </AnchorPane>
    </HBox>

@@ -23,12 +23,12 @@ import java.util.Objects;
 
 public class TabuleiroController {
 
-    int movimento = 36;
+    int movimento = 35;
     int posInicialX = 0;
-    int posInicialY = 307;
+    int posInicialY = 315;
 
     private Image frame1, frame2, frame3, frame4;
-    private Image alimentoImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/cupcake.png")));
+    private Image alimentoImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pizza.png")));
 
     private ImageView imageViewAlimento = new ImageView(alimentoImg);
     private Tabuleiro tabuleiro;
@@ -67,15 +67,15 @@ public class TabuleiroController {
         imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
         imageViewAlimento.setSmooth(true); // preservar a qualidade
 
-        imageViewAlimento.setFitWidth(63); // pixel da imagem - largura
-        imageViewAlimento.setFitHeight(36); // pixel da imagem - altura
+        imageViewAlimento.setFitHeight(35);
+        imageViewAlimento.setFitWidth(35);
 
         containerTabuleiro.getChildren().add(imageViewAlimento); // adicionar a imagem no anchorPane
 
         AnchorPane.setLeftAnchor(imageViewAlimento, null); // não puxar a imagem para lateralEsquerda
         AnchorPane.setTopAnchor(imageViewAlimento, null); // não puxar a imagem para o topo
-        imageViewAlimento.setLayoutX(imageViewRobo.getLayoutX() + movimento * tabuleiro.getAlimentoX());
-        imageViewAlimento.setLayoutY(imageViewRobo.getLayoutY() - movimento * tabuleiro.getAlimentoY());
+        imageViewAlimento.setLayoutX(posInicialX + (tabuleiro.getAlimentoX() * movimento));
+        imageViewAlimento.setLayoutY(posInicialY - (tabuleiro.getAlimentoY() * movimento));
     }
 
     @FXML
@@ -95,7 +95,7 @@ public class TabuleiroController {
         } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
             System.out.printf("[%s] %s%n", robo.getCor(), e.getMessage());
         } catch (IllegalArgumentException e) {
-            System.out.println("Direção desconhecida. Use: up, down, left, right");
+            System.out.println("Direção desconhecida. Use: up, down, left, right  ou  1,2,3,4");
         }
 
         obsHistorico = FXCollections.observableArrayList(listaHistorico);

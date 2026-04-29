@@ -43,10 +43,19 @@ public class TelaInicialController {
         if(comboBoxModoJogo.getValue() != null){
            Modo modoEscolhido = comboBoxModoJogo.getValue();
            String caminho = null;
+           int tamJanelaX = 338, tamJanelaY = 175;
 
             switch (modoEscolhido){
-                case USUARIO -> caminho = "/com/projetorobo/telaUsuario.fxml";
-                case COMPETITIVO, COOPERATIVO -> caminho = "/com/projetorobo/telaRobos.fxml";
+                case USUARIO -> {
+                    caminho = "/com/projetorobo/telaUsuario.fxml";
+                    tamJanelaX = 520;
+                    tamJanelaY = 420;
+                }
+                case COMPETITIVO, COOPERATIVO -> {
+                    caminho = "/com/projetorobo/telaRobos.fxml";
+                    tamJanelaX = 560;
+                    tamJanelaY = 508;
+                }
                 default -> caminho = "com/projetorobo/telaInicial.fxml"; // alterar dps
             }
 
@@ -57,7 +66,7 @@ public class TelaInicialController {
                 Stage stage = new Stage();
                 stage.setTitle("Modo de Jogo - " + modoEscolhido.name().toLowerCase());
                 stage.setResizable(false);
-                stage.setScene(new Scene(root, 600, 398));
+                stage.setScene(new Scene(root, tamJanelaX, tamJanelaY));
                 stage.show();
 
                 Stage currentStage = (Stage) buttonJogar.getScene().getWindow();
