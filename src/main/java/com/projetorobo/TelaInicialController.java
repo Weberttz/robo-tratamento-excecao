@@ -54,13 +54,13 @@ public class TelaInicialController {
                 Stage stage = new Stage();
                 stage.setTitle("Projeto!");
                 stage.setResizable(false);
-                stage.setScene(new Scene(root, 753, 563));
+                stage.setScene(new Scene(root, 634, 577));
                 stage.show();
 
                 Stage currentStage = (Stage) buttonIniciar.getScene().getWindow();
                 currentStage.close();
             } catch (Exception e) {
-                System.out.println("Não é possível abrir a outra tela");
+                System.out.println(e.getMessage());
             }
         }
     }

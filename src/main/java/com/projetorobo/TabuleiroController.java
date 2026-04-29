@@ -10,8 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -20,20 +18,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class TabuleiroController {
 
     int movimento = 36;
+    int posInicialX = 0;
+    int posInicialY = 307;
 
-    @FXML
     private Image frame1, frame2, frame3, frame4;
     private Image alimentoImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/cupcake.png")));
-
 
     private ImageView imageViewAlimento = new ImageView(alimentoImg);
     private Tabuleiro tabuleiro;
@@ -43,7 +38,7 @@ public class TabuleiroController {
     private ImageView imageViewRobo;
 
     @FXML
-    private Button buttonMovimento;
+    private Button buttonMover;
 
     @FXML
     private AnchorPane containerTabuleiro;
@@ -57,30 +52,30 @@ public class TabuleiroController {
     private ObservableList<String> obsHistorico;
 
     //Age como se fosse um initialize, configura o tabuleiro com base no que precisamos
-    public void receberDados(int posicaoX, int posicaoY, String direcao){
-        tabuleiro = new Tabuleiro(14, posicaoX, posicaoY);
-        robo = new Robo(direcao);
+    public void receberDados(int posicaoX, int posicaoY, String cor){
+        tabuleiro = new Tabuleiro(10, posicaoX, posicaoY);
+        robo = new Robo(cor);
 
         imageViewRobo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
                 robo.getCor().toString().toLowerCase() + "-down-2.png"))));
 
         tabuleiro.adicionarRobo(robo);
-        imageViewRobo.setLayoutX(-18);
-        imageViewRobo.setLayoutY(336);
-        imageViewAlimento.setFitWidth(63);
-        imageViewAlimento.setFitHeight(36);
-        imageViewAlimento.setPreserveRatio(true);
-        imageViewAlimento.setSmooth(true);
-        containerTabuleiro.getChildren().add(imageViewAlimento);
-        AnchorPane.setLeftAnchor(imageViewAlimento, null);
-        AnchorPane.setTopAnchor(imageViewAlimento, null);
+        imageViewRobo.setLayoutX(posInicialX);
+        imageViewRobo.setLayoutY(posInicialY);
+        imageViewAlimento.setFitWidth(63); // pixel da imagem - largura
+        imageViewAlimento.setFitHeight(36); // pixel da imagem - altura
+        imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
+        imageViewAlimento.setSmooth(true); // preservar a qualidade
+        containerTabuleiro.getChildren().add(imageViewAlimento); // adicionar a imagem no anchorPane
+        AnchorPane.setLeftAnchor(imageViewAlimento, null); // não puxar a imagem para lateralEsquerda
+        AnchorPane.setTopAnchor(imageViewAlimento, null); // não puxar a imagem para o topo
         imageViewAlimento.setLayoutX(imageViewRobo.getLayoutX() + movimento * tabuleiro.getAlimentoX());
         imageViewAlimento.setLayoutY(imageViewRobo.getLayoutY() - movimento * tabuleiro.getAlimentoY());
     }
 
     @FXML
     public void acaoBotaoMovimento(ActionEvent event) {
-        buttonMovimento.setDisable(true);
+        buttonMover.setDisable(true); // desabilitar botão após o clique
         try {
             Direcao dir = Direcao.fromString(textFieldMovimento.getText());
             tabuleiro.moverRobo(robo, dir);
@@ -120,7 +115,7 @@ public class TabuleiroController {
         new Thread(() -> {
             try {
                 Thread.sleep(1500);
-                Platform.runLater(() -> buttonMovimento.setDisable(false));
+                Platform.runLater(() -> buttonMover.setDisable(false));
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
