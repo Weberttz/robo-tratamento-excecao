@@ -10,9 +10,9 @@ import java.io.IOException;
 public class TelaInicialPage extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TelaInicialPage.class.getResource("/com/projetorobo/telaEscolhaUsuario.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TelaInicialPage.class.getResource("/com/projetorobo/telaInicial.fxml"));
         stage.setResizable(false);
-        Scene scene = new Scene(fxmlLoader.load(), 517, 387);
+        Scene scene = new Scene(fxmlLoader.load(), 338, 175);
         stage.setTitle("Projeto!");
         stage.setScene(scene);
         stage.show();
