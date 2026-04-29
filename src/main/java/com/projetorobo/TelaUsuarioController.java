@@ -53,8 +53,9 @@ public class TelaUsuarioController {
                 int x = Integer.parseInt(textPosX.getText());
                 int y = Integer.parseInt(textPosY.getText());
                 String cor = comboBoxCorRobo.getValue().toString().toUpperCase();
+                Dificuldade dificuldade = comboBoxDificuldade.getValue();
 
-                controller.receberDados(x, y, cor);
+                controller.receberDados(x, y, cor, dificuldade);
 
                 Stage stage = new Stage();
                 stage.setTitle("Projeto!");

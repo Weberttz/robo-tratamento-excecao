@@ -491,7 +491,7 @@
                         <Image url="@../../imagens/tile1.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imageViewRobo" fitHeight="35.0" fitWidth="63.0" layoutX="-1.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageViewRobo1" fitHeight="35.0" fitWidth="63.0" layoutX="-1.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../imagens/robos/amarelo-down-2.png" />
                      </image>
@@ -527,6 +527,11 @@
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="315.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../imagens/tile1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imageViewRobo2" fitHeight="35.0" fitWidth="63.0" layoutX="34.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imagens/robos/azul-down-2.png" />
                      </image>
                   </ImageView>
                </children>

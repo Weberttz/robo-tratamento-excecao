@@ -3,8 +3,11 @@ package com.projetorobo;
 import com.projetorobo.board.Tabuleiro;
 import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
+import com.projetorobo.model.enums.CategoriaRobo;
+import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.robos.Robo;
+import com.projetorobo.model.robos.RoboInteligente;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,9 +36,12 @@ public class TabuleiroController {
     private ImageView imageViewAlimento = new ImageView(alimentoImg);
     private Tabuleiro tabuleiro;
 
-    Robo robo;
+    private Robo robo1;
+    private Robo robo2;
     @FXML
-    private ImageView imageViewRobo;
+    private ImageView imageViewRobo1;
+    @FXML
+    private ImageView imageViewRobo2;
 
     @FXML
     private Button buttonMover;
@@ -52,17 +58,58 @@ public class TabuleiroController {
     private ObservableList<String> obsHistorico;
 
     //Age como se fosse um initialize, configura o tabuleiro com base no que precisamos
-    public void receberDados(int posicaoX, int posicaoY, String cor){
+    public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade){
         tabuleiro = new Tabuleiro(10, posicaoX, posicaoY);
-        robo = new Robo(cor);
-        tabuleiro.adicionarRobo(robo);
+        robo1 = new Robo(cor);
+        tabuleiro.adicionarRobo(robo1);
+        tabuleiro.colocarObstaculos(dificuldade);
 
+        imageViewRobo1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
+                robo1.getCor().toString().toLowerCase() + "-down-2.png"))));
 
-        imageViewRobo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
-                robo.getCor().toString().toLowerCase() + "-down-2.png"))));
+        imageViewRobo1.setLayoutX(posInicialX);
+        imageViewRobo1.setLayoutY(posInicialY);
 
-        imageViewRobo.setLayoutX(posInicialX);
-        imageViewRobo.setLayoutY(posInicialY);
+        imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
+        imageViewAlimento.setSmooth(true); // preservar a qualidade
+
+        imageViewAlimento.setFitHeight(35);
+        imageViewAlimento.setFitWidth(35);
+
+        containerTabuleiro.getChildren().add(imageViewAlimento); // adicionar a imagem no anchorPane
+
+        AnchorPane.setLeftAnchor(imageViewAlimento, null); // não puxar a imagem para lateralEsquerda
+        AnchorPane.setTopAnchor(imageViewAlimento, null); // não puxar a imagem para o topo
+        imageViewAlimento.setLayoutX(posInicialX + (tabuleiro.getAlimentoX() * movimento));
+        imageViewAlimento.setLayoutY(posInicialY - (tabuleiro.getAlimentoY() * movimento));
+    }
+
+    //Main2, Main3, Main4
+    public void receberDados(int posicaoX, int posicaoY, String corRobo1, String corRobo2,
+                             Dificuldade dificuldade, CategoriaRobo categoriaRobo1, CategoriaRobo categoriaRobo2){
+        tabuleiro = new Tabuleiro(10, posicaoX, posicaoY);
+        tabuleiro.colocarObstaculos(dificuldade);
+        switch (categoriaRobo1){
+            case BURRO -> robo1 = new Robo(corRobo1);
+            case INTELIGENTE -> robo1 = new RoboInteligente(corRobo1);
+        }
+
+        switch (categoriaRobo2){
+            case BURRO -> robo2 = new Robo(corRobo2);
+            case INTELIGENTE -> robo2 = new RoboInteligente(corRobo2);
+        }
+
+        imageViewRobo1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
+                robo1.getCor().toString().toLowerCase() + "-down-2.png"))));
+
+        imageViewRobo1.setLayoutX(posInicialX);
+        imageViewRobo1.setLayoutY(posInicialY);
+
+        imageViewRobo2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
+                robo2.getCor().toString().toLowerCase() + "-down-2.png"))));
+
+        imageViewRobo2.setLayoutX(posInicialX);
+        imageViewRobo2.setLayoutY(posInicialY);
 
         imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
         imageViewAlimento.setSmooth(true); // preservar a qualidade
@@ -79,7 +126,7 @@ public class TabuleiroController {
     }
 
     @FXML
-    public void movimentar(ActionEvent event) {
+    public void movimentar(ActionEvent event) { //Main1
         buttonMover.setDisable(true); // desabilitar botão após o clique
         try {
             Direcao dir = null;
@@ -88,12 +135,14 @@ public class TabuleiroController {
             }else {
                 dir = Direcao.fromString(textFieldMovimento.getText());
             }
-            tabuleiro.moverRobo(robo, dir);
-            direcionarImageViewRobo(dir);
-            String linha = String.format("%s - Robô em (%d,%d)%n", dir.toString().toLowerCase(), robo.getNewX(), robo.getNewY());
+            tabuleiro.moverRobo(robo1, dir);
+            direcionarImageViewRobo(robo1, imageViewRobo1, dir);
+            String linha = String.format("%s - Robô em (%d,%d)%n", dir.toString().toLowerCase(), robo1.getNewX(), robo1.getNewY());
             listaHistorico.add(linha);
+            tabuleiro.renderizar();
+            System.out.println();
         } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
-            System.out.printf("[%s] %s%n", robo.getCor(), e.getMessage());
+            System.out.printf("[%s] %s%n", robo1.getCor(), e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println("Direção desconhecida. Use: up, down, left, right  ou  1,2,3,4");
         }
@@ -101,14 +150,14 @@ public class TabuleiroController {
         obsHistorico = FXCollections.observableArrayList(listaHistorico);
         listViewHistorico.setItems(obsHistorico);
 
-        if (tabuleiro.verificarAlimento(robo)) {
+        if (tabuleiro.verificarAlimento(robo1)) {
             new Thread(() -> {
                 try {
                     Thread.sleep(1500);
                     Platform.runLater(() -> imageViewAlimento.setVisible(false));
                     System.out.println("Achou a comida");
-                    System.out.println("Movimentos válidos: " + robo.getMovimentosValidos());
-                    System.out.println("Movimentos inválidos: " + robo.getMovimentosInvalidos());
+                    System.out.println("Movimentos válidos: " + robo1.getMovimentosValidos());
+                    System.out.println("Movimentos inválidos: " + robo1.getMovimentosInvalidos());
 
                     Thread.sleep(1000);
                     Platform.runLater(() -> {
@@ -133,16 +182,16 @@ public class TabuleiroController {
     }
 
     @FXML
-    public void direcionarImageViewRobo(Direcao dir){
+    public void direcionarImageViewRobo(Robo robo, ImageView imageViewRobo, Direcao dir){
         switch (dir) {
-            case Direcao.LEFT: coletarFrames("left"); andarHorizontalmente(-1 * movimento); break;
-            case Direcao.RIGHT:coletarFrames("right"); andarHorizontalmente(movimento); break;
-            case Direcao.UP: coletarFrames("up"); andarVerticalmente( movimento); break;
-            case Direcao.DOWN: coletarFrames("down"); andarVerticalmente( -1 * movimento); break;
+            case Direcao.LEFT: coletarFrames(robo, imageViewRobo, "left"); andarHorizontalmente(imageViewRobo, -1 * movimento); break;
+            case Direcao.RIGHT:coletarFrames(robo, imageViewRobo, "right"); andarHorizontalmente(imageViewRobo, movimento); break;
+            case Direcao.UP: coletarFrames(robo, imageViewRobo, "up"); andarVerticalmente(imageViewRobo, movimento); break;
+            case Direcao.DOWN: coletarFrames(robo, imageViewRobo,"down"); andarVerticalmente( imageViewRobo, -1 * movimento); break;
         }
     }
 
-    public void coletarFrames(String strDir){
+    public void coletarFrames(Robo robo, ImageView imageViewRobo, String strDir){
         frame1 = imageViewRobo.getImage();
         frame2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" + robo.getCor().toString().toLowerCase() +
                 "-" + strDir + "-1.png")));
@@ -152,7 +201,7 @@ public class TabuleiroController {
                 + "-"  + strDir + "-3.png")));
     }
 
-    public void andarVerticalmente(int movimento){
+    public void andarVerticalmente(ImageView imageViewRobo, int movimento){
         new Thread(() -> {
             try {
                 Thread.sleep(333);
@@ -174,7 +223,7 @@ public class TabuleiroController {
         }).start();
     }
 
-    public void andarHorizontalmente(int movimento){
+    public void andarHorizontalmente(ImageView imageViewRobo, int movimento){
         new Thread(() -> {
             try {
 

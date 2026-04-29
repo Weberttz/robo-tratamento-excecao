@@ -147,7 +147,7 @@ public class Tabuleiro {
                espacoLivre = verificarEspacoLivre(posicaoX, posicaoY);
            }
            if(escolha.nextBoolean()){
-           obstaculos.add(new Pedra(1, posicaoX, posicaoY));
+               obstaculos.add(new Pedra(1, posicaoX, posicaoY));
            }else{
               obstaculos.add(new Bomba(0, posicaoX, posicaoY));
            }

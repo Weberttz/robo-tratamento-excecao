@@ -2,6 +2,7 @@ package com.projetorobo;
 
 import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Cor;
+import com.projetorobo.model.enums.Dificuldade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,8 +23,10 @@ public class TelaRobosController {
 
     private List<Cor> cores = new ArrayList<>();
     private List<CategoriaRobo> categorias = new ArrayList<>();
+    private List<Dificuldade> dificuldades = new ArrayList<>();
     private ObservableList<Cor> obsCores;
     private ObservableList<CategoriaRobo> obsCategotias;
+    private ObservableList<Dificuldade> obsDificuldades;
 
     @FXML
     private ImageView Robo;
@@ -44,6 +47,9 @@ public class TelaRobosController {
     private ComboBox<CategoriaRobo> comboBoxInteligenciaRobo2;
 
     @FXML
+    private ComboBox<Dificuldade> comboBoxDificuldade;
+
+    @FXML
     private TextField textPosX;
 
     @FXML
@@ -60,6 +66,18 @@ public class TelaRobosController {
             //Carregador - o que carrega
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetorobo/tabuleiro.fxml"));
             Parent root = loader.load();
+
+            int posicaoXAlimento = Integer.parseInt(textPosX.getText());
+            int posicaoYAlimento = Integer.parseInt(textPosY.getText());
+            String corRobo1 = comboBoxCorRobo1.getValue().toString();
+            String corRobo2 = comboBoxCorRobo2.getValue().toString();
+            Dificuldade dificuldade = comboBoxDificuldade.getValue();
+            CategoriaRobo categoriaRobo1 = comboBoxInteligenciaRobo1.getValue();
+            CategoriaRobo categoriaRobo2 = comboBoxInteligenciaRobo2.getValue();
+
+            TabuleiroController controller = loader.getController();
+            controller.receberDados(posicaoXAlimento, posicaoYAlimento, corRobo1, corRobo2,
+                    dificuldade, categoriaRobo1, categoriaRobo2);
 
             //Estágio - (Janela)
             Stage stage = new Stage();
@@ -88,13 +106,19 @@ public class TelaRobosController {
         categorias.add(CategoriaRobo.INTELIGENTE);
         categorias.add(CategoriaRobo.BURRO);
 
+        dificuldades.add(Dificuldade.FASSILIMO);
+        dificuldades.add(Dificuldade.FACIL);
+        dificuldades.add(Dificuldade.MEDIO);
+        dificuldades.add(Dificuldade.DIFICIL);
+
         obsCores = FXCollections.observableArrayList(cores);
         obsCategotias = FXCollections.observableArrayList(categorias);
+        obsDificuldades = FXCollections.observableArrayList(dificuldades);
 
         comboBoxCorRobo1.setItems(obsCores);
         comboBoxCorRobo2.setItems(obsCores);
         comboBoxInteligenciaRobo1.setItems(obsCategotias);
         comboBoxInteligenciaRobo2.setItems(obsCategotias);
+        comboBoxDificuldade.setItems(obsDificuldades);
     }
-
 }
