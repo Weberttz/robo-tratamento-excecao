@@ -1,6 +1,7 @@
 package com.projetorobo;
 
 import com.projetorobo.model.enums.Cor;
+import com.projetorobo.model.enums.Dificuldade;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,12 +19,15 @@ import java.util.List;
 public class TelaUsuarioController {
 
     private List<Cor> cores = new ArrayList<>();
+    private List<Dificuldade> dificuldades = new ArrayList<>();
 
     @FXML
     private Button buttonIniciar;
 
     @FXML
     private ComboBox<Cor> comboBoxCorRobo;
+    @FXML
+    private ComboBox<Dificuldade> comboBoxDificuldade;
 
     @FXML
     private TextField textPosX;
@@ -33,7 +37,7 @@ public class TelaUsuarioController {
 
     @FXML
     public void initialize() {
-        carregarComboBox();
+        carregarComboBoxes();
     }
 
     @FXML
@@ -58,7 +62,7 @@ public class TelaUsuarioController {
                 stage.setScene(new Scene(root, 634, 577));
                 stage.show();
 
-                // pega a janela que o botão está insrido
+                // pega a janela que o botão está inserido
                 Stage currentStage = (Stage) buttonIniciar.getScene().getWindow();
                 currentStage.close();
 
@@ -68,12 +72,17 @@ public class TelaUsuarioController {
         }
     }
 
-    private void carregarComboBox() {
+    private void carregarComboBoxes() {
         cores.add(Cor.VERMELHO);
         cores.add(Cor.AZUL);
         cores.add(Cor.MARROM);
         cores.add(Cor.AMARELO);
+        dificuldades.add(Dificuldade.FASSILIMO);
+        dificuldades.add(Dificuldade.FACIL);
+        dificuldades.add(Dificuldade.MEDIO);
+        dificuldades.add(Dificuldade.DIFICIL);
 
         comboBoxCorRobo.setItems(FXCollections.observableArrayList(cores));
+        comboBoxDificuldade.setItems(FXCollections.observableArrayList(dificuldades));
     }
 }

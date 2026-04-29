@@ -27,7 +27,7 @@ public class Main4 {
         tabuleiro.adicionarRobo(inteligente);
         inteligente.modificarPosicaoInicial(2, 2);
 
-        System.out.print("Dificuldade (facil / medio / dificil): ");
+        System.out.print("Dificuldade (fassilimo / facil / medio / dificil): ");
         tabuleiro.colocarObstaculos(Dificuldade.fromString(sc.next().trim().toLowerCase()));
 
         System.out.println("\nInício:");
