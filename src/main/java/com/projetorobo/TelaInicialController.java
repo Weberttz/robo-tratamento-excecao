@@ -17,12 +17,13 @@ import java.util.List;
 
 public class TelaInicialController {
 
+    private List<Modo> modosDeJogo = new ArrayList<>();
+
     @FXML
     private Button buttonJogar;
 
     @FXML
     private ComboBox<Modo> comboBoxModoJogo;
-    private List<Modo> modosDeJogo = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -45,8 +46,7 @@ public class TelaInicialController {
 
             switch (modoEscolhido){
                 case USUARIO -> caminho = "/com/projetorobo/telaUsuario.fxml";
-                case COMPETITIVO -> caminho = "/com/projetorobo/telaCompetitivo.fxml";
-                case COOPERATIVO -> caminho = "/com/projetorobo/telaCooperativo.fxml";
+                case COMPETITIVO, COOPERATIVO -> caminho = "/com/projetorobo/telaRobos.fxml";
                 default -> caminho = "com/projetorobo/telaInicial.fxml"; // alterar dps
             }
 
@@ -57,15 +57,14 @@ public class TelaInicialController {
                 Stage stage = new Stage();
                 stage.setTitle("Modo de Jogo - " + modoEscolhido.name().toLowerCase());
                 stage.setResizable(false);
-                stage.setScene(new Scene(root, 517, 402));
+                stage.setScene(new Scene(root, 600, 398));
                 stage.show();
 
                 Stage currentStage = (Stage) buttonJogar.getScene().getWindow();
                 currentStage.close();
             }catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-
+            }
         }
     }
 

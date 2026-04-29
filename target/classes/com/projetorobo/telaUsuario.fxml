@@ -58,7 +58,7 @@
             </ImageView>
             <Label layoutX="291.0" layoutY="220.0" prefHeight="46.0" prefWidth="162.0" text="Cor do robô:" textAlignment="CENTER" textFill="WHITE" />
             <ComboBox fx:id="comboBoxCorRobo" layoutX="290.0" layoutY="266.0" prefHeight="26.0" prefWidth="162.0" />
-            <Button fx:id="buttonIniciar" layoutX="342.0" layoutY="313.0" mnemonicParsing="false" onAction="#clicouNoBotaoIniciar" text="Iniciar" />
+            <Button fx:id="buttonIniciar" layoutX="342.0" layoutY="313.0" mnemonicParsing="false" onAction="#comecarJogo" text="Começar" />
          </children>
       </AnchorPane>
    </children>

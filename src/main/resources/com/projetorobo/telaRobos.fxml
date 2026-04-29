@@ -46,7 +46,7 @@
                         </ImageView>
                     </children>
                 </AnchorPane>
-                <Label layoutX="173.0" layoutY="5.0" prefHeight="46.0" prefWidth="238.0" text="Tela de Escolha dos Robos" textAlignment="CENTER" textFill="WHITE">
+                <Label layoutX="171.0" layoutY="8.0" prefHeight="46.0" prefWidth="272.0" text="Tela de Escolha dos Robos" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -71,30 +71,30 @@
                         <AnchorPane layoutX="1.0" layoutY="29.0" prefHeight="41.0" prefWidth="135.0">
                            <children>
                               <Label layoutX="9.0" layoutY="2.0" text="Cor" textFill="WHITE" />
-                              <TextField layoutX="7.0" layoutY="19.0" prefHeight="12.0" prefWidth="112.0" />
+                              <ComboBox fx:id="comboBoxCorRobo1" layoutX="9.0" layoutY="19.0" prefHeight="12.0" prefWidth="111.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="2.0" layoutY="79.0" prefHeight="48.0" prefWidth="135.0">
                            <children>
                               <Label layoutX="7.0" layoutY="1.0" text="Nível cognitivo" textFill="WHITE" />
-                              <ComboBox layoutX="6.0" layoutY="19.0" prefHeight="12.0" prefWidth="111.0" />
+                              <ComboBox fx:id="comboBoxInteligenciaRobo1" layoutX="6.0" layoutY="19.0" prefHeight="12.0" prefWidth="111.0" />
                            </children>
                         </AnchorPane>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="175.0" prefWidth="144.0" GridPane.columnIndex="1">
                      <children>
-                        <Label layoutX="50.0" layoutY="4.0" text="Robô 2" textFill="WHITE" />
-                        <AnchorPane layoutX="2.0" layoutY="30.0" prefHeight="41.0" prefWidth="135.0">
+                        <Label layoutX="50.0" layoutY="3.0" text="Robô 2" textFill="WHITE" />
+                        <AnchorPane layoutX="1.0" layoutY="29.0" prefHeight="41.0" prefWidth="135.0">
                            <children>
                               <Label layoutX="9.0" layoutY="2.0" text="Cor" textFill="WHITE" />
-                              <TextField layoutX="7.0" layoutY="19.0" prefHeight="12.0" prefWidth="112.0" />
+                              <ComboBox fx:id="comboBoxCorRobo2" layoutX="9.0" layoutY="19.0" prefHeight="12.0" prefWidth="111.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="1.0" layoutY="80.0" prefHeight="48.0" prefWidth="135.0">
                            <children>
                               <Label layoutX="8.0" layoutY="1.0" text="Nível cognitivo" textFill="WHITE" />
-                              <ComboBox layoutX="7.0" layoutY="19.0" prefHeight="12.0" prefWidth="111.0" />
+                              <ComboBox fx:id="comboBoxInteligenciaRobo2" layoutX="7.0" layoutY="19.0" prefHeight="12.0" prefWidth="111.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -105,10 +105,10 @@
                <children>
                   <TextField fx:id="textPosX" layoutX="7.0" layoutY="39.0" prefHeight="25.0" prefWidth="110.0" />
                   <Label layoutX="9.0" layoutY="-1.0" prefHeight="46.0" prefWidth="162.0" text="Pos x do alimento:" textAlignment="CENTER" textFill="WHITE" />
-                  <TextField fx:id="textPosY" layoutX="146.0" layoutY="40.0" prefHeight="25.0" prefWidth="108.0" />
-                  <Label layoutX="149.0" layoutY="-2.0" prefHeight="50.0" prefWidth="100.0" text="Pos y do alimento:" textAlignment="CENTER" textFill="WHITE" />
+                  <TextField fx:id="textPosY" layoutX="149.0" layoutY="39.0" prefHeight="25.0" prefWidth="108.0" />
+                  <Label layoutX="149.0" layoutY="-2.0" prefHeight="50.0" prefWidth="123.0" text="Pos y do alimento:" textAlignment="CENTER" textFill="WHITE" />
                   <Separator layoutX="10.0" layoutY="7.0" prefHeight="3.0" prefWidth="246.0" />
-                  <Button layoutX="102.0" layoutY="87.0" mnemonicParsing="false" text="Começar" />
+                  <Button fx:id="buttonComecar" layoutX="102.0" layoutY="87.0" mnemonicParsing="false" onAction="#comecarJogo" text="Começar" />
                </children>
             </AnchorPane>
             </children>

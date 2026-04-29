@@ -545,7 +545,7 @@
                   <Label layoutX="59.0" layoutY="73.0" text="2. down" textFill="#fffdfd" />
                   <Label layoutX="122.0" layoutY="73.0" text="3. left" textFill="#fffdfd" />
                   <Label layoutX="172.0" layoutY="73.0" text="4. right" textFill="#fffdfd" />
-                  <Button fx:id="buttonMover" layoutX="273.0" layoutY="32.0" mnemonicParsing="false" onAction="#acaoBotaoMovimento" prefHeight="30.0" prefWidth="71.0" text="Mover" />
+                  <Button fx:id="buttonMover" layoutX="273.0" layoutY="32.0" mnemonicParsing="false" onAction="#movimentar" prefHeight="30.0" prefWidth="71.0" text="Mover" />
                </children>
             </AnchorPane>
          </children>

@@ -55,18 +55,23 @@ public class TabuleiroController {
     public void receberDados(int posicaoX, int posicaoY, String cor){
         tabuleiro = new Tabuleiro(10, posicaoX, posicaoY);
         robo = new Robo(cor);
+        tabuleiro.adicionarRobo(robo);
+
 
         imageViewRobo.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
                 robo.getCor().toString().toLowerCase() + "-down-2.png"))));
 
-        tabuleiro.adicionarRobo(robo);
         imageViewRobo.setLayoutX(posInicialX);
         imageViewRobo.setLayoutY(posInicialY);
-        imageViewAlimento.setFitWidth(63); // pixel da imagem - largura
-        imageViewAlimento.setFitHeight(36); // pixel da imagem - altura
+
         imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
         imageViewAlimento.setSmooth(true); // preservar a qualidade
+
+        imageViewAlimento.setFitWidth(63); // pixel da imagem - largura
+        imageViewAlimento.setFitHeight(36); // pixel da imagem - altura
+
         containerTabuleiro.getChildren().add(imageViewAlimento); // adicionar a imagem no anchorPane
+
         AnchorPane.setLeftAnchor(imageViewAlimento, null); // não puxar a imagem para lateralEsquerda
         AnchorPane.setTopAnchor(imageViewAlimento, null); // não puxar a imagem para o topo
         imageViewAlimento.setLayoutX(imageViewRobo.getLayoutX() + movimento * tabuleiro.getAlimentoX());
@@ -74,7 +79,7 @@ public class TabuleiroController {
     }
 
     @FXML
-    public void acaoBotaoMovimento(ActionEvent event) {
+    public void movimentar(ActionEvent event) {
         buttonMover.setDisable(true); // desabilitar botão após o clique
         try {
             Direcao dir = null;

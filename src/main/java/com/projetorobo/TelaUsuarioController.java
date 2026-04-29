@@ -17,12 +17,13 @@ import java.util.List;
 
 public class TelaUsuarioController {
 
+    private List<Cor> cores = new ArrayList<>();
+
     @FXML
     private Button buttonIniciar;
 
     @FXML
     private ComboBox<Cor> comboBoxCorRobo;
-    private List<Cor> cores = new ArrayList<>();
 
     @FXML
     private TextField textPosX;
@@ -36,7 +37,7 @@ public class TelaUsuarioController {
     }
 
     @FXML
-    public void clicouNoBotaoIniciar(ActionEvent event) {
+    public void comecarJogo(ActionEvent event) {
 
         if(textPosX.getText() != null && textPosY.getText() != null && comboBoxCorRobo.getValue() != null ){
             try {
@@ -57,8 +58,10 @@ public class TelaUsuarioController {
                 stage.setScene(new Scene(root, 634, 577));
                 stage.show();
 
+                // pega a janela que o botão está insrido
                 Stage currentStage = (Stage) buttonIniciar.getScene().getWindow();
                 currentStage.close();
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -66,11 +69,6 @@ public class TelaUsuarioController {
     }
 
     private void carregarComboBox() {
-//        Cor vermelha = Cor.VERMELHO;
-//        Cor azul = Cor.AZUL;
-//        Cor marrom = Cor.MARROM;
-//        Cor amarelo = Cor.AMARELO;
-
         cores.add(Cor.VERMELHO);
         cores.add(Cor.AZUL);
         cores.add(Cor.MARROM);
@@ -78,8 +76,4 @@ public class TelaUsuarioController {
 
         comboBoxCorRobo.setItems(FXCollections.observableArrayList(cores));
     }
-
-    public TextField getTextPosX() {return textPosX;}
-    public TextField getTextPosY() {return textPosY;}
-    public ComboBox getComboBoxCorRobo() { return comboBoxCorRobo;}
 }
