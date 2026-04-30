@@ -3,6 +3,7 @@ package com.projetorobo;
 import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
+import com.projetorobo.model.enums.Modo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,6 +28,8 @@ public class TelaRobosController {
     private ObservableList<Cor> obsCores;
     private ObservableList<CategoriaRobo> obsCategotias;
     private ObservableList<Dificuldade> obsDificuldades;
+
+    private Modo modoDeJogo;
 
     @FXML
     private ImageView Robo;
@@ -77,7 +80,7 @@ public class TelaRobosController {
 
             TabuleiroController controller = loader.getController();
             controller.receberDados(posicaoXAlimento, posicaoYAlimento, corRobo1, corRobo2,
-                    dificuldade, categoriaRobo1, categoriaRobo2);
+                    dificuldade, categoriaRobo1, categoriaRobo2, modoDeJogo);
 
             //Estágio - (Janela)
             Stage stage = new Stage();
@@ -120,5 +123,9 @@ public class TelaRobosController {
         comboBoxInteligenciaRobo1.setItems(obsCategotias);
         comboBoxInteligenciaRobo2.setItems(obsCategotias);
         comboBoxDificuldade.setItems(obsDificuldades);
+    }
+
+    public void receberDados(Modo modo){
+        this.modoDeJogo = modo;
     }
 }

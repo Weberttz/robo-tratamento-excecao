@@ -63,6 +63,14 @@ public class TelaInicialController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(caminho));
                 Parent root = loader.load();
 
+                if (modoEscolhido == Modo.USUARIO) {
+                    TelaUsuarioController controller1 = loader.getController();
+                    controller1.receberDados(modoEscolhido);
+                } else if (modoEscolhido == Modo.COMPETITIVO || modoEscolhido == Modo.COOPERATIVO){
+                    TelaRobosController controller2 = loader.getController();
+                    controller2.receberDados(modoEscolhido);
+                }
+
                 Stage stage = new Stage();
                 stage.setTitle("Modo de Jogo - " + modoEscolhido.name().toLowerCase());
                 stage.setResizable(false);

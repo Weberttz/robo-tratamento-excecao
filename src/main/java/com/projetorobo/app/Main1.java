@@ -1,26 +1,46 @@
 package com.projetorobo.app;
 
 import com.projetorobo.board.Tabuleiro;
+import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.robos.Robo;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main1 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        int tamanhoTabuleiro = 4;
+        int alimentoX = 0;
+        int alimentoY = 0;
 
         System.out.print("Cor do robô: ");
         Robo robo = new Robo(sc.next());
 
-        System.out.print("X do alimento (0-3): ");
-        int alimentoX = sc.nextInt();
-        System.out.print("Y do alimento (0-3): ");
-        int alimentoY = sc.nextInt();
+        boolean alimentoPosicionado = false;
+        while(!alimentoPosicionado) {
+            try {
+                System.out.print("X do alimento (0-3): ");
+                alimentoX = sc.nextInt();
+                System.out.print("Y do alimento (0-3): ");
+                alimentoY = sc.nextInt();
 
-        Tabuleiro tabuleiro = new Tabuleiro(4, alimentoX, alimentoY);
+                if(alimentoX < tamanhoTabuleiro && alimentoY < tamanhoTabuleiro)
+                    alimentoPosicionado = true;
+                else
+                    System.out.println("Alimento fora do tabuleiro, impossível!");
+
+            } catch (InputMismatchException exception) {
+                System.out.println("Valores inválidos");
+                sc.nextLine();  // Limpa o buffer
+            }
+        }
+
+        Tabuleiro tabuleiro = new Tabuleiro(tamanhoTabuleiro, alimentoX, alimentoY);
         tabuleiro.adicionarRobo(robo);
         tabuleiro.renderizar();
 

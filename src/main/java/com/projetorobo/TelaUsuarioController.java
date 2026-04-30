@@ -2,6 +2,7 @@ package com.projetorobo;
 
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
+import com.projetorobo.model.enums.Modo;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ public class TelaUsuarioController {
 
     private List<Cor> cores = new ArrayList<>();
     private List<Dificuldade> dificuldades = new ArrayList<>();
+    private Modo modoDeJogo;
 
     @FXML
     private Button buttonIniciar;
@@ -55,7 +57,7 @@ public class TelaUsuarioController {
                 String cor = comboBoxCorRobo.getValue().toString().toUpperCase();
                 Dificuldade dificuldade = comboBoxDificuldade.getValue();
 
-                controller.receberDados(x, y, cor, dificuldade);
+                controller.receberDados(x, y, cor, dificuldade, modoDeJogo);
 
                 Stage stage = new Stage();
                 stage.setTitle("Projeto!");
@@ -85,5 +87,9 @@ public class TelaUsuarioController {
 
         comboBoxCorRobo.setItems(FXCollections.observableArrayList(cores));
         comboBoxDificuldade.setItems(FXCollections.observableArrayList(dificuldades));
+    }
+
+    public void receberDados(Modo modo){
+        this.modoDeJogo = modo;
     }
 }

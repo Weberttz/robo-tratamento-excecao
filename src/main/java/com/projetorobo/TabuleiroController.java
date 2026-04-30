@@ -6,6 +6,7 @@ import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Direcao;
+import com.projetorobo.model.enums.Modo;
 import com.projetorobo.model.robos.Robo;
 import com.projetorobo.model.robos.RoboInteligente;
 import javafx.animation.KeyFrame;
@@ -38,6 +39,9 @@ public class TabuleiroController implements Initializable {
     private int posInicialY = 315;
     private int turno = 1;
 
+    private int tempoTimeLine = 100;
+    private int tempoTrocaFrame  = (int) 0.25 * tempoTimeLine;
+
     private Image frame1, frame2, frame3;
     private Image alimentoImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pizza.png")));
     private Image bombaImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/bomb.png")));
@@ -45,6 +49,7 @@ public class TabuleiroController implements Initializable {
 
     private ImageView imageViewAlimento = new ImageView(alimentoImg);
     private Tabuleiro tabuleiro;
+    private Modo modoDeJogo;
 
     private Robo robo1;
     private Robo robo2;
@@ -82,8 +87,11 @@ public class TabuleiroController implements Initializable {
     }
 
     //Age como se fosse um initialize, configura o tabuleiro com base no que precisamos
-    public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade){
+    public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade, Modo modoDeJogo){
         tabuleiro = new Tabuleiro(10, posicaoX, posicaoY);
+
+        this.modoDeJogo = modoDeJogo;
+
         robo1 = new Robo(cor);
         tabuleiro.adicionarRobo(robo1);
         tabuleiro.colocarObstaculos(dificuldade);
@@ -102,8 +110,10 @@ public class TabuleiroController implements Initializable {
 
     //Main2, Main3, Main4
     public void receberDados(int posicaoX, int posicaoY, String corRobo1, String corRobo2,
-                             Dificuldade dificuldade, CategoriaRobo categoriaRobo1, CategoriaRobo categoriaRobo2){
+                             Dificuldade dificuldade, CategoriaRobo categoriaRobo1, CategoriaRobo categoriaRobo2, Modo modoDeJogo){
         buttonMover.setDisable(true);
+
+        this.modoDeJogo = modoDeJogo;
         tabuleiro = new Tabuleiro(10, posicaoX, posicaoY);
         tabuleiro.colocarObstaculos(dificuldade);
 
@@ -219,16 +229,16 @@ public class TabuleiroController implements Initializable {
     public void andarVerticalmente(ImageView imageViewRobo, Direcao direcao){
         new Thread(() -> {
             try {
-                Thread.sleep(333);
+                Thread.sleep(tempoTrocaFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame1));
 
-                Thread.sleep(333);
+                Thread.sleep(tempoTrocaFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame2));
 
-                Thread.sleep(333);
+                Thread.sleep(tempoTrocaFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame3));
 
-                Thread.sleep(333);
+                Thread.sleep(tempoTrocaFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame2));
                 moverImageView(imageViewRobo, direcao);
 
@@ -241,18 +251,18 @@ public class TabuleiroController implements Initializable {
     public void andarHorizontalmente(ImageView imageViewRobo, Direcao direcao){
         new Thread(() -> {
             try {
-                Thread.sleep(333);
+                Thread.sleep(tempoTrocaFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame1));
 
 
-                Thread.sleep(333);
+                Thread.sleep(tempoTrocaFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame2));
 
 
-                Thread.sleep(333);
+                Thread.sleep(tempoTrocaFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame3));
 
-                Thread.sleep(333);
+                Thread.sleep(tempoTrocaFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame2));
                 moverImageView(imageViewRobo, direcao);
 
@@ -274,33 +284,17 @@ public class TabuleiroController implements Initializable {
     public void controlarRobos(){
         tabuleiro.renderizar();
         Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(3000), e ->{
+        timeline.getKeyFrames().add(new KeyFrame(Duration.millis(tempoTimeLine), e ->{
 
-            if(turno%2 == 1) {
+            if(turno%2 == 1)
                 jogarTurno(robo1, imageViewRobo1, tabuleiro);
-            }else
+            else
                 jogarTurno(robo2, imageViewRobo2, tabuleiro);
 
-            if (tabuleiro.verificarAlimento(robo1) || tabuleiro.verificarAlimento(robo2)) {
-                new Thread(() -> {
-                    try {
-                        Thread.sleep(1500);
-                        Platform.runLater(() -> imageViewAlimento.setVisible(false));
-                        Thread.sleep(1000);
-                        Platform.runLater(() -> {
-                            Stage stage = (Stage) imageViewAlimento.getScene().getWindow();
-                            stage.close();
-                        });
-                    } catch (InterruptedException exception) {
-                        Thread.currentThread().interrupt();
-                    }
-                }).start();
-                timeline.stop();
-                System.out.printf("%n[%s] válidos: %d | inválidos: %d%n",
-                        robo1.getCor(), robo1.getMovimentosValidos(), robo1.getMovimentosInvalidos());
-                System.out.printf("%n[%s] válidos: %d | inválidos: %d%n",
-                        robo2.getCor(), robo2.getMovimentosValidos(), robo2.getMovimentosInvalidos());
-            }
+            verificarEFinalizarJogo(timeline);
+
+
+
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -321,5 +315,48 @@ public class TabuleiroController implements Initializable {
         tabuleiro.renderizar();
         turno++;
         return tabuleiro.verificarAlimento(robo);
+    }
+
+    public void verificarEFinalizarJogo(Timeline timeline){
+        if (tabuleiro.verificarAlimento(robo1) || tabuleiro.verificarAlimento(robo2) && modoDeJogo == Modo.COMPETITIVO) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1500);
+                    Platform.runLater(() -> imageViewAlimento.setVisible(false));
+                    Thread.sleep(1000);
+                    Platform.runLater(() -> {
+                        Stage stage = (Stage) imageViewAlimento.getScene().getWindow();
+                        stage.close();
+                    });
+                } catch (InterruptedException exception) {
+                    Thread.currentThread().interrupt();
+                }
+            }).start();
+            timeline.stop();
+            System.out.printf("%n[%s] válidos: %d | inválidos: %d%n",
+                    robo1.getCor(), robo1.getMovimentosValidos(), robo1.getMovimentosInvalidos());
+            System.out.printf("%n[%s] válidos: %d | inválidos: %d%n",
+                    robo2.getCor(), robo2.getMovimentosValidos(), robo2.getMovimentosInvalidos());
+        }
+        else if(tabuleiro.verificarAlimento(robo1) && tabuleiro.verificarAlimento(robo2) && modoDeJogo == Modo.COOPERATIVO) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1500);
+                    Platform.runLater(() -> imageViewAlimento.setVisible(false));
+                    Thread.sleep(1000);
+                    Platform.runLater(() -> {
+                        Stage stage = (Stage) imageViewAlimento.getScene().getWindow();
+                        stage.close();
+                    });
+                } catch (InterruptedException exception) {
+                    Thread.currentThread().interrupt();
+                }
+            }).start();
+            timeline.stop();
+            System.out.printf("%n[%s] válidos: %d | inválidos: %d%n",
+                    robo1.getCor(), robo1.getMovimentosValidos(), robo1.getMovimentosInvalidos());
+            System.out.printf("%n[%s] válidos: %d | inválidos: %d%n",
+                    robo2.getCor(), robo2.getMovimentosValidos(), robo2.getMovimentosInvalidos());
+        }
     }
 }
