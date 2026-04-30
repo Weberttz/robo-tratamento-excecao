@@ -84,7 +84,7 @@ public class TelaRobosController {
             stage.setTitle("Projeto");
             stage.setResizable(false);
             //Cena - tem elementos, produz animações
-            Scene scene = new Scene(root, 634, 577);
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
 

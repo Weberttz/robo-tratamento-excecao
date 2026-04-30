@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -21,10 +22,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class TabuleiroController {
+public class TabuleiroController implements Initializable {
 
     int movimento = 35;
     int posInicialX = 0;
@@ -32,6 +35,8 @@ public class TabuleiroController {
 
     private Image frame1, frame2, frame3, frame4;
     private Image alimentoImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pizza.png")));
+    private Image bombaImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/bomb.png")));
+    private Image pedraImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pizza.png")));
 
     private ImageView imageViewAlimento = new ImageView(alimentoImg);
     private Tabuleiro tabuleiro;
@@ -57,6 +62,20 @@ public class TabuleiroController {
     private ArrayList<String> listaHistorico = new ArrayList<>();
     private ObservableList<String> obsHistorico;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
+        imageViewAlimento.setSmooth(true); // preservar a qualidade
+
+        imageViewAlimento.setFitHeight(35);
+        imageViewAlimento.setFitWidth(35);
+
+        containerTabuleiro.getChildren().add(imageViewAlimento); // adicionar a imagem no anchorPane
+
+        AnchorPane.setLeftAnchor(imageViewAlimento, null); // não puxar a imagem para lateralEsquerda
+        AnchorPane.setTopAnchor(imageViewAlimento, null); // não puxar a imagem para o topo
+    }
+
     //Age como se fosse um initialize, configura o tabuleiro com base no que precisamos
     public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade){
         tabuleiro = new Tabuleiro(10, posicaoX, posicaoY);
@@ -70,16 +89,8 @@ public class TabuleiroController {
         imageViewRobo1.setLayoutX(posInicialX);
         imageViewRobo1.setLayoutY(posInicialY);
 
-        imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
-        imageViewAlimento.setSmooth(true); // preservar a qualidade
+        imageViewRobo2.setVisible(false);
 
-        imageViewAlimento.setFitHeight(35);
-        imageViewAlimento.setFitWidth(35);
-
-        containerTabuleiro.getChildren().add(imageViewAlimento); // adicionar a imagem no anchorPane
-
-        AnchorPane.setLeftAnchor(imageViewAlimento, null); // não puxar a imagem para lateralEsquerda
-        AnchorPane.setTopAnchor(imageViewAlimento, null); // não puxar a imagem para o topo
         imageViewAlimento.setLayoutX(posInicialX + (tabuleiro.getAlimentoX() * movimento));
         imageViewAlimento.setLayoutY(posInicialY - (tabuleiro.getAlimentoY() * movimento));
     }
@@ -89,6 +100,7 @@ public class TabuleiroController {
                              Dificuldade dificuldade, CategoriaRobo categoriaRobo1, CategoriaRobo categoriaRobo2){
         tabuleiro = new Tabuleiro(10, posicaoX, posicaoY);
         tabuleiro.colocarObstaculos(dificuldade);
+
         switch (categoriaRobo1){
             case BURRO -> robo1 = new Robo(corRobo1);
             case INTELIGENTE -> robo1 = new RoboInteligente(corRobo1);
@@ -99,6 +111,11 @@ public class TabuleiroController {
             case INTELIGENTE -> robo2 = new RoboInteligente(corRobo2);
         }
 
+        tabuleiro.adicionarRobo(robo1);
+        tabuleiro.adicionarRobo(robo2);
+
+        robo2.modificarPosicaoInicial(0, 1);
+
         imageViewRobo1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
                 robo1.getCor().toString().toLowerCase() + "-down-2.png"))));
 
@@ -108,19 +125,9 @@ public class TabuleiroController {
         imageViewRobo2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
                 robo2.getCor().toString().toLowerCase() + "-down-2.png"))));
 
-        imageViewRobo2.setLayoutX(posInicialX);
-        imageViewRobo2.setLayoutY(posInicialY);
+        imageViewRobo2.setLayoutX(posInicialX + robo2.getNewX() * movimento);
+        imageViewRobo2.setLayoutY(posInicialY - robo2.getNewY() * movimento);
 
-        imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
-        imageViewAlimento.setSmooth(true); // preservar a qualidade
-
-        imageViewAlimento.setFitHeight(35);
-        imageViewAlimento.setFitWidth(35);
-
-        containerTabuleiro.getChildren().add(imageViewAlimento); // adicionar a imagem no anchorPane
-
-        AnchorPane.setLeftAnchor(imageViewAlimento, null); // não puxar a imagem para lateralEsquerda
-        AnchorPane.setTopAnchor(imageViewAlimento, null); // não puxar a imagem para o topo
         imageViewAlimento.setLayoutX(posInicialX + (tabuleiro.getAlimentoX() * movimento));
         imageViewAlimento.setLayoutY(posInicialY - (tabuleiro.getAlimentoY() * movimento));
     }
@@ -129,7 +136,7 @@ public class TabuleiroController {
     public void movimentar(ActionEvent event) { //Main1
         buttonMover.setDisable(true); // desabilitar botão após o clique
         try {
-            Direcao dir = null;
+            Direcao dir;
             if(textFieldMovimento.getText().matches("\\d+")){
                 dir = Direcao.fromInt(Integer.parseInt(textFieldMovimento.getText()));
             }else {
