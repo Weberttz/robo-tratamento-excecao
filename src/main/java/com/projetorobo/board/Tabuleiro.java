@@ -162,6 +162,7 @@ public class Tabuleiro {
     public void setAlimento(int x, int y) { this.alimentoX = x; this.alimentoY = y; }
     public int getTamanho()    { return tamanho; }
     public List<Robo> getRobos() { return robos; }
+    public List<Obstaculo> getObstaculos() { return obstaculos;}
     public int getAlimentoX()  { return alimentoX; }
     public int getAlimentoY()  { return alimentoY; }
 }

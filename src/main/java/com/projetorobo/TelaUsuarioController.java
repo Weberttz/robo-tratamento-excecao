@@ -1,5 +1,7 @@
 package com.projetorobo;
 
+import com.almasb.fxgl.core.fsm.StateMachine;
+import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Modo;
@@ -22,6 +24,7 @@ public class TelaUsuarioController {
     private List<Cor> cores = new ArrayList<>();
     private List<Dificuldade> dificuldades = new ArrayList<>();
     private Modo modoDeJogo;
+    private int tamanhoTabuleiro = 10;
 
     @FXML
     private Button buttonIniciar;
@@ -44,7 +47,6 @@ public class TelaUsuarioController {
 
     @FXML
     public void comecarJogo(ActionEvent event) {
-
         if(textPosX.getText() != null && textPosY.getText() != null && comboBoxCorRobo.getValue() != null ){
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetorobo/tabuleiro.fxml"));
@@ -54,6 +56,11 @@ public class TelaUsuarioController {
 
                 int x = Integer.parseInt(textPosX.getText());
                 int y = Integer.parseInt(textPosY.getText());
+
+                if(x > tamanhoTabuleiro || y > tamanhoTabuleiro){
+                    throw new AlimentoForaDoLimiteException();
+                }
+
                 String cor = comboBoxCorRobo.getValue().toString().toUpperCase();
                 Dificuldade dificuldade = comboBoxDificuldade.getValue();
 
@@ -69,7 +76,7 @@ public class TelaUsuarioController {
                 Stage currentStage = (Stage) buttonIniciar.getScene().getWindow();
                 currentStage.close();
 
-            } catch (Exception e) {
+            } catch (Exception e){
                 System.out.println(e.getMessage());
             }
         }

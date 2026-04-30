@@ -6,6 +6,7 @@ import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.robos.Robo;
+import com.sun.tools.javac.Main;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -20,7 +21,6 @@ public class Main1 {
 
         System.out.print("Cor do robô: ");
         Robo robo = new Robo(sc.next());
-
         boolean alimentoPosicionado = false;
         while(!alimentoPosicionado) {
             try {
@@ -32,11 +32,13 @@ public class Main1 {
                 if(alimentoX < tamanhoTabuleiro && alimentoY < tamanhoTabuleiro)
                     alimentoPosicionado = true;
                 else
-                    System.out.println("Alimento fora do tabuleiro, impossível!");
+                    throw new AlimentoForaDoLimiteException();
 
             } catch (InputMismatchException exception) {
                 System.out.println("Valores inválidos");
                 sc.nextLine();  // Limpa o buffer
+            } catch (AlimentoForaDoLimiteException exception){
+                System.out.println(exception.getMessage());
             }
         }
 
