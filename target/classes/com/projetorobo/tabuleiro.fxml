@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -9,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -17,516 +17,509 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <children>
+      <AnchorPane prefHeight="23.0" prefWidth="594.0" />
       <AnchorPane prefHeight="587.0" prefWidth="649.0">
          <children>
-            <AnchorPane fx:id="containerTabuleiro" layoutX="10.0" layoutY="55.0">
+            <AnchorPane fx:id="containerTabuleiro" layoutX="12.0" layoutY="59.0" prefHeight="348.0" prefWidth="350.0" style="-fx-border-width: 0;" styleClass="-fx-border-color: white; -fx-border-width: 2px;">
                <children>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="35.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="70.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="105.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="140.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="175.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="210.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="245.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="280.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="315.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="35.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="70.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="105.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="140.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="175.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="210.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="245.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="280.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="315.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="35.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="70.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="105.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="140.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="175.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="210.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="245.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="280.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="315.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="35.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="70.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="105.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="140.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="175.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="210.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="245.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="280.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="315.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="105.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="35.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="70.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="105.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="140.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="175.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="210.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="245.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="280.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="315.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="35.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="70.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="105.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="140.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="175.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="210.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="245.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="280.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="315.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="-9.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="35.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="70.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="105.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="140.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="175.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="210.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="245.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="280.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="315.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="35.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="70.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="105.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="140.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="175.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="210.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="245.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="280.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="315.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="35.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="70.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="105.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
-                  </ImageView>
-                  <ImageView fx:id="imageViewRobo1" fitHeight="35.0" fitWidth="63.0" layoutX="-1.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../imagens/robos/amarelo-down-2.png" />
-                     </image>
-                     <rotationAxis>
-                        <Point3D />
-                     </rotationAxis>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="140.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="175.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="210.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="245.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="280.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile2.png" />
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="35.0" fitWidth="46.0" layoutX="315.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/tile1.png" />
+                        <Image url="@../../imagens/tile3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imagens/tile4.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="imageViewRobo2" fitHeight="35.0" fitWidth="63.0" layoutX="34.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
@@ -534,6 +527,12 @@
                         <Image url="@../../imagens/robos/azul-down-2.png" />
                      </image>
                   </ImageView>
+                  <ImageView fx:id="imageViewRobo1" fitHeight="35.0" fitWidth="63.0" layoutX="70.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../imagens/freddy-idle.png" />
+                     </image>
+                  </ImageView>
+                  <BorderPane prefHeight="352.0" prefWidth="350.0" style="-fx-border-color: white; -fx-border-width: 3px; -fx-border-style: solid;" />
                </children>
             </AnchorPane>
             <ListView fx:id="listViewHistorico" layoutX="381.0" layoutY="55.0" prefHeight="472.0" prefWidth="200.0" />
@@ -553,6 +552,11 @@
                   <Button fx:id="buttonMover" layoutX="273.0" layoutY="32.0" mnemonicParsing="false" onAction="#movimentar" prefHeight="30.0" prefWidth="71.0" text="Mover" />
                </children>
             </AnchorPane>
+            <ImageView fitHeight="79.0" fitWidth="511.0" layoutX="125.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../imagens/placa.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

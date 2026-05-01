@@ -101,13 +101,13 @@ public class TelaRobosController {
     }
 
     private void carregarComboboxes(){
-        cores.add(Cor.AMARELO);
         cores.add(Cor.VERMELHO);
-        cores.add(Cor.AZUL);
         cores.add(Cor.MARROM);
+        cores.add(Cor.AMARELO);
+        cores.add(Cor.AZUL);
 
-        categorias.add(CategoriaRobo.INTELIGENTE);
         categorias.add(CategoriaRobo.BURRO);
+        categorias.add(CategoriaRobo.INTELIGENTE);
 
         dificuldades.add(Dificuldade.FASSILIMO);
         dificuldades.add(Dificuldade.FACIL);

@@ -57,7 +57,7 @@ public class TelaUsuarioController {
                 int x = Integer.parseInt(textPosX.getText());
                 int y = Integer.parseInt(textPosY.getText());
 
-                if(x > tamanhoTabuleiro || y > tamanhoTabuleiro){
+                if(x >= tamanhoTabuleiro || y >= tamanhoTabuleiro){
                     throw new AlimentoForaDoLimiteException();
                 }
 
@@ -69,7 +69,7 @@ public class TelaUsuarioController {
                 Stage stage = new Stage();
                 stage.setTitle("Projeto!");
                 stage.setResizable(false);
-                stage.setScene(new Scene(root, 634, 577));
+                stage.setScene(new Scene(root));
                 stage.show();
 
                 // pega a janela que o botão está inserido
@@ -84,9 +84,9 @@ public class TelaUsuarioController {
 
     private void carregarComboBoxes() {
         cores.add(Cor.VERMELHO);
-        cores.add(Cor.AZUL);
         cores.add(Cor.MARROM);
         cores.add(Cor.AMARELO);
+        cores.add(Cor.AZUL);
         dificuldades.add(Dificuldade.FASSILIMO);
         dificuldades.add(Dificuldade.FACIL);
         dificuldades.add(Dificuldade.MEDIO);

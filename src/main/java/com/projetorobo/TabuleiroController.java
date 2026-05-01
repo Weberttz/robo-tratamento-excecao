@@ -52,8 +52,8 @@ public class TabuleiroController implements Initializable {
 
     private Image frame1, frame2, frame3;
     private Image alimentoImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pizza.png")));
-    private Image bombaImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/bomb.png")));
-    private Image pedraImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pizza.png")));
+    private Image bombaImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/bomba.png")));
+    private Image pedraImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pedra.png")));
 
     private ImageView imageViewAlimento = new ImageView(alimentoImg);
     private Tabuleiro tabuleiro;
@@ -103,10 +103,9 @@ public class TabuleiroController implements Initializable {
         tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
         this.dificuldade = dificuldade;
         this.modoDeJogo = modoDeJogo;
-
         robo1 = new Robo(cor);
         tabuleiro.adicionarRobo(robo1);
-        tabuleiro.colocarObstaculos(dificuldade);
+        settarObstaculosNoAnchorPane();
 
         imageViewRobo1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
                 robo1.getCor().toString().toLowerCase() + "-down-2.png"))));
@@ -128,7 +127,6 @@ public class TabuleiroController implements Initializable {
         this.modoDeJogo = modoDeJogo;
 
         tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
-        tabuleiro.colocarObstaculos(dificuldade);
         settarObstaculosNoAnchorPane();
 
         switch (categoriaRobo1){
@@ -409,15 +407,20 @@ public class TabuleiroController implements Initializable {
     }
 
     public void settarObstaculosNoAnchorPane(){
+        tabuleiro.colocarObstaculos(dificuldade);
         for(Obstaculo obstaculo: tabuleiro.getObstaculos()){
-            if(obstaculo instanceof Pedra){
+            if(obstaculo.getId() == 1){
                 ImageView imageViewPedra = new ImageView(pedraImg);
                 containerTabuleiro.getChildren().add(imageViewPedra);
+                imageViewPedra.setFitWidth(pixels);
+                imageViewPedra.setFitHeight(pixels);
                 imageViewPedra.setLayoutX(posInicialX + (obstaculo.getPosicaoX() * movimento));
                 imageViewPedra.setLayoutY(posInicialY - (obstaculo.getPosicaoY() * movimento));
-            }else{
+            }else if(obstaculo.getId() == 0){
                 ImageView imageViewBomba = new ImageView(bombaImg);
                 containerTabuleiro.getChildren().add(imageViewBomba);
+                imageViewBomba.setFitWidth(pixels);
+                imageViewBomba.setFitHeight(pixels);
                 imageViewBomba.setLayoutX(posInicialX + (obstaculo.getPosicaoX() * movimento));
                 imageViewBomba.setLayoutY(posInicialY - (obstaculo.getPosicaoY() * movimento));
             }
