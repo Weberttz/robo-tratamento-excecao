@@ -1,5 +1,6 @@
 package com.projetorobo;
 
+import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
@@ -18,10 +19,12 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class TelaRobosController {
-
+    private int tamanhoTabuleiro = 10;
     private List<Cor> cores = new ArrayList<>();
     private List<CategoriaRobo> categorias = new ArrayList<>();
     private List<Dificuldade> dificuldades = new ArrayList<>();
@@ -72,6 +75,11 @@ public class TelaRobosController {
 
             int posicaoXAlimento = Integer.parseInt(textPosX.getText());
             int posicaoYAlimento = Integer.parseInt(textPosY.getText());
+
+            if(posicaoYAlimento >= tamanhoTabuleiro || posicaoXAlimento >= tamanhoTabuleiro){
+                throw new AlimentoForaDoLimiteException();
+            }
+
             String corRobo1 = comboBoxCorRobo1.getValue().toString();
             String corRobo2 = comboBoxCorRobo2.getValue().toString();
             Dificuldade dificuldade = comboBoxDificuldade.getValue();
@@ -95,6 +103,8 @@ public class TelaRobosController {
             Stage currentStage = (Stage) buttonComecar.getScene().getWindow();
             currentStage.close(); // fecha a janela atual
 
+        } catch (IllegalArgumentException e) {
+            System.out.println("Entrada inválida!");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }

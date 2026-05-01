@@ -25,6 +25,9 @@ public class Tabuleiro {
     public void moverRobo(Robo robo, Direcao dir) throws MovimentoInvalidoException, ColisaoComObstaculoException {
         robo.mover(dir);
 
+        if(verificarAlimento(robo))
+            robo.setAchouAlimento(true);
+
         if (foraDoLimite(robo.getNewX(), robo.getNewY())) {
             robo.desfazerMovimento();
             robo.incrementarInvalidos();
@@ -115,7 +118,7 @@ public class Tabuleiro {
                     }
                 }
                 else if (x == alimentoX && y == alimentoY) System.out.print(" A ");
-                else                                     System.out.print(" . ");
+                else System.out.print(" . ");
             }
             System.out.println();
         }

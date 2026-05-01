@@ -76,7 +76,9 @@ public class TelaUsuarioController {
                 Stage currentStage = (Stage) buttonIniciar.getScene().getWindow();
                 currentStage.close();
 
-            } catch (Exception e){
+            }catch (IllegalArgumentException e) {
+                System.out.println("Entrada inválida!");
+            }catch (Exception e){
                 System.out.println(e.getMessage());
             }
         }

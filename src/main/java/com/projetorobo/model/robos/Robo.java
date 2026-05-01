@@ -67,6 +67,7 @@ public class Robo {
         this.oldY = newY;
     }
     public boolean isExplodiu() { return explodiu; }
+    public void setExplodiu(boolean explodiu) { this.explodiu = explodiu;}
     public boolean getAchouAlimento(){
         return achouAlimento;
     }

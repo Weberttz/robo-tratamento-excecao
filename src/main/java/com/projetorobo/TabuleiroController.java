@@ -8,9 +8,7 @@ import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.enums.Modo;
-import com.projetorobo.model.obstaculos.Bomba;
 import com.projetorobo.model.obstaculos.Obstaculo;
-import com.projetorobo.model.obstaculos.Pedra;
 import com.projetorobo.model.robos.Robo;
 import com.projetorobo.model.robos.RoboInteligente;
 import javafx.animation.KeyFrame;
@@ -33,10 +31,7 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
 
 public class TabuleiroController implements Initializable {
 
@@ -47,7 +42,7 @@ public class TabuleiroController implements Initializable {
     private int turno = 1;
     private int tamanhoTabuleiro = 10;
 
-    private int tempoTimeLine = 1000;
+    private int tempoTimeLine = 200;
     private int tempoTrocaFrame = (int) (.17 * tempoTimeLine);
 
     private Image frame1, frame2, frame3;
@@ -127,7 +122,6 @@ public class TabuleiroController implements Initializable {
         this.modoDeJogo = modoDeJogo;
 
         tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
-        settarObstaculosNoAnchorPane();
 
         switch (categoriaRobo1){
             case BURRO -> robo1 = new Robo(corRobo1);
@@ -143,6 +137,8 @@ public class TabuleiroController implements Initializable {
         tabuleiro.adicionarRobo(robo2);
 
         robo2.modificarPosicaoInicial(0, 1);
+
+        settarObstaculosNoAnchorPane();
 
         imageViewRobo1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
                 robo1.getCor().toString().toLowerCase() + "-down-2.png"))));
@@ -332,15 +328,16 @@ public class TabuleiroController implements Initializable {
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(tempoTimeLine), e ->{
 
-            if(turno%2 == 1)
+            if(turno%2 == 1 && !robo1.isExplodiu() && !robo1.getAchouAlimento())
                 jogarTurno(robo1, imageViewRobo1);
-            else
+            else if(turno%2 == 0 && !robo2.isExplodiu() && !robo2.getAchouAlimento())
                 jogarTurno(robo2, imageViewRobo2);
-
-            verificarEFinalizarJogo(timeline);
+            else
+                verificarFinalizacaoDeJogo(timeline);
 
             obsHistorico = FXCollections.observableArrayList(listaHistorico);
             listViewHistorico.setItems(obsHistorico);
+            turno++;
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -359,15 +356,14 @@ public class TabuleiroController implements Initializable {
             listaHistorico.add(linha);
             direcionarImageViewRobo(robo, imageViewRobo, dir, false);
         }
-        tabuleiro.renderizar();
-        turno++;
+        tabuleiro.renderizar(); System.out.println("\n");
     }
 
-    public void verificarEFinalizarJogo(Timeline timeline){
-        if (tabuleiro.verificarAlimento(robo1) || tabuleiro.verificarAlimento(robo2) && modoDeJogo == Modo.COMPETITIVO) {
+    public void verificarFinalizacaoDeJogo(Timeline timeline){
+        if (robo1.getAchouAlimento() && modoDeJogo == Modo.COMPETITIVO || robo2.getAchouAlimento() && modoDeJogo == Modo.COMPETITIVO) {
             new Thread(() -> {
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(2000);
                     Platform.runLater(() -> imageViewAlimento.setVisible(false));
                     Thread.sleep(1000);
                     Platform.runLater(() -> {
@@ -384,10 +380,11 @@ public class TabuleiroController implements Initializable {
             System.out.printf("%n[%s] válidos: %d | inválidos: %d%n",
                     robo2.getCor(), robo2.getMovimentosValidos(), robo2.getMovimentosInvalidos());
         }
-        else if(tabuleiro.verificarAlimento(robo1) && tabuleiro.verificarAlimento(robo2) && modoDeJogo == Modo.COOPERATIVO) {
+        else if(robo1.getAchouAlimento() && robo2.getAchouAlimento() && modoDeJogo == Modo.COOPERATIVO) {
+            //Mesma coisa lá de cima, criar método
             new Thread(() -> {
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(2000);
                     Platform.runLater(() -> imageViewAlimento.setVisible(false));
                     Thread.sleep(1000);
                     Platform.runLater(() -> {
@@ -403,6 +400,11 @@ public class TabuleiroController implements Initializable {
                     robo1.getCor(), robo1.getMovimentosValidos(), robo1.getMovimentosInvalidos());
             System.out.printf("%n[%s] válidos: %d | inválidos: %d%n",
                     robo2.getCor(), robo2.getMovimentosValidos(), robo2.getMovimentosInvalidos());
+        }
+        else if(robo1.isExplodiu() && robo2.isExplodiu()) {
+            Stage janela = (Stage) imageViewRobo1.getScene().getWindow();
+            janela.close();
+            timeline.stop();
         }
     }
 
@@ -410,19 +412,24 @@ public class TabuleiroController implements Initializable {
         tabuleiro.colocarObstaculos(dificuldade);
         for(Obstaculo obstaculo: tabuleiro.getObstaculos()){
             if(obstaculo.getId() == 1){
+
                 ImageView imageViewPedra = new ImageView(pedraImg);
                 containerTabuleiro.getChildren().add(imageViewPedra);
                 imageViewPedra.setFitWidth(pixels);
                 imageViewPedra.setFitHeight(pixels);
                 imageViewPedra.setLayoutX(posInicialX + (obstaculo.getPosicaoX() * movimento));
                 imageViewPedra.setLayoutY(posInicialY - (obstaculo.getPosicaoY() * movimento));
+
             }else if(obstaculo.getId() == 0){
+
                 ImageView imageViewBomba = new ImageView(bombaImg);
+                //Mesma coisa lá de cima, criar método
                 containerTabuleiro.getChildren().add(imageViewBomba);
                 imageViewBomba.setFitWidth(pixels);
                 imageViewBomba.setFitHeight(pixels);
                 imageViewBomba.setLayoutX(posInicialX + (obstaculo.getPosicaoX() * movimento));
                 imageViewBomba.setLayoutY(posInicialY - (obstaculo.getPosicaoY() * movimento));
+
             }
         }
     }
