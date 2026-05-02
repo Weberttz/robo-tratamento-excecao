@@ -71,7 +71,7 @@ public class TabuleiroView {
 
     public ImageView procurarBombas(AnchorPane containerTabuleiro, ImageView imageViewRobo, Image bombaImg){
         for (Node node : containerTabuleiro.getChildren()) {
-            if(node instanceof ImageView imageViewNode && imageViewNode != imageViewRobo && imageViewNode.getImage() == bombaImg){
+            if(node instanceof ImageView imageViewNode && imageViewNode.getImage() == bombaImg){
                 if (Math.abs(imageViewNode.getLayoutX() - imageViewRobo.getLayoutX()) < 1 &&
                         Math.abs(imageViewNode.getLayoutY() - imageViewRobo.getLayoutY()) < 1) {
                     return imageViewNode;

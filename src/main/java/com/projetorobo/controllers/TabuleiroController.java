@@ -32,7 +32,7 @@ import java.util.Objects;
 public class TabuleiroController{
     private int turno = 1;
     private int tamanhoTabuleiro = 10;
-    private int tempoTimeline = 100;
+    private int tempoTimeline = 1000;
     private int tempoTrocaFrame = (int) (.17 * tempoTimeline);
     private Image frame1, frame2, frame3;
 
@@ -73,7 +73,7 @@ public class TabuleiroController{
     private ArrayList<String> listaHistorico = new ArrayList<>();
     private ObservableList<String> obsHistorico;
 
-
+    //Main1
     //Age como se fosse um initialize, configura o tabuleiro com base no que precisamos
     public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade, Modo modoDeJogo){
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
@@ -119,6 +119,8 @@ public class TabuleiroController{
         tabuleiroView.settarAlimentoNoAnchorPane(containerTabuleiro, imageViewAlimento, tabuleiro);
         controlarRobos();
     }
+
+    //Main1?????????????????????
 
     @FXML
     public void movimentar(ActionEvent event) { //Main1
@@ -172,11 +174,9 @@ public class TabuleiroController{
                     jogarTurno(robo1, imageViewRobo1);
                 else if (turno % 2 == 0 && !robo2.isExplodiu() && !robo2.getAchouAlimento())
                     jogarTurno(robo2, imageViewRobo2);
-                else {
-                    jogoService.verificarFinalizacaoDeJogo(robo1, robo2, modoDeJogo, animacoesService, imageViewAlimento);
+                else if(jogoService.verificarFinalizacaoDeJogo(robo1, robo2, modoDeJogo, animacoesService, imageViewAlimento)){
                     timeline.stop();
                 }
-
                 obsHistorico = FXCollections.observableArrayList(listaHistorico);
                 listViewHistorico.setItems(obsHistorico);
                 turno++;

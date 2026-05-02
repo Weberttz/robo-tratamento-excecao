@@ -16,6 +16,9 @@ public class RoboInteligente extends Robo {
     public Direcao escolherDirecao() {
         Direcao dir;
         do {
+            if (direcoesInvalidas.size() == 4){
+                direcoesInvalidas.clear();
+            }
             dir = Direcao.fromInt(rand.nextInt(4) + 1);
         } while (direcoesInvalidas.contains(dir));
         return dir;
