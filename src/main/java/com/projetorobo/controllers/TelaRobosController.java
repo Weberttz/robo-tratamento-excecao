@@ -1,4 +1,4 @@
-package com.projetorobo;
+package com.projetorobo.controllers;
 
 import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.model.enums.CategoriaRobo;
@@ -19,9 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class TelaRobosController {
     private int tamanhoTabuleiro = 10;

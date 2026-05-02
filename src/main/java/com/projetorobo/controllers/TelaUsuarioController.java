@@ -1,6 +1,5 @@
-package com.projetorobo;
+package com.projetorobo.controllers;
 
-import com.almasb.fxgl.core.fsm.StateMachine;
 import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
@@ -47,7 +46,8 @@ public class TelaUsuarioController {
 
     @FXML
     public void comecarJogo(ActionEvent event) {
-        if(textPosX.getText() != null && textPosY.getText() != null && comboBoxCorRobo.getValue() != null ){
+        if(textPosX.getText() != null && textPosY.getText() != null && comboBoxCorRobo.getValue() != null &&
+                comboBoxDificuldade.getValue() != null){
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetorobo/tabuleiro.fxml"));
                 Parent root = loader.load();

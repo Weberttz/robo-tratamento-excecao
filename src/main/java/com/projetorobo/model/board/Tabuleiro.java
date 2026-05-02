@@ -1,4 +1,4 @@
-package com.projetorobo.board;
+package com.projetorobo.model.board;
 
 import com.projetorobo.exception.*;
 import com.projetorobo.model.enums.*;
@@ -140,6 +140,7 @@ public class Tabuleiro {
                quantidadeObstaculos = (int) (tamanho * tamanho * 0.18);
        }
 
+       int contador = 0;
        for (int i = 0; i < quantidadeObstaculos; i++){
            boolean espacoLivre = false;
            int posicaoX = 0;
@@ -150,11 +151,20 @@ public class Tabuleiro {
                espacoLivre = verificarEspacoLivre(posicaoX, posicaoY);
            }
            if(escolha.nextBoolean()){
-               obstaculos.add(new Pedra(1, posicaoX, posicaoY));
+               obstaculos.add(new Pedra(contador, posicaoX, posicaoY));
            }else{
-              obstaculos.add(new Bomba(0, posicaoX, posicaoY));
+              obstaculos.add(new Bomba(contador, posicaoX, posicaoY));
            }
+           contador++;
        }
+    }
+
+    public int procurarObstaculo(int x, int y){
+        for(Obstaculo obstaculo: obstaculos){
+            if(obstaculo.getPosicaoY() == y && obstaculo.getPosicaoX() == x)
+                return obstaculo.getId();
+        }
+        return -1;
     }
 
     public boolean verificarAlimento(Robo robo) {

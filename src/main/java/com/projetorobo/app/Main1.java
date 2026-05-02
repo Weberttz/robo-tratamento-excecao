@@ -1,14 +1,12 @@
 package com.projetorobo.app;
 
-import com.projetorobo.board.Tabuleiro;
+import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.robos.Robo;
-import com.sun.tools.javac.Main;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

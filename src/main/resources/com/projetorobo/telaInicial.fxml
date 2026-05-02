@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="175.0" prefWidth="338.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projetorobo.TelaInicialController">
+<AnchorPane prefHeight="175.0" prefWidth="338.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projetorobo.controllers.TelaInicialController">
    <children>
       <GridPane layoutX="81.0" layoutY="32.0" prefHeight="128.0" prefWidth="178.0">
         <columnConstraints>

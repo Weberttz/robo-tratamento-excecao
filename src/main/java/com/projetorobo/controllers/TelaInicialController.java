@@ -1,4 +1,4 @@
-package com.projetorobo;
+package com.projetorobo.controllers;
 
 import com.projetorobo.model.enums.Modo;
 import javafx.collections.FXCollections;

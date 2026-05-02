@@ -10,4 +10,6 @@ module com.projetorobo {
     //requires com.almasb.fxgl.all;
     opens com.projetorobo to javafx.fxml;
     exports com.projetorobo;
+    exports com.projetorobo.controllers;
+    opens com.projetorobo.controllers to javafx.fxml;
 }

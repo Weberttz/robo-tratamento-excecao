@@ -1,6 +1,6 @@
 package com.projetorobo.app;
 
-import com.projetorobo.board.Tabuleiro;
+import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.Dificuldade;

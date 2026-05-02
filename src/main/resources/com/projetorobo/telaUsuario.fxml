@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="420.0" prefWidth="560.0" spacing="0.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projetorobo.TelaUsuarioController">
+<VBox prefHeight="420.0" prefWidth="560.0" spacing="0.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projetorobo.controllers.TelaUsuarioController">
 
    <padding>
       <Insets bottom="24.0" left="28.0" right="28.0" top="24.0" />
