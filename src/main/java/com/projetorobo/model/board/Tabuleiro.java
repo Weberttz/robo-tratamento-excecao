@@ -159,14 +159,6 @@ public class Tabuleiro {
        }
     }
 
-    public int procurarObstaculo(int x, int y){
-        for(Obstaculo obstaculo: obstaculos){
-            if(obstaculo.getPosicaoY() == y && obstaculo.getPosicaoX() == x)
-                return obstaculo.getId();
-        }
-        return -1;
-    }
-
     public boolean verificarAlimento(Robo robo) {
         return robo.getNewX() == alimentoX && robo.getNewY() == alimentoY;
     }
