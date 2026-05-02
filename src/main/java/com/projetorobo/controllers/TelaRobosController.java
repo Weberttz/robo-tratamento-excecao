@@ -117,7 +117,7 @@ public class TelaRobosController {
         categorias.add(CategoriaRobo.BURRO);
         categorias.add(CategoriaRobo.INTELIGENTE);
 
-        dificuldades.add(Dificuldade.FASSILIMO);
+        dificuldades.add(Dificuldade.FACILIMO);
         dificuldades.add(Dificuldade.FACIL);
         dificuldades.add(Dificuldade.MEDIO);
         dificuldades.add(Dificuldade.DIFICIL);

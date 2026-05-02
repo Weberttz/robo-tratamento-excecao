@@ -18,7 +18,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -29,10 +28,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class TabuleiroController{
     private int pixels = 35;
@@ -42,7 +39,7 @@ public class TabuleiroController{
     private int turno = 1;
     private int tamanhoTabuleiro = 10;
     private int tempoTimeLine = 1000;
-    private int tempoTrocaFrame = (int) (.17 * tempoTimeLine);  //6 frames
+    private int tempoTrocaFrame = (int) (.17 * tempoTimeLine);  //6 frames - 6 * 17 = 60 + 28 = 88%
 
     private Image frame1, frame2, frame3;
     private Image alimentoImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pizza.png")));
@@ -56,6 +53,7 @@ public class TabuleiroController{
 
     private Robo robo1;
     private Robo robo2;
+    private Timeline timeline;
     
     @FXML
     private ImageView imageViewRobo1;
@@ -224,7 +222,7 @@ public class TabuleiroController{
     }
 
     public void controlarRobos(){
-        Timeline timeline = new Timeline();
+        timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(tempoTimeLine), e ->{
 
             if(turno%2 == 1 && !robo1.isExplodiu() && !robo1.getAchouAlimento())
@@ -260,6 +258,10 @@ public class TabuleiroController{
             linha = String.format("Robô %s explodiu!", robo.getCor().toString().toLowerCase());
             listaHistorico.add(linha);
             limparColisaoComBomba(imageViewRobo);
+        }else if(robo.getAchouAlimento()){
+            linha = String.format("Robô %s achou alimento!", robo.getCor().toString().toLowerCase());
+            listaHistorico.add(linha);
+            limparColisaoComAlimento(imageViewRobo);
         }
     }
 
@@ -326,6 +328,9 @@ public class TabuleiroController{
             }
         }).start();
         chamarCreditos();
+
+        if(timeline!= null)
+            timeline.stop();
     }
 
     public void chamarCreditos(){
@@ -364,5 +369,16 @@ public class TabuleiroController{
                     throw new RuntimeException(e);
                 }
             }).start();
+    }
+
+    public void limparColisaoComAlimento(ImageView imageViewRobo){
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                imageViewRobo.setVisible(false);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 }

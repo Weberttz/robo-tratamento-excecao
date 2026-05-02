@@ -89,7 +89,7 @@ public class TelaUsuarioController {
         cores.add(Cor.MARROM);
         cores.add(Cor.AMARELO);
         cores.add(Cor.AZUL);
-        dificuldades.add(Dificuldade.FASSILIMO);
+        dificuldades.add(Dificuldade.FACILIMO);
         dificuldades.add(Dificuldade.FACIL);
         dificuldades.add(Dificuldade.MEDIO);
         dificuldades.add(Dificuldade.DIFICIL);
