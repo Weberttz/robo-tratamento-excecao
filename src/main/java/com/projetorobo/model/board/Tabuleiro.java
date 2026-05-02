@@ -133,11 +133,11 @@ public class Tabuleiro {
        Random escolha = new Random();
        switch (dificuldade){
            case FACIL ->
-               quantidadeObstaculos = (int) (tamanho * tamanho * 0.1);
+               quantidadeObstaculos = (int) (tamanho * tamanho * 0.05);
            case MEDIO ->
-               quantidadeObstaculos = (int) (tamanho * tamanho * 0.14);
+               quantidadeObstaculos = (int) (tamanho * tamanho * 0.10);
            case DIFICIL ->
-               quantidadeObstaculos = (int) (tamanho * tamanho * 0.18);
+               quantidadeObstaculos = (int) (tamanho * tamanho * 0.15);
        }
 
        int contador = 0;

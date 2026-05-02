@@ -5,7 +5,7 @@ public enum Dificuldade {
 
     public static Dificuldade fromString(String dificuldade){
         return switch (dificuldade.trim().toLowerCase()){
-            case "fassilimo" -> FACILIMO;
+            case "facilimo" -> FACILIMO;
             case "facil" -> FACIL;
             case "medio" -> MEDIO;
             case "dificil" -> DIFICIL;
