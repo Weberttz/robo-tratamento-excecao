@@ -1,6 +1,7 @@
 package com.projetorobo.controllers;
 
 import com.projetorobo.exception.AlimentoForaDoLimiteException;
+import com.projetorobo.exception.CoresDuplicadasException;
 import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
@@ -77,6 +78,10 @@ public class TelaRobosController {
 
             if(posicaoYAlimento >= tamanhoTabuleiro || posicaoXAlimento >= tamanhoTabuleiro){
                 throw new AlimentoForaDoLimiteException();
+            }
+
+            if (comboBoxCorRobo1.getValue() == comboBoxCorRobo2.getValue()) {
+                throw new CoresDuplicadasException();
             }
 
             String corRobo1 = comboBoxCorRobo1.getValue().toString();
