@@ -12,17 +12,16 @@ import javafx.scene.layout.AnchorPane;
 
 
 public class ObstaculoService {
-    public void calcularObstaculos(Tabuleiro tabuleiro, Dificuldade dificuldade, AnchorPane containerTabuleiro,
-                                   TabuleiroView tabuleiroView, Image imagePedra, Image imageBomba){
+    public void calcularObstaculos(Tabuleiro tabuleiro, Dificuldade dificuldade, TabuleiroView tabuleiroView){
         tabuleiro.colocarObstaculos(dificuldade);
         ImageView imageView;
         for(Obstaculo obstaculo: tabuleiro.getObstaculos()){
             if(obstaculo instanceof Pedra)
-                imageView = new ImageView(imagePedra);
+                imageView = new ImageView(tabuleiroView.getPedraImg());
             else
-                imageView = new ImageView(imageBomba);
+                imageView = new ImageView(tabuleiroView.getBombaImg());
 
-            tabuleiroView.settarObstaculoNoAnchorPane(containerTabuleiro, imageView, obstaculo);
+            tabuleiroView.settarObstaculoNoAnchorPane(imageView, obstaculo);
         }
     }
 }

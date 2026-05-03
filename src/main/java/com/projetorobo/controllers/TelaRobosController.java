@@ -5,6 +5,7 @@ import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Modo;
+import com.projetorobo.model.robos.Robo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

@@ -31,16 +31,9 @@ import java.util.Objects;
 
 public class TabuleiroController{
     private int turno = 1;
-    private int tamanhoTabuleiro = 10;
-    private int tempoTimeline = 1000;
-    private int tempoTrocaFrame = (int) (.17 * tempoTimeline);
-    private Image frame1, frame2, frame3;
-
-    private Image alimentoImg = new Image(Objects.requireNonNull(AnimacoesService.class.getResourceAsStream("/imagens/pizza.png")));
-    private Image bombaImg = new Image(Objects.requireNonNull(AnimacoesService.class.getResourceAsStream("/imagens/bomba.png")));
-    private Image pedraImg = new Image(Objects.requireNonNull(AnimacoesService.class.getResourceAsStream("/imagens/pedra.png")));
-    private ImageView imageViewAlimento = new ImageView(alimentoImg);
-
+    private final int tamanhoTabuleiro = 10;
+    private final int tempoTimeline = 1000;
+    private final int tempoDeTrocaDeframe = (int) (0.17 * tempoTimeline);
     private Tabuleiro tabuleiro;
     private Dificuldade dificuldade;
     private Modo modoDeJogo;
@@ -48,11 +41,6 @@ public class TabuleiroController{
     private Robo robo2;
 
     private static Timeline timeline;
-
-    private TabuleiroView tabuleiroView = new TabuleiroView();
-    private AnimacoesService animacoesService = new AnimacoesService();
-    private JogoService jogoService = new JogoService();
-    private ObstaculoService obstaculoService = new ObstaculoService();
     
     @FXML
     private ImageView imageViewRobo1;
@@ -73,6 +61,11 @@ public class TabuleiroController{
     private ArrayList<String> listaHistorico = new ArrayList<>();
     private ObservableList<String> obsHistorico;
 
+    private TabuleiroView tabuleiroView;
+    private AnimacoesService animacoesService;
+    private JogoService jogoService;
+    private ObstaculoService obstaculoService = new ObstaculoService();
+
     //Main1
     //Age como se fosse um initialize, configura o tabuleiro com base no que precisamos
     public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade, Modo modoDeJogo){
@@ -84,16 +77,16 @@ public class TabuleiroController{
 
         this.imageViewRobo2.setVisible(false);
 
-        obstaculoService.calcularObstaculos(tabuleiro, dificuldade, containerTabuleiro, tabuleiroView, pedraImg, bombaImg);
+        obstaculoService.calcularObstaculos(tabuleiro, dificuldade, tabuleiroView);
         tabuleiroView.settarRoboNoAnchorPane(robo1, imageViewRobo1);
-        tabuleiroView.settarAlimentoNoAnchorPane(containerTabuleiro, imageViewAlimento, tabuleiro);
+        tabuleiroView.settarAlimentoNoAnchorPane(tabuleiro);
     }
 
     //Main2, Main3, Main4
     public void receberDados(int posicaoX, int posicaoY, String corRobo1, String corRobo2,
                              Dificuldade dificuldade, CategoriaRobo categoriaRobo1, CategoriaRobo categoriaRobo2, Modo modoDeJogo){
         this.buttonMover.setDisable(true);
-        this.textFieldMovimento.setText("Robôs criaram vida!");
+        this.textFieldMovimento.setText("Os robôs criaram vida!");
         this.textFieldMovimento.setDisable(true);
         this.dificuldade = dificuldade;
         this.modoDeJogo = modoDeJogo;
@@ -110,18 +103,22 @@ public class TabuleiroController{
             case INTELIGENTE -> this.robo2 = new RoboInteligente(corRobo2);
         }
 
+         tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
+                listViewHistorico, tempoDeTrocaDeframe);
+         animacoesService =  new AnimacoesService(tempoDeTrocaDeframe);
+         jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
+
         this.tabuleiro.adicionarRobo(robo1);
         this.tabuleiro.adicionarRobo(robo2);
         this.robo2.modificarPosicaoInicial(0, 1);
-        obstaculoService.calcularObstaculos(tabuleiro, dificuldade, containerTabuleiro, tabuleiroView, pedraImg, bombaImg);
+        obstaculoService.calcularObstaculos(tabuleiro, dificuldade, tabuleiroView);
         tabuleiroView.settarRoboNoAnchorPane(robo1, imageViewRobo1);
         tabuleiroView.settarRoboNoAnchorPane(robo2, imageViewRobo2);
-        tabuleiroView.settarAlimentoNoAnchorPane(containerTabuleiro, imageViewAlimento, tabuleiro);
+        tabuleiroView.settarAlimentoNoAnchorPane(tabuleiro);
         controlarRobos();
     }
 
     //Main1?????????????????????
-
     @FXML
     public void movimentar(ActionEvent event) { //Main1
         buttonMover.setDisable(true); // desabilitar botão após o clique
@@ -135,23 +132,19 @@ public class TabuleiroController{
 
             tabuleiro.moverRobo(robo1, direcao);
             // boolean serve para animar sprite e só depois mover
-            direcionarImageViewRobo(robo1, imageViewRobo1, direcao, true);
+            tabuleiroView.direcionarImageViewRobo(robo1, imageViewRobo1, direcao, true);
             String linha = String.format("%s - Robô em (%d,%d)%n", direcao.toString().toLowerCase(), robo1.getNewX(), robo1.getNewY());
             listaHistorico.add(linha);
         } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
-            assert direcao != null;
             String linha = String.format("%s - Robô  colidiu", direcao.toString().toLowerCase());
             listaHistorico.add(linha);
-            direcionarImageViewRobo(robo1, imageViewRobo1, direcao, false);
+            tabuleiroView.direcionarImageViewRobo(robo1, imageViewRobo1, direcao, false);
         } catch (IllegalArgumentException e) {
             System.out.println("Direção desconhecida. Use: up, down, left, right  ou  1,2,3,4");
         }
 
         if(robo1.isExplodiu() || robo1.getAchouAlimento())
-            animacoesService.finalizarJogo(imageViewAlimento);
-
-        if(robo1.isExplodiu())
-            animacoesService.finalizarJogo(imageViewAlimento);
+            animacoesService.finalizarJogo(tabuleiroView.getImageViewAlimento());
 
         //Espera 1.5 segundos e habilita novamente o botão - sem problemas com as animações de movimento
         animacoesService.habilitarBotao(buttonMover);
@@ -159,58 +152,8 @@ public class TabuleiroController{
         listViewHistorico.setItems(obsHistorico);
     }
 
-    @FXML
-    public void direcionarImageViewRobo(Robo robo, ImageView imageViewRobo, Direcao direcao, boolean deveMover){
-        animacoesService.coletarFrames(robo, direcao);
-        animacoesService.andar(tabuleiroView, imageViewRobo, direcao, deveMover, tempoTrocaFrame);
-    }
-
     public void controlarRobos(){
-        timeline = new Timeline();
-        try {
-            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(tempoTimeline), e -> {
-
-                if (turno % 2 == 1 && !robo1.isExplodiu() && !robo1.getAchouAlimento())
-                    jogarTurno(robo1, imageViewRobo1);
-                else if (turno % 2 == 0 && !robo2.isExplodiu() && !robo2.getAchouAlimento())
-                    jogarTurno(robo2, imageViewRobo2);
-                else if(jogoService.verificarFinalizacaoDeJogo(robo1, robo2, modoDeJogo, animacoesService, imageViewAlimento)){
-                    timeline.stop();
-                }
-                obsHistorico = FXCollections.observableArrayList(listaHistorico);
-                listViewHistorico.setItems(obsHistorico);
-                turno++;
-            }));
-            timeline.setCycleCount(Timeline.INDEFINITE);
-            timeline.play();
-        }catch (Exception e){
-            System.out.println("Parada Terminal");
-        }
-    }
-
-    private void jogarTurno(Robo robo, ImageView imageViewRobo) {
-        Direcao dir = robo.escolherDirecao();
-        String linha;
-        try {
-            tabuleiro.moverRobo(robo, dir);
-            direcionarImageViewRobo(robo, imageViewRobo, dir, true);
-            linha = String.format("%s - Robô %s em (%d,%d)", dir.toString().toLowerCase(), robo.getCor().toString().toLowerCase()
-                    ,robo.getNewX(), robo.getNewY());
-        } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
-            linha = String.format("%s - Robô %s colidiu", dir.toString().toLowerCase(), robo.getCor().toString().toLowerCase());
-            direcionarImageViewRobo(robo, imageViewRobo, dir, false);
-        }
-        listaHistorico.add(linha);
-
-        if(robo.isExplodiu()){
-            linha = String.format("Robô %s explodiu!", robo.getCor().toString().toLowerCase());
-            listaHistorico.add(linha);
-            animacoesService.limparColisaoComBomba(tabuleiroView, containerTabuleiro, imageViewRobo, bombaImg);
-        }else if(robo.getAchouAlimento()){
-            linha = String.format("Robô %s achou alimento!", robo.getCor().toString().toLowerCase());
-            listaHistorico.add(linha);
-            animacoesService.limparColisaoComAlimento(imageViewRobo);
-        }
+        jogoService.jogarModoAutomatico(tabuleiroView, listaHistorico, tempoTimeline);
     }
 
     public void chamarCreditos(){
@@ -223,7 +166,6 @@ public class TabuleiroController{
             System.out.printf("%n[%s] válidos: %d | inválidos: %d%n", robo2.getCor(),
                     robo2.getMovimentosValidos(), robo2.getMovimentosInvalidos());
         }
-
     }
 }
 

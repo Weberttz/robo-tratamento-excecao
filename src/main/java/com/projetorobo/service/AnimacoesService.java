@@ -18,6 +18,11 @@ import java.util.Objects;
 
 public class AnimacoesService {
     private Image frame1, frame2, frame3;
+    private int tempoTrocaDeFrame;
+
+    public AnimacoesService(int tempoTrocaDeFrame){
+        this.tempoTrocaDeFrame = tempoTrocaDeFrame;
+    }
 
     public void coletarFrames(Robo robo, Direcao direcao){
         frame1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/robos/" +
@@ -28,23 +33,22 @@ public class AnimacoesService {
                 robo.getCor().toString().toLowerCase() + "-"  + direcao.name().toLowerCase() + "-3.png")));
     }
 
-    public void andar(TabuleiroView tabuleiroView, ImageView imageViewRobo, Direcao direcao, boolean deveMover,
-                      int tempoTrocaFrame){
+    public void andar(ImageView imageViewRobo, Direcao direcao, boolean deveMover, TabuleiroView tabuleiroView){
         new Thread(() -> {
             try {
-                Thread.sleep(tempoTrocaFrame);
+                Thread.sleep(tempoTrocaDeFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame1));
 
-                Thread.sleep(tempoTrocaFrame);
+                Thread.sleep(tempoTrocaDeFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame2));
 
-                Thread.sleep(tempoTrocaFrame);
+                Thread.sleep(tempoTrocaDeFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame3));
 
-                Thread.sleep(tempoTrocaFrame);
+                Thread.sleep(tempoTrocaDeFrame);
                 Platform.runLater(() -> imageViewRobo.setImage(frame2));
-
                 tabuleiroView.moverImageView(imageViewRobo, direcao, deveMover);
+
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -62,11 +66,12 @@ public class AnimacoesService {
         }).start();
     }
 
-    public void limparColisaoComBomba(TabuleiroView tabuleiroView, AnchorPane containerTabuleiro, ImageView imageViewRobo, Image bombaImg){
+    public void limparColisaoComBomba(TabuleiroView tabuleiroView, ImageView imageViewRobo){
+        System.out.println("teste");
         new Thread(() -> {
             try {
-                Thread.sleep(1000);
-                ImageView objeto = tabuleiroView.procurarBombas(containerTabuleiro, imageViewRobo, bombaImg);
+                Thread.sleep(2000);
+                ImageView objeto = tabuleiroView.procurarBombas(imageViewRobo);
                 imageViewRobo.setVisible(false);
                 objeto.setVisible(false);
             } catch (InterruptedException e) {
@@ -78,7 +83,7 @@ public class AnimacoesService {
     public void limparColisaoComAlimento(ImageView imageViewRobo){
         new Thread(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 imageViewRobo.setVisible(false);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

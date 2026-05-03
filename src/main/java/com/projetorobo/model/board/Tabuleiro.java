@@ -133,7 +133,7 @@ public class Tabuleiro {
        Random escolha = new Random();
        switch (dificuldade){
            case FACIL ->
-               quantidadeObstaculos = (int) (tamanho * tamanho * 0.85);
+               quantidadeObstaculos = (int) (tamanho * tamanho * 0.05);
            case MEDIO ->
                quantidadeObstaculos = (int) (tamanho * tamanho * 0.10);
            case DIFICIL ->
@@ -151,7 +151,7 @@ public class Tabuleiro {
                espacoLivre = verificarEspacoLivre(posicaoX, posicaoY);
            }
            if(escolha.nextBoolean()){
-               obstaculos.add(new Pedra(contador, posicaoX, posicaoY));
+               obstaculos.add(new Bomba(contador, posicaoX, posicaoY));
            }else{
               obstaculos.add(new Pedra(contador, posicaoX, posicaoY));
            }
