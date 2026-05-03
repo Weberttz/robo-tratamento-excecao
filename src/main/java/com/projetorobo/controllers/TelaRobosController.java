@@ -91,7 +91,7 @@ public class TelaRobosController {
 
             //Estágio - (Janela)
             Stage stage = new Stage();
-            stage.setTitle("Projeto");
+            stage.setTitle("Modo de jogo: " + modoDeJogo.toString().toLowerCase());
             stage.setResizable(false);
             //Cena - tem elementos, produz animações
             Scene scene = new Scene(root);

@@ -30,18 +30,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class TabuleiroController{
-    private int turno = 1;
     private final int tamanhoTabuleiro = 10;
     private final int tempoTimeline = 1000;
     private final int tempoDeTrocaDeframe = (int) (0.17 * tempoTimeline);
     private Tabuleiro tabuleiro;
-    private Dificuldade dificuldade;
     private Modo modoDeJogo;
     private Robo robo1;
     private Robo robo2;
 
-    private static Timeline timeline;
-    
     @FXML
     private ImageView imageViewRobo1;
     @FXML
@@ -58,37 +54,32 @@ public class TabuleiroController{
 
     @FXML
     private ListView<String> listViewHistorico;
-    private ArrayList<String> listaHistorico = new ArrayList<>();
-    private ObservableList<String> obsHistorico;
+    private final ArrayList<String> listaHistorico = new ArrayList<>();
 
     private TabuleiroView tabuleiroView;
-    private AnimacoesService animacoesService;
     private JogoService jogoService;
-    private ObstaculoService obstaculoService = new ObstaculoService();
+    private final ObstaculoService obstaculoService = new ObstaculoService();
 
-    //Main1
-    //Age como se fosse um initialize, configura o tabuleiro com base no que precisamos
     public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade, Modo modoDeJogo){
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
-        this.dificuldade = dificuldade;
         this.modoDeJogo = modoDeJogo;
         this.robo1 = new Robo(cor);
         this.tabuleiro.adicionarRobo(robo1);
-
         this.imageViewRobo2.setVisible(false);
+        this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
+                listViewHistorico, tempoDeTrocaDeframe);
+        this.jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
 
         obstaculoService.calcularObstaculos(tabuleiro, dificuldade, tabuleiroView);
         tabuleiroView.settarRoboNoAnchorPane(robo1, imageViewRobo1);
         tabuleiroView.settarAlimentoNoAnchorPane(tabuleiro);
     }
 
-    //Main2, Main3, Main4
     public void receberDados(int posicaoX, int posicaoY, String corRobo1, String corRobo2,
                              Dificuldade dificuldade, CategoriaRobo categoriaRobo1, CategoriaRobo categoriaRobo2, Modo modoDeJogo){
         this.buttonMover.setDisable(true);
         this.textFieldMovimento.setText("Os robôs criaram vida!");
         this.textFieldMovimento.setDisable(true);
-        this.dificuldade = dificuldade;
         this.modoDeJogo = modoDeJogo;
 
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
@@ -103,10 +94,9 @@ public class TabuleiroController{
             case INTELIGENTE -> this.robo2 = new RoboInteligente(corRobo2);
         }
 
-         tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
+         this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
                 listViewHistorico, tempoDeTrocaDeframe);
-         animacoesService =  new AnimacoesService(tempoDeTrocaDeframe);
-         jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
+         this.jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
 
         this.tabuleiro.adicionarRobo(robo1);
         this.tabuleiro.adicionarRobo(robo2);
@@ -118,38 +108,11 @@ public class TabuleiroController{
         controlarRobos();
     }
 
-    //Main1?????????????????????
     @FXML
-    public void movimentar(ActionEvent event) { //Main1
-        buttonMover.setDisable(true); // desabilitar botão após o clique
-        Direcao direcao = null;
-        try {
-            if(textFieldMovimento.getText().matches("\\d+")){
-                direcao = Direcao.fromInt(Integer.parseInt(textFieldMovimento.getText()));
-            }else {
-                direcao = Direcao.fromString(textFieldMovimento.getText());
-            }
-
-            tabuleiro.moverRobo(robo1, direcao);
-            // boolean serve para animar sprite e só depois mover
-            tabuleiroView.direcionarImageViewRobo(robo1, imageViewRobo1, direcao, true);
-            String linha = String.format("%s - Robô em (%d,%d)%n", direcao.toString().toLowerCase(), robo1.getNewX(), robo1.getNewY());
-            listaHistorico.add(linha);
-        } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
-            String linha = String.format("%s - Robô  colidiu", direcao.toString().toLowerCase());
-            listaHistorico.add(linha);
-            tabuleiroView.direcionarImageViewRobo(robo1, imageViewRobo1, direcao, false);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Direção desconhecida. Use: up, down, left, right  ou  1,2,3,4");
-        }
-
-        if(robo1.isExplodiu() || robo1.getAchouAlimento())
-            animacoesService.finalizarJogo(tabuleiroView.getImageViewAlimento());
-
-        //Espera 1.5 segundos e habilita novamente o botão - sem problemas com as animações de movimento
-        animacoesService.habilitarBotao(buttonMover);
-        obsHistorico = FXCollections.observableArrayList(listaHistorico);
-        listViewHistorico.setItems(obsHistorico);
+    public void movimentar(ActionEvent event) {
+        buttonMover.setDisable(true);  // desabilitar botão após o clique
+        jogoService.jogarModoUsuario(tabuleiroView, listaHistorico, textFieldMovimento.getText());
+        tabuleiroView.getAnimacoesService().habilitarBotao(buttonMover);
     }
 
     public void controlarRobos(){

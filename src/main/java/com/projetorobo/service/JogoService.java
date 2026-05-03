@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -18,6 +19,7 @@ import javafx.util.Duration;
 import javax.swing.text.html.ListView;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JogoService {
     private Robo robo1, robo2;
@@ -55,6 +57,35 @@ public class JogoService {
             listaHistorico.add(linha);
             tabuleiroView.getAnimacoesService().limparColisaoComAlimento(imageViewRobo);
         }
+    }
+
+    public void jogarModoUsuario(TabuleiroView tabuleiroView, List<String> listaHistorico, String movimento){
+        Direcao direcao = null;
+        try {
+            if(movimento.matches("\\d+")){
+                direcao = Direcao.fromInt(Integer.parseInt(movimento));
+            }else {
+                direcao = Direcao.fromString(movimento);
+            }
+
+            tabuleiro.moverRobo(robo1, direcao);
+            // boolean serve para animar sprite e só depois mover
+            tabuleiroView.direcionarImageViewRobo(robo1, tabuleiroView.getImageViewRobo1(), direcao, true);
+            String linha = String.format("%s - Robô em (%d,%d)%n", direcao.toString().toLowerCase(), robo1.getNewX(), robo1.getNewY());
+            listaHistorico.add(linha);
+        } catch (MovimentoInvalidoException | ColisaoComObstaculoException e) {
+            String linha = String.format("%s - Robô  colidiu", direcao.toString().toLowerCase());
+            listaHistorico.add(linha);
+            tabuleiroView.direcionarImageViewRobo(robo1, tabuleiroView.getImageViewRobo1(), direcao, false);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Direção desconhecida. Use: up, down, left, right  ou  1,2,3,4");
+        }
+
+        if(robo1.isExplodiu() || robo1.getAchouAlimento())
+            tabuleiroView.getAnimacoesService().finalizarJogo(tabuleiroView.getImageViewAlimento());
+
+        ObservableList obsHistorico = FXCollections.observableArrayList(listaHistorico);
+        tabuleiroView.getListaHistorico().setItems(obsHistorico);
     }
 
     public void jogarModoAutomatico(TabuleiroView tabuleiroView, ArrayList<String> listaHistorico, int tempoTimeline){

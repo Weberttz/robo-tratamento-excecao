@@ -67,7 +67,7 @@ public class TelaUsuarioController {
                 controller.receberDados(x, y, cor, dificuldade, modoDeJogo);
 
                 Stage stage = new Stage();
-                stage.setTitle("Projeto!");
+                stage.setTitle("Modo de jogo: " + modoDeJogo.toString().toLowerCase());
                 stage.setResizable(false);
                 stage.setScene(new Scene(root));
                 stage.show();
