@@ -7,6 +7,7 @@ import com.projetorobo.model.robo.Robo;
 import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
 import com.projetorobo.model.robo.estrategias.EstrategiaInteligente;
 import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
+import com.projetorobo.service.AnimacoesService;
 import com.projetorobo.service.JogoService;
 import com.projetorobo.service.ObstaculoService;
 import com.projetorobo.view.TabuleiroView;
@@ -49,6 +50,7 @@ public class TabuleiroController{
 
     private TabuleiroView tabuleiroView;
     private JogoService jogoService;
+    private AnimacoesService animacoesService = new AnimacoesService(tempoDeTrocaDeframe);
     private final ObstaculoService obstaculoService = new ObstaculoService();
 
     public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade, Modo modoDeJogo){
@@ -59,7 +61,7 @@ public class TabuleiroController{
         this.tabuleiro.adicionarRobo(robo1);
         this.imageViewRobo2.setVisible(false);
         this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
-                listViewHistorico, tempoDeTrocaDeframe);
+                listViewHistorico, animacoesService);
         this.jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
 
         obstaculoService.calcularObstaculos(tabuleiro, dificuldade, tabuleiroView);
@@ -91,7 +93,7 @@ public class TabuleiroController{
         }
 
          this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
-                listViewHistorico, tempoDeTrocaDeframe);
+                listViewHistorico, animacoesService);
          this.jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
 
         this.tabuleiro.adicionarRobo(robo1);

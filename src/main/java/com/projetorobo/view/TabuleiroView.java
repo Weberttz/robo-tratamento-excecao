@@ -30,10 +30,10 @@ public class TabuleiroView {
     private final ListView<String> listaHistorico;
 
     public TabuleiroView(ImageView imageViewRobo1, ImageView imageViewRobo2,
-                         AnchorPane containerTabuleiro, ListView<String> listaHistorico, int tempoTrocaDeframe){
+                         AnchorPane containerTabuleiro, ListView<String> listaHistorico, AnimacoesService animacoesService){
         this.imageViewRobo1 = imageViewRobo1;
         this.imageViewRobo2 = imageViewRobo2;
-        this.animacoesService = new AnimacoesService(tempoTrocaDeframe);
+        this.animacoesService = animacoesService;
         this.containerTabuleiro = containerTabuleiro;
         this.listaHistorico = listaHistorico;
     }

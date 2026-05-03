@@ -70,6 +70,5 @@ public class Robo {
     public int getMovimentosValidos()   { return movimentosValidos; }
     public int getMovimentosInvalidos() { return movimentosInvalidos; }
     public EstrategiaMovimento getEstrategiaMovimento() { return estrategiaMovimento; }
-
     public void setEstrategiaMovimento(EstrategiaMovimento estrategiaMovimento) { this.estrategiaMovimento = estrategiaMovimento; }
 }

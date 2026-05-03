@@ -20,12 +20,13 @@ import java.util.List;
 public class JogoService {
     private Robo robo1, robo2;
     private Tabuleiro tabuleiro;
-    private int turno = 1;
+    private int turno;
     private Modo modoDeJogo;
 
     public JogoService(Robo robo1, Robo robo2, Tabuleiro tabuleiro, Modo modoDeJogo){
         this.robo1 = robo1;
         this.robo2 = robo2;
+        this.turno = 1;
         this.tabuleiro = tabuleiro;
         this.modoDeJogo = modoDeJogo;
     }
@@ -80,7 +81,7 @@ public class JogoService {
         if(robo1.isExplodiu() || robo1.getAchouAlimento())
             tabuleiroView.getAnimacoesService().finalizarJogo(tabuleiroView.getImageViewAlimento());
 
-        ObservableList obsHistorico = FXCollections.observableArrayList(listaHistorico);
+        ObservableList<String> obsHistorico = FXCollections.observableArrayList(listaHistorico);
         tabuleiroView.getListaHistorico().setItems(obsHistorico);
     }
 

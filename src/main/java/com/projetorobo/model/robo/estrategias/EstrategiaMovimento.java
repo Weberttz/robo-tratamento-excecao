@@ -6,5 +6,4 @@ public interface EstrategiaMovimento {
     public Direcao escolherDirecao();
     public void registrarDirecaoInvalida(Direcao dir);
     public void confirmarMovimento();
-
 }
