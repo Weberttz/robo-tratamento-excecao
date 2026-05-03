@@ -8,6 +8,7 @@ import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.robo.Robo;
 import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
 import com.projetorobo.model.robo.estrategias.EstrategiaInteligente;
+import com.projetorobo.model.robo.estrategias.EstrategiaMemoria;
 import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 
 import java.util.Scanner;
@@ -23,13 +24,13 @@ public class Main4 {
 
         EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
         Robo normal = new Robo("Azul", estrategiaMovimento);
-        EstrategiaMovimento estrategiaMovimento1 = new EstrategiaInteligente();
+        EstrategiaMovimento estrategiaMovimento1 = new EstrategiaMemoria(0, 1);
         Robo inteligente = new Robo("Verde", estrategiaMovimento1);
 
         Tabuleiro tabuleiro = new Tabuleiro(7, alimentoX, alimentoY);
         tabuleiro.adicionarRobo(normal);
         tabuleiro.adicionarRobo(inteligente);
-        inteligente.modificarPosicaoInicial(2, 2);
+        inteligente.modificarPosicaoInicial(0, 1);
 
         System.out.print("Dificuldade (fassilimo / facil / medio / dificil): ");
         tabuleiro.colocarObstaculos(Dificuldade.fromString(sc.next().trim().toLowerCase()));

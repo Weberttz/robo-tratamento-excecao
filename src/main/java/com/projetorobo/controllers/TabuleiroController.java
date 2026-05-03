@@ -6,6 +6,7 @@ import com.projetorobo.model.enums.Modo;
 import com.projetorobo.model.robo.Robo;
 import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
 import com.projetorobo.model.robo.estrategias.EstrategiaInteligente;
+import com.projetorobo.model.robo.estrategias.EstrategiaMemoria;
 import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 import com.projetorobo.service.AnimacoesService;
 import com.projetorobo.service.JogoService;
@@ -78,6 +79,8 @@ public class TabuleiroController{
 
         EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
         EstrategiaMovimento estrategiaMovimento1 = new EstrategiaInteligente();
+        EstrategiaMemoria estrategiaMemoriaRobo1 = new EstrategiaMemoria(0, 0);
+        EstrategiaMemoria estrategiaMemoriaRobo2 = new EstrategiaMemoria(0,1);
 
 
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
@@ -85,11 +88,13 @@ public class TabuleiroController{
         switch (categoriaRobo1){
             case BURRO -> this.robo1 = new Robo(corRobo1, estrategiaMovimento);
             case INTELIGENTE -> this.robo1 = new Robo(corRobo1, estrategiaMovimento1);
+            case MEMORIA -> this.robo1 = new Robo(corRobo1, estrategiaMemoriaRobo1);
         }
 
         switch (categoriaRobo2){
             case BURRO -> this.robo2 = new Robo(corRobo2, estrategiaMovimento);
             case INTELIGENTE -> this.robo2 = new Robo(corRobo2, estrategiaMovimento1);
+            case MEMORIA -> this.robo2 = new Robo(corRobo2, estrategiaMemoriaRobo2);
         }
 
          this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
