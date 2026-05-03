@@ -1,6 +1,8 @@
-package com.projetorobo.model.robos;
+package com.projetorobo.model.robo;
 
 import com.projetorobo.model.enums.*;
+import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
+
 import java.util.Random;
 
 public class Robo {
@@ -13,15 +15,15 @@ public class Robo {
     private boolean explodiu;
     private int movimentosValidos;
     private int movimentosInvalidos;
-    protected final Random rand;
+    private EstrategiaMovimento estrategiaMovimento;
 
-    public Robo(String cor) {
+    public Robo(String cor, EstrategiaMovimento estrategiaMovimento) {
         this.cor = Cor.fromString(cor);
         this.newX = 0;
         this.newY = 0;
         this.oldX = 0;
         this.oldY = 0;
-        this.rand = new Random();
+        this.estrategiaMovimento = estrategiaMovimento;
         this.explodiu = false;
         achouAlimento = false;
     }
@@ -39,18 +41,6 @@ public class Robo {
 
     public void combustaoInstantanea(){
         this.explodiu = true;
-    }
-
-    public Direcao escolherDirecao() {
-        return Direcao.fromInt(rand.nextInt(4) + 1);
-    }
-
-    public void registrarDirecaoInvalida(Direcao dir) {
-        // robô normal não faz nada
-    }
-
-    public void confirmarMovimento() {
-        // robô normal não faz nada
     }
 
     public void desfazerMovimento() {
@@ -79,4 +69,7 @@ public class Robo {
     public Cor getCor() { return cor; }
     public int getMovimentosValidos()   { return movimentosValidos; }
     public int getMovimentosInvalidos() { return movimentosInvalidos; }
+    public EstrategiaMovimento getEstrategiaMovimento() { return estrategiaMovimento; }
+
+    public void setEstrategiaMovimento(EstrategiaMovimento estrategiaMovimento) { this.estrategiaMovimento = estrategiaMovimento; }
 }

@@ -4,14 +4,18 @@ import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.Direcao;
-import com.projetorobo.model.robos.Robo;
+import com.projetorobo.model.robo.Robo;
+import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
+import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 
 public class Main2 {
     public static void main(String[] args) {
         Tabuleiro tabuleiro = new Tabuleiro(4, 3, 3);
 
-        Robo robo1 = new Robo("Vermelho");
-        Robo robo2 = new Robo("Azul");
+        EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
+
+        Robo robo1 = new Robo("Vermelho", estrategiaMovimento);
+        Robo robo2 = new Robo("Azul", estrategiaMovimento);
 
         robo2.modificarPosicaoInicial(0, 1);
 
@@ -36,7 +40,7 @@ public class Main2 {
     }
 
     private static boolean jogarTurno(Robo robo, Tabuleiro tabuleiro) {
-        Direcao dir = robo.escolherDirecao();
+        Direcao dir = robo.getEstrategiaMovimento().escolherDirecao();
         System.out.printf("%n[%s] tentou: %s%n", robo.getCor(), dir);
         try {
             tabuleiro.moverRobo(robo, dir);

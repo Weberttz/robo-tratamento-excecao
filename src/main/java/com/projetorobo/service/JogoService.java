@@ -5,19 +5,15 @@ import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.enums.Modo;
-import com.projetorobo.model.robos.Robo;
+import com.projetorobo.model.robo.Robo;
 import com.projetorobo.view.TabuleiroView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import javax.swing.text.html.ListView;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +31,7 @@ public class JogoService {
     }
     private void jogarTurno(Robo robo, ImageView imageViewRobo, ArrayList<String> listaHistorico,
                             TabuleiroView tabuleiroView) {
-        Direcao dir = robo.escolherDirecao();
+        Direcao dir = robo.getEstrategiaMovimento().escolherDirecao();
         String linha;
         try {
             tabuleiro.moverRobo(robo, dir);

@@ -1,33 +1,24 @@
 package com.projetorobo.controllers;
 import com.projetorobo.model.board.Tabuleiro;
-import com.projetorobo.exception.ColisaoComObstaculoException;
-import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Dificuldade;
-import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.enums.Modo;
-import com.projetorobo.model.robos.Robo;
-import com.projetorobo.model.robos.RoboInteligente;
-import com.projetorobo.service.AnimacoesService;
+import com.projetorobo.model.robo.Robo;
+import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
+import com.projetorobo.model.robo.estrategias.EstrategiaInteligente;
+import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 import com.projetorobo.service.JogoService;
 import com.projetorobo.service.ObstaculoService;
 import com.projetorobo.view.TabuleiroView;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TabuleiroController{
     private final int tamanhoTabuleiro = 10;
@@ -63,7 +54,8 @@ public class TabuleiroController{
     public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade, Modo modoDeJogo){
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
         this.modoDeJogo = modoDeJogo;
-        this.robo1 = new Robo(cor);
+        EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
+        this.robo1 = new Robo(cor, estrategiaMovimento);
         this.tabuleiro.adicionarRobo(robo1);
         this.imageViewRobo2.setVisible(false);
         this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
@@ -82,16 +74,20 @@ public class TabuleiroController{
         this.textFieldMovimento.setDisable(true);
         this.modoDeJogo = modoDeJogo;
 
+        EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
+        EstrategiaMovimento estrategiaMovimento1 = new EstrategiaInteligente();
+
+
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
 
         switch (categoriaRobo1){
-            case BURRO -> this.robo1 = new Robo(corRobo1);
-            case INTELIGENTE -> this.robo1 = new RoboInteligente(corRobo1);
+            case BURRO -> this.robo1 = new Robo(corRobo1, estrategiaMovimento);
+            case INTELIGENTE -> this.robo1 = new Robo(corRobo1, estrategiaMovimento1);
         }
 
         switch (categoriaRobo2){
-            case BURRO -> this.robo2 = new Robo(corRobo2);
-            case INTELIGENTE -> this.robo2 = new RoboInteligente(corRobo2);
+            case BURRO -> this.robo2 = new Robo(corRobo2, estrategiaMovimento);
+            case INTELIGENTE -> this.robo2 = new Robo(corRobo2, estrategiaMovimento1);
         }
 
          this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,

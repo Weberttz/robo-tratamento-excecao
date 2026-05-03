@@ -1,17 +1,12 @@
 package com.projetorobo.service;
 
-import com.almasb.fxgl.animation.AnimationBuilder;
-import com.projetorobo.controllers.TabuleiroController;
 import com.projetorobo.model.enums.Direcao;
-import com.projetorobo.model.robos.Robo;
+import com.projetorobo.model.robo.Robo;
 import com.projetorobo.view.TabuleiroView;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -67,7 +62,6 @@ public class AnimacoesService {
     }
 
     public void limparColisaoComBomba(TabuleiroView tabuleiroView, ImageView imageViewRobo){
-        System.out.println("teste");
         new Thread(() -> {
             try {
                 Thread.sleep(2000);

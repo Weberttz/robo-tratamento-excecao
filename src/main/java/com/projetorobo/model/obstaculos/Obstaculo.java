@@ -1,7 +1,7 @@
 package com.projetorobo.model.obstaculos;
 
 import com.projetorobo.model.enums.ResultadoBater;
-import com.projetorobo.model.robos.Robo;
+import com.projetorobo.model.robo.Robo;
 
 public abstract class Obstaculo {
     private final int id;

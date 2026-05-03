@@ -5,7 +5,9 @@ import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.Direcao;
-import com.projetorobo.model.robos.Robo;
+import com.projetorobo.model.robo.Robo;
+import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
+import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -17,8 +19,11 @@ public class Main1 {
         int alimentoX = 0;
         int alimentoY = 0;
 
+
         System.out.print("Cor do robô: ");
-        Robo robo = new Robo(sc.next());
+        EstrategiaMovimento EstrategiaAleatoria = new EstrategiaAleatoria();
+        Robo robo = new Robo(sc.next(), EstrategiaAleatoria);
+
         boolean alimentoPosicionado = false;
         while(!alimentoPosicionado) {
             try {

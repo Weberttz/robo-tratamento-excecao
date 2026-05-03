@@ -5,8 +5,10 @@ import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Direcao;
-import com.projetorobo.model.robos.Robo;
-import com.projetorobo.model.robos.RoboInteligente;
+import com.projetorobo.model.robo.Robo;
+import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
+import com.projetorobo.model.robo.estrategias.EstrategiaInteligente;
+import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 
 import java.util.Scanner;
 
@@ -19,8 +21,10 @@ public class Main4 {
         System.out.print("Y do alimento (0-3): ");
         int alimentoY = sc.nextInt();
 
-        Robo normal = new Robo("Azul");
-        RoboInteligente inteligente = new RoboInteligente("Verde");
+        EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
+        Robo normal = new Robo("Azul", estrategiaMovimento);
+        EstrategiaMovimento estrategiaMovimento1 = new EstrategiaInteligente();
+        Robo inteligente = new Robo("Verde", estrategiaMovimento1);
 
         Tabuleiro tabuleiro = new Tabuleiro(7, alimentoX, alimentoY);
         tabuleiro.adicionarRobo(normal);
@@ -37,7 +41,7 @@ public class Main4 {
         while (!acabou) {
 
             if (!normal.isExplodiu()) {
-                Direcao dirNormal = normal.escolherDirecao();
+                Direcao dirNormal = normal.getEstrategiaMovimento().escolherDirecao();
                 System.out.printf("%n[%s] tentou: %s%n", normal.getCor(), dirNormal);
                 try {
                     tabuleiro.moverRobo(normal, dirNormal);
@@ -56,7 +60,7 @@ public class Main4 {
             }
 
             if (!acabou && !inteligente.isExplodiu()) {
-                Direcao dirInteligente = inteligente.escolherDirecao();
+                Direcao dirInteligente = inteligente.getEstrategiaMovimento().escolherDirecao();
                 System.out.printf("%n[%s] tentou: %s%n", inteligente.getCor(), dirInteligente);
                 try {
                     tabuleiro.moverRobo(inteligente, dirInteligente);

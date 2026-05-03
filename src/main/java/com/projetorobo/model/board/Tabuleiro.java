@@ -3,7 +3,7 @@ package com.projetorobo.model.board;
 import com.projetorobo.exception.*;
 import com.projetorobo.model.enums.*;
 import com.projetorobo.model.obstaculos.*;
-import com.projetorobo.model.robos.*;
+import com.projetorobo.model.robo.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -31,13 +31,13 @@ public class Tabuleiro {
         if (foraDoLimite(robo.getNewX(), robo.getNewY())) {
             robo.desfazerMovimento();
             robo.incrementarInvalidos();
-            robo.registrarDirecaoInvalida(dir);
+            robo.getEstrategiaMovimento().registrarDirecaoInvalida(dir);
             throw new MovimentoInvalidoException(dir.name());
 
         } else if (temOutroRobo(robo, robo.getNewX(), robo.getNewY())) {
             robo.desfazerMovimento();
             robo.incrementarInvalidos();
-            robo.registrarDirecaoInvalida(dir);
+            robo.getEstrategiaMovimento().registrarDirecaoInvalida(dir);
             throw new ColisaoComObstaculoException(dir.name(), "Robo");
 
         } else {
@@ -52,7 +52,7 @@ public class Tabuleiro {
                     }
                     case VOLTOU -> {
                         robo.incrementarInvalidos();
-                        robo.registrarDirecaoInvalida(dir);
+                        robo.getEstrategiaMovimento().registrarDirecaoInvalida(dir);
                         throw new ColisaoComObstaculoException(dir.name(), obs.getClass().getSimpleName());
                     }
                 }
@@ -60,7 +60,7 @@ public class Tabuleiro {
         }
 
         robo.incrementarValidos();
-        robo.confirmarMovimento();
+        robo.getEstrategiaMovimento().confirmarMovimento();
     }
 
     private boolean foraDoLimite(int x, int y) {

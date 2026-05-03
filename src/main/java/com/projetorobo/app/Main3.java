@@ -4,8 +4,10 @@ import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.enums.Direcao;
-import com.projetorobo.model.robos.Robo;
-import com.projetorobo.model.robos.RoboInteligente;
+import com.projetorobo.model.robo.Robo;
+import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
+import com.projetorobo.model.robo.estrategias.EstrategiaInteligente;
+import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 
 import java.util.Scanner;
 
@@ -18,8 +20,10 @@ public class Main3 {
         System.out.print("Y do alimento (0-3): ");
         int alimentoY = sc.nextInt();
 
-        Robo normal = new Robo("Azul");
-        RoboInteligente inteligente = new RoboInteligente("Verde");
+        EstrategiaMovimento EstrategiaMovimento = new EstrategiaAleatoria();
+        Robo normal = new Robo("Azul", EstrategiaMovimento);
+        EstrategiaMovimento EstrategiaMovimento1 = new EstrategiaInteligente();
+        Robo inteligente = new Robo("Verde", EstrategiaMovimento1);
 
         Tabuleiro tabuleiro = new Tabuleiro(7, alimentoX, alimentoY);
         tabuleiro.adicionarRobo(normal);
@@ -33,7 +37,7 @@ public class Main3 {
         boolean acabou = false;
         while (!acabou) {
             if(!tabuleiro.verificarAlimento(normal)) {
-                Direcao dirNormal = normal.escolherDirecao();
+                Direcao dirNormal = normal.getEstrategiaMovimento().escolherDirecao();
                 System.out.printf("%n[%s] tentou: %s%n", normal.getCor(), dirNormal);
                 try {
                     tabuleiro.moverRobo(normal, dirNormal);
@@ -54,7 +58,7 @@ public class Main3 {
                 //mover essa lógica de !conseguir para Tabuleiro
                 boolean conseguiu = false;
                 while (!conseguiu) {
-                    Direcao dirInteligente = inteligente.escolherDirecao();
+                    Direcao dirInteligente = inteligente.getEstrategiaMovimento().escolherDirecao();
                     System.out.printf("%n[%s] tentou: %s%n", inteligente.getCor(), dirInteligente);
                     try {
                         tabuleiro.moverRobo(inteligente, dirInteligente);

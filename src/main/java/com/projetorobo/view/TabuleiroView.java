@@ -1,21 +1,16 @@
 package com.projetorobo.view;
 
-import com.almasb.fxgl.animation.AnimatedColor;
 import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.obstaculos.Obstaculo;
-import com.projetorobo.model.robos.Robo;
+import com.projetorobo.model.robo.Robo;
 import com.projetorobo.service.AnimacoesService;
-import com.projetorobo.service.JogoService;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class TabuleiroView {
@@ -67,6 +62,8 @@ public class TabuleiroView {
         animacoesService.andar(imageViewRobo, direcao, deveMover, this);
     }
 
+    // todo elemento do jogo é um ImageView no AnchorPane
+
     public void settarAlimentoNoAnchorPane(Tabuleiro tabuleiro){
         imageViewAlimento.setPreserveRatio(true); // preservar o corpo da imagem
         imageViewAlimento.setSmooth(true); // preservar a qualidade
@@ -98,7 +95,9 @@ public class TabuleiroView {
 
     public ImageView procurarBombas(ImageView imageViewRobo){
         for (Node node : containerTabuleiro.getChildren()) {
-            if(node instanceof ImageView imageViewNode && imageViewNode != imageViewRobo && imageViewNode.getImage() == bombaImg){
+            if(node instanceof ImageView imageViewNode &&
+                    imageViewNode != imageViewRobo
+                    && imageViewNode.getImage() == bombaImg){
                 if (Math.abs(imageViewNode.getLayoutX() - imageViewRobo.getLayoutX()) < 1 &&
                         Math.abs(imageViewNode.getLayoutY() - imageViewRobo.getLayoutY()) < 1) {
                     return imageViewNode;
