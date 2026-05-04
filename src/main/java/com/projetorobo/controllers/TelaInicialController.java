@@ -57,7 +57,7 @@ public class TelaInicialController {
                     tamJanelaX = 560;
                     tamJanelaY = 508;
                 }
-                default -> caminho = "com/projetorobo/telaInicial.fxml"; // alterar dps
+                default -> caminho = "/com/projetorobo/telaInicial.fxml"; // alterar dps
             }
 
             try {

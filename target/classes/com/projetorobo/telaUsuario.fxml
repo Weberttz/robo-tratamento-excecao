@@ -71,11 +71,11 @@
       <children>
          <VBox spacing="4.0" GridPane.columnIndex="0">
             <Label style="-fx-font-size: 13px; -fx-text-fill: #ffffff;" text="Pos x do alimento:" />
-            <TextField fx:id="textPosX" promptText="0-9" />
+            <TextField fx:id="textPosX" promptText="1-9" />
          </VBox>
          <VBox spacing="4.0" GridPane.columnIndex="1">
             <Label style="-fx-font-size: 13px; -fx-text-fill: #ffffff;" text="Pos y do alimento:" />
-            <TextField fx:id="textPosY" promptText="0-9" />
+            <TextField fx:id="textPosY" promptText="1-9" />
          </VBox>
       </children>
    </GridPane>
@@ -88,7 +88,7 @@
       </VBox>
       <AnchorPane prefHeight="46.0" prefWidth="307.0">
          <children>
-            <Button fx:id="buttonIniciar" layoutX="237.0" layoutY="18.0" mnemonicParsing="false" onAction="#comecarJogo" prefHeight="26.0" prefWidth="66.0" text="Começar" />
+            <Button fx:id="buttonIniciar" layoutX="216.0" layoutY="18.0" mnemonicParsing="false" onAction="#comecarJogo" prefHeight="26.0" prefWidth="87.0" text="Começar" />
          </children>
       </AnchorPane>
    </HBox>

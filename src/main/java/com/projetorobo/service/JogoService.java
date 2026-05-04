@@ -1,5 +1,6 @@
 package com.projetorobo.service;
 
+import com.projetorobo.controllers.TelaResultadoController;
 import com.projetorobo.exception.ColisaoComObstaculoException;
 import com.projetorobo.exception.MovimentoInvalidoException;
 import com.projetorobo.model.board.Tabuleiro;
@@ -12,7 +13,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -57,12 +62,12 @@ public class JogoService {
         }
     }
 
-    public void jogarModoUsuario(TabuleiroView tabuleiroView, List<String> listaHistorico, String movimento){
+    public void jogarModoUsuario(TabuleiroView tabuleiroView, List<String> listaHistorico, String movimento) {
         Direcao direcao = null;
         try {
-            if(movimento.matches("\\d+")){
+            if (movimento.matches("\\d+")) {
                 direcao = Direcao.fromInt(Integer.parseInt(movimento));
-            }else {
+            } else {
                 direcao = Direcao.fromString(movimento);
             }
 
@@ -79,8 +84,10 @@ public class JogoService {
             AlertaUtil.mostrarErro("Direção desconhecida.\nUse: up, down, left, right  ou  1,2,3,4");
         }
 
-        if(robo1.isExplodiu() || robo1.getAchouAlimento())
+        if (robo1.isExplodiu() || robo1.getAchouAlimento()) {
             tabuleiroView.getAnimacoesService().finalizarJogo(tabuleiroView.getImageViewAlimento());
+            tabuleiroView.chamarJanelaResultados(robo1, robo2, modoDeJogo);
+        }
 
         ObservableList<String> obsHistorico = FXCollections.observableArrayList(listaHistorico);
         tabuleiroView.getListaHistorico().setItems(obsHistorico);
@@ -117,10 +124,12 @@ public class JogoService {
 
         if ((umAchouAlimento || robosExplodiram) && modoDeJogo == Modo.COMPETITIVO) {
             tabuleiroView.getAnimacoesService().finalizarJogo(tabuleiroView.getImageViewAlimento());
+            tabuleiroView.chamarJanelaResultados(robo1, robo2, modoDeJogo);
             return true;
         }
         else if((robo1Terminou && robo2Terminou) && modoDeJogo == Modo.COOPERATIVO) {
             tabuleiroView.getAnimacoesService().finalizarJogo(tabuleiroView.getImageViewAlimento());
+            tabuleiroView.chamarJanelaResultados(robo1, robo2, modoDeJogo);
             return true;
         }
         return false;

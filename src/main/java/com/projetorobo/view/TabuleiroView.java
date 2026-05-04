@@ -1,15 +1,25 @@
 package com.projetorobo.view;
 
+import com.projetorobo.controllers.TelaInicialController;
+import com.projetorobo.controllers.TelaResultadoController;
+import com.projetorobo.controllers.TelaRobosController;
+import com.projetorobo.controllers.TelaUsuarioController;
 import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.model.enums.Direcao;
+import com.projetorobo.model.enums.Modo;
 import com.projetorobo.model.obstaculos.Obstaculo;
 import com.projetorobo.model.robo.Robo;
 import com.projetorobo.service.AnimacoesService;
+import com.projetorobo.util.AlertaUtil;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 
@@ -105,6 +115,26 @@ public class TabuleiroView {
             }
         }
         return null;
+    }
+
+    public void chamarJanelaResultados(Robo robo1, Robo robo2, Modo modoDeJogo){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetorobo/telaResultadoFinal.fxml"));
+            Parent root = loader.load();
+
+            TelaResultadoController telaResultadoController = loader.getController();
+
+            telaResultadoController.receberDados(robo1, robo2, modoDeJogo);
+
+            Stage stage = new Stage();
+            stage.setTitle("Resultado de Jogo");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        }catch (Exception e) {
+            AlertaUtil.mostrarErro(e.getMessage());
+        }
     }
 
     public AnimacoesService getAnimacoesService() {return animacoesService;}

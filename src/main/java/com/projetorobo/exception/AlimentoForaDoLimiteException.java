@@ -2,6 +2,6 @@ package com.projetorobo.exception;
 
 public class AlimentoForaDoLimiteException extends RuntimeException {
     public AlimentoForaDoLimiteException() {
-        super("Alimento fora do tabuleiro");
+        super("Alimento não pode ser colocado nessa posição!");
     }
 }

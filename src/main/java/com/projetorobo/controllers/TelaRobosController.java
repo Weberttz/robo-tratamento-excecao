@@ -2,6 +2,7 @@ package com.projetorobo.controllers;
 
 import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.exception.CoresDuplicadasException;
+import com.projetorobo.exception.DadosNaoPreenchidosException;
 import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.DataFormatException;
 
 public class TelaRobosController {
     private int tamanhoTabuleiro = 10;
@@ -68,15 +70,22 @@ public class TelaRobosController {
 
     @FXML
     void comecarJogo(ActionEvent event) {
-        try{
+        try {
             //Carregador - o que carrega
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetorobo/tabuleiro.fxml"));
             Parent root = loader.load();
 
+            if(textPosX.getText() == null || textPosY.getText() == null || comboBoxCorRobo1.getValue() == null ||
+                    comboBoxCorRobo2.getValue() == null || comboBoxDificuldade.getValue() == null) {
+                throw new DadosNaoPreenchidosException();
+            }
+
             int posicaoXAlimento = Integer.parseInt(textPosX.getText());
             int posicaoYAlimento = Integer.parseInt(textPosY.getText());
 
-            if(posicaoYAlimento >= tamanhoTabuleiro || posicaoXAlimento >= tamanhoTabuleiro){
+            if (posicaoYAlimento >= tamanhoTabuleiro || posicaoXAlimento >= tamanhoTabuleiro) {
+                throw new AlimentoForaDoLimiteException();
+            } else if (posicaoXAlimento == 0 || posicaoYAlimento == 0) {
                 throw new AlimentoForaDoLimiteException();
             }
 
@@ -108,8 +117,8 @@ public class TelaRobosController {
             currentStage.close(); // fecha a janela atual
 
         } catch (IllegalArgumentException e) {
-            AlertaUtil.mostrarErro("Entrada inválida!");
-        } catch (Exception e) {
+            AlertaUtil.mostrarErro("Entrada inválida, preencha os campos de texto com entradas válidas!");
+        } catch (Exception e){
             AlertaUtil.mostrarErro(e.getMessage());
         }
     }

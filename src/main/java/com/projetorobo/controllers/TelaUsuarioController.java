@@ -1,6 +1,7 @@
 package com.projetorobo.controllers;
 
 import com.projetorobo.exception.AlimentoForaDoLimiteException;
+import com.projetorobo.exception.DadosNaoPreenchidosException;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Modo;
@@ -47,42 +48,47 @@ public class TelaUsuarioController {
 
     @FXML
     public void comecarJogo(ActionEvent event) {
-        if(textPosX.getText() != null && textPosY.getText() != null && comboBoxCorRobo.getValue() != null &&
-                comboBoxDificuldade.getValue() != null){
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetorobo/tabuleiro.fxml"));
-                Parent root = loader.load();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/projetorobo/tabuleiro.fxml"));
+            Parent root = loader.load();
 
-                TabuleiroController controller = loader.getController();
-
-                int x = Integer.parseInt(textPosX.getText());
-                int y = Integer.parseInt(textPosY.getText());
-
-                if(x >= tamanhoTabuleiro || y >= tamanhoTabuleiro){
-                    throw new AlimentoForaDoLimiteException();
-                }
-
-                String cor = comboBoxCorRobo.getValue().toString().toUpperCase();
-                Dificuldade dificuldade = comboBoxDificuldade.getValue();
-
-                controller.receberDados(x, y, cor, dificuldade, modoDeJogo);
-
-                Stage stage = new Stage();
-                stage.setTitle("Modo de jogo: " + modoDeJogo.toString().toLowerCase());
-                stage.setResizable(false);
-                stage.setScene(new Scene(root));
-                stage.show();
-
-                // pega a janela que o botão está inserido
-                Stage currentStage = (Stage) buttonIniciar.getScene().getWindow();
-                currentStage.close();
-
-            }catch (IllegalArgumentException e) {
-                AlertaUtil.mostrarErro("Entrada inválida!");
-            }catch (Exception e){
-                AlertaUtil.mostrarErro(e.getMessage());
+            if(textPosX.getText() == null || textPosY.getText() == null || comboBoxCorRobo.getValue() == null ||
+                    comboBoxDificuldade.getValue() == null) {
+                    throw new DadosNaoPreenchidosException();
             }
+
+            TabuleiroController controller = loader.getController();
+
+            int posicaoXAlimento = Integer.parseInt(textPosX.getText());
+            int posicaoYAlimento = Integer.parseInt(textPosY.getText());
+
+            if(posicaoXAlimento >= tamanhoTabuleiro || posicaoYAlimento >= tamanhoTabuleiro){
+                throw new AlimentoForaDoLimiteException();
+            }else if(posicaoXAlimento == 0 || posicaoYAlimento == 0){
+                throw new AlimentoForaDoLimiteException();
+            }
+
+            String cor = comboBoxCorRobo.getValue().toString().toUpperCase();
+            Dificuldade dificuldade = comboBoxDificuldade.getValue();
+
+            controller.receberDados(posicaoXAlimento, posicaoYAlimento, cor, dificuldade, modoDeJogo);
+
+            Stage stage = new Stage();
+            stage.setTitle("Modo de jogo: " + modoDeJogo.toString().toLowerCase());
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // pega a janela que o botão está inserido
+            Stage currentStage = (Stage) buttonIniciar.getScene().getWindow();
+            currentStage.close();
+
+        }catch (IllegalArgumentException e) {
+            AlertaUtil.mostrarErro("Entrada inválida!");
+        }catch (Exception e){
+            AlertaUtil.mostrarErro(e.getMessage());
         }
+
     }
 
     private void carregarComboBoxes() {
