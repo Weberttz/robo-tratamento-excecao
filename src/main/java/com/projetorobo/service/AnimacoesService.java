@@ -92,6 +92,7 @@ public class AnimacoesService {
                 Platform.runLater(() -> imageViewAlimento.setVisible(false));
                 Thread.sleep(1000);
                 Platform.runLater(() -> ((Stage) imageViewAlimento.getScene().getWindow()).close());
+                //abrir nova janela
             } catch (InterruptedException exception) {
                 Thread.currentThread().interrupt();
             }
