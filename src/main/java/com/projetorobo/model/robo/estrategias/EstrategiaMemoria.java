@@ -25,12 +25,11 @@ public class EstrategiaMemoria implements EstrategiaMovimento{
         rand = new Random();
         this.posicaoXRobo = posicaoXRobo;
         this.posicaoYRobo = posicaoYRobo;
-        verificarProximaPosicaoX = posicaoXRobo;
-        verificarProximaPosicaoY = posicaoYRobo;
     }
 
     @Override
     public Direcao escolherDirecao(){
+        posicoesPassadas.add(new Posicao(posicaoXRobo, posicaoYRobo));
         Posicao novaPosicao;
         do {
             verificarArredores();
@@ -53,7 +52,6 @@ public class EstrategiaMemoria implements EstrategiaMovimento{
 
     @Override
     public void confirmarMovimento() {
-        posicoesPassadas.add(new Posicao(posicaoXRobo, posicaoYRobo));
         proximaPosicao(dir);
     }
 
@@ -100,6 +98,8 @@ public class EstrategiaMemoria implements EstrategiaMovimento{
         }
     }
     private void verificarProximaPosicao(Direcao dir){
+        verificarProximaPosicaoX = posicaoXRobo;
+        verificarProximaPosicaoY = posicaoYRobo;
         switch (dir){
             case UP -> verificarProximaPosicaoY = posicaoYRobo + 1;
             case DOWN -> verificarProximaPosicaoY = posicaoYRobo - 1;
