@@ -173,9 +173,13 @@ public class TabuleiroController{
             if(roboAtual.isExplodiu() || roboAtual.getAchouAlimento()){
                 throw new RuntimeException("Robô " + corRobo.name().toLowerCase() + " não está mais disponível");
             }
+            if(roboAtual.getEstrategiaMovimento() == novaEstrategia.getEstrategia(roboAtual)){
+                throw new RuntimeException("Robô " + corRobo.name().toLowerCase() + " já usa essa estratégia.");
+            }
 
+            System.out.println("Antiga estratégia : " + roboAtual.getEstrategiaMovimento());
             roboAtual.setEstrategiaMovimento(novaEstrategia.getEstrategia(roboAtual));
-            System.out.println(roboAtual.getEstrategiaMovimento().toString());
+            System.out.println("Nova estratégia : " + roboAtual.getEstrategiaMovimento());
 
         }catch (RuntimeException e){
             AlertaUtil.mostrarErro(e.getMessage());
