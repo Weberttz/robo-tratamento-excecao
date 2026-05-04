@@ -6,6 +6,7 @@ import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.enums.Modo;
 import com.projetorobo.model.robo.Robo;
+import com.projetorobo.util.AlertaUtil;
 import com.projetorobo.view.TabuleiroView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -75,7 +76,7 @@ public class JogoService {
             listaHistorico.add(linha);
             tabuleiroView.direcionarImageViewRobo(robo1, tabuleiroView.getImageViewRobo1(), direcao, false);
         } catch (IllegalArgumentException e) {
-            System.out.println("Direção desconhecida. Use: up, down, left, right  ou  1,2,3,4");
+            AlertaUtil.mostrarErro("Direção desconhecida.\nUse: up, down, left, right  ou  1,2,3,4");
         }
 
         if(robo1.isExplodiu() || robo1.getAchouAlimento())
@@ -103,7 +104,7 @@ public class JogoService {
             timeline.setCycleCount(Timeline.INDEFINITE);
             timeline.play();
         }catch (Exception e){
-            System.out.println("Parada Terminal");
+            AlertaUtil.mostrarErro("Parada terminal.");
         }
     }
 

@@ -4,6 +4,7 @@ import com.projetorobo.exception.AlimentoForaDoLimiteException;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Modo;
+import com.projetorobo.util.AlertaUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -77,9 +78,9 @@ public class TelaUsuarioController {
                 currentStage.close();
 
             }catch (IllegalArgumentException e) {
-                System.out.println("Entrada inválida!");
+                AlertaUtil.mostrarErro("Entrada inválida!");
             }catch (Exception e){
-                System.out.println(e.getMessage());
+                AlertaUtil.mostrarErro(e.getMessage());
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.projetorobo.controllers;
 
 import com.projetorobo.model.enums.Modo;
+import com.projetorobo.util.AlertaUtil;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,7 +81,7 @@ public class TelaInicialController {
                 Stage currentStage = (Stage) buttonJogar.getScene().getWindow();
                 currentStage.close();
             }catch (Exception e) {
-            System.out.println(e.getMessage());
+                AlertaUtil.mostrarErro(e.getMessage());
             }
         }
     }

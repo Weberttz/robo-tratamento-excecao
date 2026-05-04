@@ -1,6 +1,7 @@
 package com.projetorobo.controllers;
 import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.model.enums.CategoriaRobo;
+import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Modo;
 import com.projetorobo.model.robo.Robo;
@@ -12,15 +13,19 @@ import com.projetorobo.service.AnimacoesService;
 import com.projetorobo.service.JogoService;
 import com.projetorobo.service.ObstaculoService;
 import com.projetorobo.view.TabuleiroView;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TabuleiroController{
     private final int tamanhoTabuleiro = 10;
@@ -30,6 +35,14 @@ public class TabuleiroController{
     private Modo modoDeJogo;
     private Robo robo1;
     private Robo robo2;
+    private List<Cor> coresRobos = new ArrayList<>();
+    private List<CategoriaRobo> estrategias = new ArrayList<>();
+
+    @FXML
+    private HBox HBoxEstrategias;
+
+    @FXML
+    private HBox HBoxInstrucoes;
 
     @FXML
     private ImageView imageViewRobo1;
@@ -38,6 +51,12 @@ public class TabuleiroController{
 
     @FXML
     private Button buttonMover;
+
+    @FXML
+    private ComboBox<Cor> comboBoxCorRobo;
+
+    @FXML
+    private ComboBox<CategoriaRobo> comboBoxNovaEstrategiaRobo;
 
     @FXML
     private AnchorPane containerTabuleiro;
@@ -60,7 +79,12 @@ public class TabuleiroController{
         EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
         this.robo1 = new Robo(cor, estrategiaMovimento);
         this.tabuleiro.adicionarRobo(robo1);
+
         this.imageViewRobo2.setVisible(false);
+
+        HBoxInstrucoes.setVisible(true);
+        HBoxEstrategias.setVisible(false);
+
         this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
                 listViewHistorico, animacoesService);
         this.jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
@@ -82,6 +106,8 @@ public class TabuleiroController{
         EstrategiaMemoria estrategiaMemoriaRobo1 = new EstrategiaMemoria(0, 0);
         EstrategiaMemoria estrategiaMemoriaRobo2 = new EstrategiaMemoria(0,1);
 
+        HBoxInstrucoes.setVisible(false);
+        HBoxEstrategias.setVisible(true);
 
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
 
@@ -97,6 +123,14 @@ public class TabuleiroController{
             case MEMORIA -> this.robo2 = new Robo(corRobo2, estrategiaMemoriaRobo2);
         }
 
+        coresRobos.add(robo1.getCor());
+        coresRobos.add(robo2.getCor());
+
+        estrategias.add(CategoriaRobo.BURRO);
+        estrategias.add(CategoriaRobo.INTELIGENTE);
+        estrategias.add(CategoriaRobo.ESTRATEGISTA);
+        estrategias.add(CategoriaRobo.MEMORIA);
+
          this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
                 listViewHistorico, animacoesService);
          this.jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
@@ -108,6 +142,10 @@ public class TabuleiroController{
         tabuleiroView.settarRoboNoAnchorPane(robo1, imageViewRobo1);
         tabuleiroView.settarRoboNoAnchorPane(robo2, imageViewRobo2);
         tabuleiroView.settarAlimentoNoAnchorPane(tabuleiro);
+
+        comboBoxCorRobo.setItems(FXCollections.observableArrayList(coresRobos));
+        comboBoxNovaEstrategiaRobo.setItems(FXCollections.observableArrayList(estrategias));
+
         controlarRobos();
     }
 
@@ -116,6 +154,11 @@ public class TabuleiroController{
         buttonMover.setDisable(true);  // desabilitar botão após o clique
         jogoService.jogarModoUsuario(tabuleiroView, listaHistorico, textFieldMovimento.getText());
         tabuleiroView.getAnimacoesService().habilitarBotao(buttonMover);
+    }
+
+    @FXML
+    void trocarEstrategia(ActionEvent event) {
+
     }
 
     public void controlarRobos(){

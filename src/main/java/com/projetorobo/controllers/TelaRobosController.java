@@ -6,6 +6,7 @@ import com.projetorobo.model.enums.CategoriaRobo;
 import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Modo;
+import com.projetorobo.util.AlertaUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -107,9 +108,9 @@ public class TelaRobosController {
             currentStage.close(); // fecha a janela atual
 
         } catch (IllegalArgumentException e) {
-            System.out.println("Entrada inválida!");
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+            AlertaUtil.mostrarErro("Entrada inválida!");
+        } catch (Exception e) {
+            AlertaUtil.mostrarErro(e.getMessage());
         }
     }
 
