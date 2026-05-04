@@ -12,6 +12,7 @@ import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 import com.projetorobo.service.AnimacoesService;
 import com.projetorobo.service.JogoService;
 import com.projetorobo.service.ObstaculoService;
+import com.projetorobo.util.AlertaUtil;
 import com.projetorobo.view.TabuleiroView;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -158,7 +159,27 @@ public class TabuleiroController{
 
     @FXML
     void trocarEstrategia(ActionEvent event) {
+        Cor corRobo = comboBoxCorRobo.getValue();
+        CategoriaRobo novaEstrategia = comboBoxNovaEstrategiaRobo.getValue();
+        Robo roboAtual = robo1.getCor() == corRobo ? robo1 : robo2;
 
+        if (corRobo == null || novaEstrategia == null) {
+            AlertaUtil.mostrarErro("Selecione o robô e a estratégia.");
+            return;
+        }
+
+        try{
+
+            if(roboAtual.isExplodiu() || roboAtual.getAchouAlimento()){
+                throw new RuntimeException("Robô " + corRobo.name().toLowerCase() + " não está mais disponível");
+            }
+
+            roboAtual.setEstrategiaMovimento(novaEstrategia.getEstrategia(roboAtual));
+            System.out.println(roboAtual.getEstrategiaMovimento().toString());
+
+        }catch (RuntimeException e){
+            AlertaUtil.mostrarErro(e.getMessage());
+        }
     }
 
     public void controlarRobos(){

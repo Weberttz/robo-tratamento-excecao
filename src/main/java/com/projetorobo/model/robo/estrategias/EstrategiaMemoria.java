@@ -70,7 +70,7 @@ public class EstrategiaMemoria implements EstrategiaMovimento{
        for (Posicao p : posicoes){
            if (posicoesBloqueadas.contains(p))
                contadorBloqueadas++;
-           else if(posicoesPassadas.contains(p))
+           if(posicoesPassadas.contains(p))
                contadorPassadas++;
        }
 
