@@ -1,6 +1,7 @@
 package com.projetorobo.model.robo;
 
 import com.projetorobo.model.enums.*;
+import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
 import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
 
 import java.util.Random;
@@ -17,13 +18,13 @@ public class Robo {
     private int movimentosInvalidos;
     private EstrategiaMovimento estrategiaMovimento;
 
-    public Robo(String cor, EstrategiaMovimento estrategiaMovimento) {
+    public Robo(String cor) {
         this.cor = Cor.fromString(cor);
         this.newX = 0;
         this.newY = 0;
         this.oldX = 0;
         this.oldY = 0;
-        this.estrategiaMovimento = estrategiaMovimento;
+        this.estrategiaMovimento = new EstrategiaAleatoria();
         this.explodiu = false;
         achouAlimento = false;
     }

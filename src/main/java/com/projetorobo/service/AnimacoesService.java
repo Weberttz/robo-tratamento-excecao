@@ -64,7 +64,7 @@ public class AnimacoesService {
     public void limparColisaoComBomba(TabuleiroView tabuleiroView, ImageView imageViewRobo){
         new Thread(() -> {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1100);
                 ImageView objeto = tabuleiroView.procurarBombas(imageViewRobo);
                 imageViewRobo.setVisible(false);
                 objeto.setVisible(false);
@@ -77,7 +77,7 @@ public class AnimacoesService {
     public void limparColisaoComAlimento(ImageView imageViewRobo){
         new Thread(() -> {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
                 imageViewRobo.setVisible(false);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

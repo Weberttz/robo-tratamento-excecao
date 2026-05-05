@@ -97,13 +97,17 @@ public class JogoService {
         Timeline timeline = new Timeline();
         try {
             timeline.getKeyFrames().add(new KeyFrame(Duration.millis(tempoTimeline), e -> {
-                if (turno % 2 == 1 && !robo1.isExplodiu() && !robo1.getAchouAlimento())
+
+                boolean robo1Acabou = robo1.isExplodiu() || robo1.getAchouAlimento();
+                boolean robo2Acabou = robo2.isExplodiu() || robo2.getAchouAlimento();
+
+                if(turno % 2 == 1 && !robo1Acabou)
                     jogarTurno(robo1, tabuleiroView.getImageViewRobo1(), listaHistorico, tabuleiroView);
-                else if (turno % 2 == 0 && !robo2.isExplodiu() && !robo2.getAchouAlimento())
+                else if(turno % 2 == 0 && !robo2Acabou)
                     jogarTurno(robo2, tabuleiroView.getImageViewRobo2(), listaHistorico, tabuleiroView);
-                else if(verificarFinalizacaoDeJogo(robo1, robo2, modoDeJogo, tabuleiroView)){
+                else if(verificarFinalizacaoDeJogo(robo1, robo2, modoDeJogo, tabuleiroView))
                     timeline.stop();
-                }
+
                 ObservableList<String> obsHistorico = FXCollections.observableArrayList(listaHistorico);
                 tabuleiroView.getListaHistorico().setItems(obsHistorico);
                 turno++;

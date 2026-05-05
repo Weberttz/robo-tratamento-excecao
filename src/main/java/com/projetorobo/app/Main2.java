@@ -14,8 +14,8 @@ public class Main2 {
 
         EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
 
-        Robo robo1 = new Robo("Vermelho", estrategiaMovimento);
-        Robo robo2 = new Robo("Azul", estrategiaMovimento);
+        Robo robo1 = new Robo("Vermelho");
+        Robo robo2 = new Robo("Azul");
 
         robo2.modificarPosicaoInicial(0, 1);
 

@@ -530,7 +530,7 @@
                   </ImageView>
                   <ImageView fx:id="imageViewRobo1" fitHeight="35.0" fitWidth="63.0" layoutX="70.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../imagens/freddy-idle.png" />
+                        <Image url="@../../imagens/robos/marrom-down-2.png" />
                      </image>
                   </ImageView>
                   <BorderPane prefHeight="352.0" prefWidth="350.0" style="-fx-border-color: white; -fx-border-width: 3px; -fx-border-style: solid;" />

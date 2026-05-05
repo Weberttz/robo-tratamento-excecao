@@ -28,16 +28,16 @@
    <HBox alignment="CENTER" spacing="8.0">
       <VBox.margin><Insets bottom="16.0" /></VBox.margin>
       <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-         <image><Image url="@../../imagens/fox-idle.png" /></image>
+         <image><Image url="@../../imagens/robos/vermelho-down-2.png" /></image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-         <image><Image url="@../../imagens/freddy-idle.png" /></image>
+         <image><Image url="@../../imagens/robos/marrom-down-2.png" /></image>
       </ImageView>
       <ImageView fx:id="Robo" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
          <image><Image url="@../../imagens/robos/amarelo-down-2.png" /></image>
       </ImageView>
       <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-         <image><Image url="@../../imagens/bonnie-idle.png" /></image>
+         <image><Image url="@../../imagens/robos/azul-down-2.png" /></image>
       </ImageView>
    </HBox>
 

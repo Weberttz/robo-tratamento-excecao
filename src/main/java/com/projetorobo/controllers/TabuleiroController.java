@@ -5,10 +5,7 @@ import com.projetorobo.model.enums.Cor;
 import com.projetorobo.model.enums.Dificuldade;
 import com.projetorobo.model.enums.Modo;
 import com.projetorobo.model.robo.Robo;
-import com.projetorobo.model.robo.estrategias.EstrategiaAleatoria;
-import com.projetorobo.model.robo.estrategias.EstrategiaInteligente;
-import com.projetorobo.model.robo.estrategias.EstrategiaMemoria;
-import com.projetorobo.model.robo.estrategias.EstrategiaMovimento;
+import com.projetorobo.model.robo.estrategias.*;
 import com.projetorobo.service.AnimacoesService;
 import com.projetorobo.service.JogoService;
 import com.projetorobo.service.ObstaculoService;
@@ -77,8 +74,7 @@ public class TabuleiroController{
     public void receberDados(int posicaoX, int posicaoY, String cor, Dificuldade dificuldade, Modo modoDeJogo){
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
         this.modoDeJogo = modoDeJogo;
-        EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
-        this.robo1 = new Robo(cor, estrategiaMovimento);
+        this.robo1 = new Robo(cor);
         this.tabuleiro.adicionarRobo(robo1);
 
         this.imageViewRobo2.setVisible(false);
@@ -102,26 +98,27 @@ public class TabuleiroController{
         this.textFieldMovimento.setDisable(true);
         this.modoDeJogo = modoDeJogo;
 
-        EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
-        EstrategiaMovimento estrategiaMovimento1 = new EstrategiaInteligente();
-        EstrategiaMemoria estrategiaMemoriaRobo1 = new EstrategiaMemoria(0, 0);
-        EstrategiaMemoria estrategiaMemoriaRobo2 = new EstrategiaMemoria(0,1);
-
         HBoxInstrucoes.setVisible(false);
         HBoxEstrategias.setVisible(true);
 
         this.tabuleiro = new Tabuleiro(tamanhoTabuleiro, posicaoX, posicaoY);
 
+        this.robo1 = new Robo(corRobo1);
+        this.robo2 = new Robo(corRobo2);
+        this.robo2.modificarPosicaoInicial(0, 1);
+        
         switch (categoriaRobo1){
-            case BURRO -> this.robo1 = new Robo(corRobo1, estrategiaMovimento);
-            case INTELIGENTE -> this.robo1 = new Robo(corRobo1, estrategiaMovimento1);
-            case MEMORIA -> this.robo1 = new Robo(corRobo1, estrategiaMemoriaRobo1);
+            case BURRO -> robo1.setEstrategiaMovimento(new EstrategiaAleatoria());
+            case INTELIGENTE -> robo1.setEstrategiaMovimento(new EstrategiaInteligente());
+            case MEMORIA -> robo1.setEstrategiaMovimento(new EstrategiaMemoria(robo1));
+            case ESTRATEGISTA -> robo1.setEstrategiaMovimento(new EstrategiaEstrategica(robo1, tabuleiro));
         }
 
         switch (categoriaRobo2){
-            case BURRO -> this.robo2 = new Robo(corRobo2, estrategiaMovimento);
-            case INTELIGENTE -> this.robo2 = new Robo(corRobo2, estrategiaMovimento1);
-            case MEMORIA -> this.robo2 = new Robo(corRobo2, estrategiaMemoriaRobo2);
+            case BURRO -> robo2.setEstrategiaMovimento(new EstrategiaAleatoria());
+            case INTELIGENTE -> robo2.setEstrategiaMovimento(new EstrategiaInteligente());
+            case MEMORIA -> robo2.setEstrategiaMovimento(new EstrategiaMemoria(robo2));
+            case ESTRATEGISTA -> robo2.setEstrategiaMovimento(new EstrategiaEstrategica(robo2, tabuleiro));
         }
 
         coresRobos.add(robo1.getCor());
@@ -132,13 +129,11 @@ public class TabuleiroController{
         estrategias.add(CategoriaRobo.ESTRATEGISTA);
         estrategias.add(CategoriaRobo.MEMORIA);
 
-         this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
+        this.tabuleiroView = new TabuleiroView(imageViewRobo1, imageViewRobo2, containerTabuleiro,
                 listViewHistorico, animacoesService);
-         this.jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
-
         this.tabuleiro.adicionarRobo(robo1);
         this.tabuleiro.adicionarRobo(robo2);
-        this.robo2.modificarPosicaoInicial(0, 1);
+        this.jogoService = new JogoService(robo1, robo2, tabuleiro, modoDeJogo);
         obstaculoService.calcularObstaculos(tabuleiro, dificuldade, tabuleiroView);
         tabuleiroView.settarRoboNoAnchorPane(robo1, imageViewRobo1);
         tabuleiroView.settarRoboNoAnchorPane(robo2, imageViewRobo2);
@@ -173,12 +168,12 @@ public class TabuleiroController{
             if(roboAtual.isExplodiu() || roboAtual.getAchouAlimento()){
                 throw new RuntimeException("Robô " + corRobo.name().toLowerCase() + " não está mais disponível");
             }
-            if(roboAtual.getEstrategiaMovimento() == novaEstrategia.getEstrategia(roboAtual)){
+            if(roboAtual.getEstrategiaMovimento() == novaEstrategia.getEstrategia(roboAtual, tabuleiro)){
                 throw new RuntimeException("Robô " + corRobo.name().toLowerCase() + " já usa essa estratégia.");
             }
 
             System.out.println("Antiga estratégia : " + roboAtual.getEstrategiaMovimento());
-            roboAtual.setEstrategiaMovimento(novaEstrategia.getEstrategia(roboAtual));
+            roboAtual.setEstrategiaMovimento(novaEstrategia.getEstrategia(roboAtual, tabuleiro));
             System.out.println("Nova estratégia : " + roboAtual.getEstrategiaMovimento());
 
         }catch (RuntimeException e){

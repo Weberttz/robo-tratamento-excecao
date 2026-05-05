@@ -2,6 +2,7 @@ package com.projetorobo.model.robo.estrategias;
 
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.obstaculos.Pedra;
+import com.projetorobo.model.robo.Robo;
 import javafx.geometry.Pos;
 
 import java.util.*;
@@ -19,12 +20,12 @@ public class EstrategiaMemoria implements EstrategiaMovimento{
     private HashSet<Posicao> posicoesBloqueadas;
     private HashSet<Posicao> posicoesPassadas;
 
-    public EstrategiaMemoria(int posicaoXRobo, int posicaoYRobo){
-        posicoesBloqueadas = new HashSet<>();
-        posicoesPassadas = new HashSet<>();
-        rand = new Random();
-        this.posicaoXRobo = posicaoXRobo;
-        this.posicaoYRobo = posicaoYRobo;
+    public EstrategiaMemoria(Robo robo){
+        this.posicoesBloqueadas = new HashSet<>();
+        this.posicoesPassadas = new HashSet<>();
+        this.rand = new Random();
+        this.posicaoXRobo = robo.getNewX();
+        this.posicaoYRobo = robo.getNewY();
     }
 
     @Override
@@ -36,7 +37,8 @@ public class EstrategiaMemoria implements EstrategiaMovimento{
             dir = Direcao.fromInt(rand.nextInt(4) + 1);
             verificarProximaPosicao(dir);
             novaPosicao = new Posicao(verificarProximaPosicaoX, verificarProximaPosicaoY);
-        }while (posicoesBloqueadas.contains(novaPosicao) || posicoesPassadas.contains(novaPosicao));
+        }while (posicoesBloqueadas.contains(novaPosicao) || posicoesPassadas.contains(novaPosicao)
+                || direcoesInvalidas.contains(dir));
         return dir;
     }
 

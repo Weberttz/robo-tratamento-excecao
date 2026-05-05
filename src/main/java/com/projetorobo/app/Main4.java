@@ -22,10 +22,8 @@ public class Main4 {
         System.out.print("Y do alimento (0-3): ");
         int alimentoY = sc.nextInt();
 
-        EstrategiaMovimento estrategiaMovimento = new EstrategiaAleatoria();
-        Robo normal = new Robo("Azul", estrategiaMovimento);
-        EstrategiaMovimento estrategiaMovimento1 = new EstrategiaMemoria(0, 1);
-        Robo inteligente = new Robo("Verde", estrategiaMovimento1);
+        Robo normal = new Robo("Azul");
+        Robo inteligente = new Robo("Verde");
 
         Tabuleiro tabuleiro = new Tabuleiro(7, alimentoX, alimentoY);
         tabuleiro.adicionarRobo(normal);

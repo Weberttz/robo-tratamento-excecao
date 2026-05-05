@@ -21,8 +21,7 @@ public class Main1 {
 
 
         System.out.print("Cor do robô: ");
-        EstrategiaMovimento EstrategiaAleatoria = new EstrategiaAleatoria();
-        Robo robo = new Robo(sc.next(), EstrategiaAleatoria);
+        Robo robo = new Robo(sc.next());
 
         boolean alimentoPosicionado = false;
         while(!alimentoPosicionado) {

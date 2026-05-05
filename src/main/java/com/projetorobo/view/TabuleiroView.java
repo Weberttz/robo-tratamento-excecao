@@ -1,9 +1,6 @@
 package com.projetorobo.view;
 
-import com.projetorobo.controllers.TelaInicialController;
 import com.projetorobo.controllers.TelaResultadoController;
-import com.projetorobo.controllers.TelaRobosController;
-import com.projetorobo.controllers.TelaUsuarioController;
 import com.projetorobo.model.board.Tabuleiro;
 import com.projetorobo.model.enums.Direcao;
 import com.projetorobo.model.enums.Modo;
