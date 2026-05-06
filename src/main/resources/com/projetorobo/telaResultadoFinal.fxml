@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="488.0" prefWidth="328.0" spacing="20.0" style="-fx-background-color: #000000; -fx-border-color: white; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projetorobo.controllers.TelaResultadoController">
+    <padding>
+        <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+    </padding>
+    <children>
+        <Label fx:id="labelTitulo" text="FIM DE JOGO" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+        </Label>
+
+        <VBox alignment="CENTER" spacing="10.0" style="-fx-border-color: #333333; -fx-padding: 15;">
+            <children>
+                <Label fx:id="labelVencedor" text="Robô Azul Venceu!" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label fx:id="labelStatus" text="O robô encontrou o alimento." textFill="WHITE" />
+            </children>
+        </VBox>
+      <VBox prefHeight="128.0" prefWidth="243.0">
+         <children>
+                <VBox fx:id="VBoxRobo1" alignment="CENTER" prefHeight="62.0" prefWidth="170.0" spacing="5.0">
+                    <Label fx:id="labelNomeRobo1" style="-fx-font-weight: bold;" text="Robô 1" textFill="WHITE" />
+               <HBox prefHeight="18.0" prefWidth="97.0">
+                  <children>
+                     <Label fx:id="statsRobo111" text="Válidos: " textAlignment="CENTER" textFill="#aaaaaa" />
+                     <Label fx:id="labelValidosRobo1" text="***" textFill="WHITE" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Label fx:id="statsRobo11" text="Inválidos: " textAlignment="CENTER" textFill="#aaaaaa" />
+                     <Label fx:id="labelInvalidosRobo1" text="***" textFill="WHITE" />
+                  </children>
+               </HBox>
+                </VBox>
+            <VBox fx:id="VboxRobo2" alignment="CENTER" prefHeight="62.0" prefWidth="181.0" spacing="5.0">
+               <children>
+                  <Label fx:id="labelNomeRobo2" style="-fx-font-weight: bold;" text="Robô 2" textFill="WHITE" />
+                  <HBox fx:id="hboxDadosRobo2" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="statsRobo1111" text="Válidos: " textAlignment="CENTER" textFill="#aaaaaa" />
+                        <Label fx:id="labelValidosRobo2" text="***" textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="statsRobo111" text="Inválidos: " textAlignment="CENTER" textFill="#aaaaaa" />
+                        <Label fx:id="labelInvalidosRobo2" text="***" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+
+        <Button fx:id="btnSair" mnemonicParsing="false" onAction="#fecharJogo" prefHeight="35.0" prefWidth="120.0" text="Finalizar" />
+    </children>
+</VBox>

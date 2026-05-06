@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="187.0" prefWidth="362.0" spacing="16.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projetorobo.controllers.TelaErroController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <Label style="-fx-text-fill: #ff4444; -fx-font-size: 16px;" text="⚠ Erro" />
+    <Label fx:id="labelMensagem" alignment="CENTER" maxWidth="450.0" prefHeight="64.0" prefWidth="450.0" style="-fx-text-fill: white; -fx-font-size: 12px;" textAlignment="CENTER" wrapText="true" />
+    <Button onAction="#fechar" prefWidth="80.0" text="Fechar" />
+</VBox>
