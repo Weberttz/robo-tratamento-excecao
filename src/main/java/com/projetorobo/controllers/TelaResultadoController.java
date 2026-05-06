@@ -51,17 +51,49 @@ public class TelaResultadoController {
     }
 
     public void receberDados(Robo robo1, Robo robo2, Modo modoDeJogo){
-        labelVencedor.setText("Robô " + robo1.getCor().toString().substring(0, 1).toUpperCase() +
-                robo1.getCor().toString().substring(1).toLowerCase() + " Venceu!!");
+        labelNomeRobo1.setText("Robô " + robo1.getCor().toString().substring(0, 1).toLowerCase() +
+                robo1.getCor().toString().substring(1).toLowerCase());
+        if(modoDeJogo == Modo.USUARIO){
+            if(robo1.getAchouAlimento())
+                labelVencedor.setText("O Robô " + robo1.getCor().toString().substring(0, 1).toUpperCase() +
+                        robo1.getCor().toString().substring(1).toLowerCase() + " Venceu!");
+            else {
+                labelVencedor.setText("O Robô " + robo1.getCor().toString().substring(0, 1).toUpperCase() +
+                        robo1.getCor().toString().substring(1).toLowerCase() + " Perdeu!");
+                labelStatus.setText("O robô explodiu!");
+            }
+        }
+
+        if(modoDeJogo == Modo.COMPETITIVO){
+            if(robo1.getAchouAlimento())
+                labelVencedor.setText("O Robô " + robo1.getCor().toString().substring(0, 1).toUpperCase() +
+                        robo1.getCor().toString().substring(1).toLowerCase() + " Venceu!!");
+            else if(robo2.getAchouAlimento())
+                labelVencedor.setText("O Robô " + robo2.getCor().toString().substring(0, 1).toUpperCase() +
+                        robo2.getCor().toString().substring(1).toLowerCase() + " Venceu!!");
+        }
+
+        if(modoDeJogo == Modo.COOPERATIVO){
+            if(robo1.getAchouAlimento() || robo2.getAchouAlimento()) {
+                labelVencedor.setText("A dupla Venceu!");
+                labelStatus.setText("Acharam o alimento!");
+            }
+        }
+
+        if(robo1.isExplodiu() && robo2.isExplodiu()) {
+            labelVencedor.setText("Game Over!");
+            labelStatus.setText("Os robos explodiram!");
+        }
+
+        if(modoDeJogo != Modo.USUARIO) {
+            labelNomeRobo2.setText("Robô " + robo2.getCor().toString().substring(0, 1).toLowerCase() +
+                    robo2.getCor().toString().substring(1).toLowerCase());
+            labelValidosRobo2.setText(String.format("%d", robo2.getMovimentosValidos()));
+            labelInvalidosRobo2.setText(String.format("%d", robo2.getMovimentosInvalidos()));
+        } else
+            VboxRobo2.setVisible(false);
 
         labelValidosRobo1.setText( String.format("%d", robo1.getMovimentosValidos()));
         labelInvalidosRobo1.setText( String.format("%d", robo1.getMovimentosInvalidos()));
-        if(modoDeJogo != Modo.USUARIO) {
-            labelValidosRobo2.setText(String.format("%d", robo2.getMovimentosValidos()));
-            labelInvalidosRobo2.setText(String.format("%d", robo2.getMovimentosInvalidos()));
-        }else{
-            VboxRobo2.setVisible(false);
-        }
     }
-
 }

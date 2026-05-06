@@ -28,7 +28,7 @@ public class TabuleiroView {
     private int posInicialY = 315;
     private final Image alimentoImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/pizza.png")));
     private final Image bombaImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/imagens/bomba.png")));
-    private final Image pedraImg = new Image(Objects.requireNonNull(AnimacoesService.class.getResourceAsStream("/imagens/pedra.png")));
+    private final Image pedraImg = new Image(Objects.requireNonNull(AnimacoesService.class.getResourceAsStream("/imagens/rocha2.png")));
 
     private final ImageView imageViewAlimento = new ImageView(alimentoImg);
     private final ImageView imageViewRobo1, imageViewRobo2;

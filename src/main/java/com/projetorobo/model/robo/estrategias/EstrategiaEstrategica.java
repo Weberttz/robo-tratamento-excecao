@@ -13,7 +13,6 @@ public class EstrategiaEstrategica implements EstrategiaMovimento {
     private int posicaoYRobo;
     private int verificarProximaPosicaoX;
     private int verificarProximaPosicaoY;
-    private final Set<Direcao> direcoesInvalidas = new HashSet<>();
     private final Random rand = new Random();
     private Direcao dir;
     record Posicao(int posicaoX, int posicaoY){}

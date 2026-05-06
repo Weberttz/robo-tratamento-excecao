@@ -47,7 +47,7 @@
                 </VBox>
             <VBox fx:id="VboxRobo2" alignment="CENTER" prefHeight="62.0" prefWidth="181.0" spacing="5.0">
                <children>
-                  <Label fx:id="labelNomeRobo11" style="-fx-font-weight: bold;" text="Robô 2" textFill="WHITE" />
+                  <Label fx:id="labelNomeRobo2" style="-fx-font-weight: bold;" text="Robô 2" textFill="WHITE" />
                   <HBox fx:id="hboxDadosRobo2" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="statsRobo1111" text="Válidos: " textAlignment="CENTER" textFill="#aaaaaa" />

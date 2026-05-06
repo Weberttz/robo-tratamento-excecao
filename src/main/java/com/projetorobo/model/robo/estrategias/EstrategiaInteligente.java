@@ -26,9 +26,4 @@ public class EstrategiaInteligente implements EstrategiaMovimento{
 
     @Override
     public void confirmarMovimento() {direcoesInvalidas.clear();}
-
-    public Set<Direcao> getDirecoesInvalidas() {
-        return direcoesInvalidas;
-    }
-
 }

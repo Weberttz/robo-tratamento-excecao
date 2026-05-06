@@ -14,11 +14,9 @@ public class EstrategiaAleatoria implements EstrategiaMovimento {
 
     @Override
     public void registrarDirecaoInvalida(Direcao dir) {
-
     }
 
     @Override
     public void confirmarMovimento() {
-
     }
 }

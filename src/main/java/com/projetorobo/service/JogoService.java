@@ -101,6 +101,9 @@ public class JogoService {
                 boolean robo1Acabou = robo1.isExplodiu() || robo1.getAchouAlimento();
                 boolean robo2Acabou = robo2.isExplodiu() || robo2.getAchouAlimento();
 
+                if(robo1Acabou || robo2Acabou)
+                    turno+=2;
+
                 if(turno % 2 == 1 && !robo1Acabou)
                     jogarTurno(robo1, tabuleiroView.getImageViewRobo1(), listaHistorico, tabuleiroView);
                 else if(turno % 2 == 0 && !robo2Acabou)
