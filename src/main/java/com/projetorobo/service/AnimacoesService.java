@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
 import java.util.Objects;

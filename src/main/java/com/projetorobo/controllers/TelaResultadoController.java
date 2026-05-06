@@ -55,10 +55,10 @@ public class TelaResultadoController {
                 robo1.getCor().toString().substring(1).toLowerCase());
         if(modoDeJogo == Modo.USUARIO){
             if(robo1.getAchouAlimento())
-                labelVencedor.setText("O Robô " + robo1.getCor().toString().substring(0, 1).toUpperCase() +
+                labelVencedor.setText(robo1.getCor().toString().substring(0, 1).toUpperCase() +
                         robo1.getCor().toString().substring(1).toLowerCase() + " Venceu!");
             else {
-                labelVencedor.setText("O Robô " + robo1.getCor().toString().substring(0, 1).toUpperCase() +
+                labelVencedor.setText(robo1.getCor().toString().substring(0, 1).toUpperCase() +
                         robo1.getCor().toString().substring(1).toLowerCase() + " Perdeu!");
                 labelStatus.setText("O robô explodiu!");
             }
@@ -66,10 +66,10 @@ public class TelaResultadoController {
 
         if(modoDeJogo == Modo.COMPETITIVO){
             if(robo1.getAchouAlimento())
-                labelVencedor.setText("O Robô " + robo1.getCor().toString().substring(0, 1).toUpperCase() +
+                labelVencedor.setText(robo1.getCor().toString().substring(0, 1).toUpperCase() +
                         robo1.getCor().toString().substring(1).toLowerCase() + " Venceu!!");
             else if(robo2.getAchouAlimento())
-                labelVencedor.setText("O Robô " + robo2.getCor().toString().substring(0, 1).toUpperCase() +
+                labelVencedor.setText(robo2.getCor().toString().substring(0, 1).toUpperCase() +
                         robo2.getCor().toString().substring(1).toLowerCase() + " Venceu!!");
         }
 
